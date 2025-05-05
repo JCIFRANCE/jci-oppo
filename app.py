@@ -19,43 +19,44 @@ df = df.rename(columns={
 })
 df = df.dropna(subset=["Nom"])
 
-# Conversion en numérique
 for col in ["Individu", "Entreprise", "Communauté", "Coopération", "Apprendre", "Célébrer", "Responsabiliser", "Rencontrer"]:
     df[col] = pd.to_numeric(df[col], errors="coerce")
 df.fillna(0, inplace=True)
 
-# Liste des formes avec symboles et pictos
-forme_symbols = {
-    "Programme": "circle",
-    "Concours": "star",
-    "Projet": "triangle-up",
-    "Fonction": "square",
-    "Equipe": "diamond",
-    "Autre": "cross"
-}
-
+# Légende des formes avec pictos différents de ceux des textes JCI
 forme_emojis = {
-    "Programme": "🔵",
-    "Concours": "🌟",
-    "Projet": "🔺",
-    "Fonction": "🟥",
-    "Equipe": "💎",
-    "Autre": "❌"
+    "Programme": "🧩 [Programme]",
+    "Concours": "🏆 [Concours]",
+    "Projet": "📐 [Projet]",
+    "Fonction": "🧑‍💼 [Fonction]",
+    "Equipe": "🤝 [Équipe]",
+    "Autre": "🎯 [Autre]"
 }
 
-# Couleurs fun pour les piliers
-couleurs_piliers = ["#FF8C42", "#FF3C38", "#A23E48", "#2E86AB"]
+# Couleurs vives et transparentes pour les piliers
+couleurs_piliers = ["rgba(255,140,66,0.5)", "rgba(255,60,56,0.5)", "rgba(162,62,72,0.5)", "rgba(46,134,171,0.5)"]
 
-# Interface Streamlit
 st.set_page_config(page_title="Explorer les opportunités JCI", layout="wide")
 st.title("🎯 Explorer les opportunités JCI selon vos envies")
 
-# Choix de la forme (filtrage)
-formes_disponibles = df["Forme"].unique().tolist()
-forme_selectionnee = st.sidebar.selectbox("🔘 Filtrer par forme d’opportunité", options=["Toutes"] + formes_disponibles)
+# --- SIDEBAR ---
+st.sidebar.header("🔘 Filtrer les opportunités")
 
-# Curseurs sur les verbes d’engagement
-st.sidebar.header("🧭 Vos préférences d'engagement")
+# Forme (checkbox multiples)
+formes_dispo = df["Forme"].dropna().unique().tolist()
+formes_selectionnees = st.sidebar.multiselect("Formats :", options=formes_dispo, default=formes_dispo)
+
+# Curseurs piliers
+st.sidebar.subheader("🌐 Vos priorités par pilier")
+pref_piliers = {
+    "Individu": st.sidebar.slider("Développement personnel", 0, 100, 25),
+    "Entreprise": st.sidebar.slider("Business", 0, 100, 25),
+    "Communauté": st.sidebar.slider("Communauté", 0, 100, 25),
+    "Coopération": st.sidebar.slider("International", 0, 100, 25),
+}
+
+# Curseurs engagement
+st.sidebar.subheader("🧭 Vos préférences d'engagement")
 pref_engagements = {
     "Apprendre": st.sidebar.slider("Apprendre", 0, 100, 25),
     "Célébrer": st.sidebar.slider("Célébrer", 0, 100, 25),
@@ -63,28 +64,26 @@ pref_engagements = {
     "Rencontrer": st.sidebar.slider("Se rencontrer", 0, 100, 25),
 }
 
-# Filtrage par forme
-if forme_selectionnee != "Toutes":
-    df = df[df["Forme"] == forme_selectionnee]
+# --- FILTRAGE ---
+df = df[df["Forme"].isin(formes_selectionnees)]
 
-# Calcul du score d'affinité basé sur les verbes
 def score(row):
-    return sum((row[k] - pref_engagements[k]) ** 2 for k in pref_engagements) ** 0.5
+    score_engagements = sum((row[k] - pref_engagements[k]) ** 2 for k in pref_engagements)
+    score_piliers = sum((row[k] - pref_piliers[k]) ** 2 for k in pref_piliers)
+    return (score_engagements + score_piliers) ** 0.5
 
 df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score")
 
-# Affichage des opportunités avec radar et camembert
-st.subheader("📌 Opportunités triées par affinité avec vos préférences")
-
+# --- AFFICHAGE DES OPPORTUNITÉS ---
+st.subheader("📌 Opportunités correspondant à vos critères")
 top = df.head(9)
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
-        picto = forme_emojis.get(row["Forme"], "📌")
+        picto = forme_emojis.get(row["Forme"], "📌 [Inconnu]")
         st.markdown(f"### {picto} {row['Nom']}")
 
-        # Radar pour les 4 verbes
         radar = go.Figure()
 
         radar.add_trace(go.Scatterpolar(
@@ -96,14 +95,13 @@ for i, (_, row) in enumerate(top.iterrows()):
             fillcolor="lightgray"
         ))
 
-        # Camembert intérieur pour les piliers
         valeurs_piliers = [row["Individu"], row["Entreprise"], row["Communauté"], row["Coopération"]]
         labels = ["Individu", "Entreprise", "Communauté", "Coopération"]
 
         radar.add_trace(go.Pie(
             values=valeurs_piliers,
             labels=labels,
-            hole=0.6,
+            hole=0.0,
             direction='clockwise',
             marker=dict(colors=couleurs_piliers),
             textinfo='none',
@@ -120,7 +118,17 @@ for i, (_, row) in enumerate(top.iterrows()):
 
         st.plotly_chart(radar, use_container_width=True)
 
-# Tableau final simplifié
-st.subheader("📄 Autres opportunités à explorer")
-df_affiche = df[["Nom", "Forme", "Score"]].reset_index(drop=True)
-st.dataframe(df_affiche, use_container_width=True)
+# --- TABLEAU INTERACTIF ---
+st.subheader("📄 Explorer d'autres opportunités")
+import plotly.express as px
+
+table_data = df[["Nom", "Forme", "Score"]].reset_index(drop=True)
+fig_table = px.scatter(
+    table_data,
+    x="Nom",
+    y="Score",
+    hover_data=["Forme"],
+    title="Classement par affinité",
+    height=400
+)
+st.plotly_chart(fig_table, use_container_width=True)
