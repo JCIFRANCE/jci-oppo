@@ -24,6 +24,7 @@ for col in ["Individu", "Entreprise", "Communauté", "Coopération", "Apprendre"
     df[col] = pd.to_numeric(df[col], errors="coerce")
 df = df.dropna()
 
+st.set_page_config(page_title="Explorer les opportunités JCI", layout="wide")
 st.title("🎯 Explorer les opportunités JCI selon vos envies")
 
 # Sliders utilisateur : curseurs de préférences
@@ -50,23 +51,24 @@ def score_opportunité(row):
 df["Score"] = df.apply(score_opportunité, axis=1)
 df = df.sort_values("Score")
 
-top = df.head(5)
+st.subheader("📋 Liste filtrée des opportunités JCI (classées par affinité)")
+st.dataframe(df[["Nom", "Forme", "Score"] + list(pref_piliers.keys()) + list(pref_engagements.keys())].reset_index(drop=True), use_container_width=True)
 
-st.subheader("🔎 Opportunités qui vous correspondent le mieux")
+st.subheader("🔎 Détail des 3 meilleures opportunités")
+top = df.head(3)
 for _, row in top.iterrows():
-    st.markdown(f"### {row['Nom']}")
-    st.write(f"**Forme :** {row['Forme']}")
-    fig = go.Figure()
-    fig.add_trace(go.Scatterpolar(
-        r=[row["Individu"], row["Entreprise"], row["Communauté"], row["Coopération"], row["Individu"]],
-        theta=["Individu", "Entreprise", "Communauté", "Coopération", "Individu"],
-        fill='toself',
-        name="Piliers"
-    ))
-    fig.add_trace(go.Scatterpolar(
-        r=[row["Apprendre"], row["Célébrer"], row["Responsabiliser"], row["Rencontrer"], row["Apprendre"]],
-        theta=["Apprendre", "Célébrer", "Responsabiliser", "Rencontrer", "Apprendre"],
-        fill='toself',
-        name="Engagements"
-    ))
-    st.plotly_chart(fig, use_container_width=True)
+    with st.expander(f"🔹 {row['Nom']} — ({row['Forme']})"):
+        fig = go.Figure()
+        fig.add_trace(go.Scatterpolar(
+            r=[row["Individu"], row["Entreprise"], row["Communauté"], row["Coopération"], row["Individu"]],
+            theta=["Individu", "Entreprise", "Communauté", "Coopération", "Individu"],
+            fill='toself',
+            name="Piliers"
+        ))
+        fig.add_trace(go.Scatterpolar(
+            r=[row["Apprendre"], row["Célébrer"], row["Responsabiliser"], row["Rencontrer"], row["Apprendre"]],
+            theta=["Apprendre", "Célébrer", "Responsabiliser", "Rencontrer", "Apprendre"],
+            fill='toself',
+            name="Engagements"
+        ))
+        st.plotly_chart(fig, use_container_width=True)
