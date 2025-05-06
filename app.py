@@ -9,74 +9,62 @@ df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({"Autre": "Événement", "Evenement": "Événement"})
 df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
 
+# Emojis
 niveau_emoji = {"L": "🏘️", "R": "🏙️", "N": "🇫🇷", "Z": "🌍", "M": "🌐"}
 forme_emojis = {
     "Programme": "🧠 Programme", "Concours": "🥇 Concours", "Projet": "🛠️ Projet",
     "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement"
 }
+couleurs_verbes = ["#FF9999", "#9999FF", "#66CC66", "#FFCC66"]
+couleurs_piliers = ["#c9e4c5", "#bfd3f2", "#fcebbd", "#e6d0de"]
 
-# Couleurs dynamiques pour les verbes (intensité)
-couleurs_verbes_base = ["#FF9999", "#9999FF", "#99FF99", "#FFD580"]
-couleurs_piliers = ["#b6d7a8", "#a4c2f4", "#f9cb9c", "#c9daf8"]
+st.set_page_config(page_title="Rosace claire + barres nettes", layout="wide")
+st.title("🌼 Verbes en rosace colorée + piliers en barres sous la ligne")
 
-st.set_page_config(page_title="Rosace + Piliers", layout="wide")
-st.title("🌼 Verbes en rosace 180° + piliers en barres descendantes")
-
-# Fonction visuelle
-def make_custom_visual(row):
+def make_clean_rosace_and_legs(row):
+    # Rosace manuelle : chaque secteur = cercle rempli proportionnellement
+    verbes = [("Apprendre", 0), ("Célébrer", 45), ("Responsabiliser", 90), ("Rencontrer", 135)]
     fig = go.Figure()
 
-    # ROSACE HAUT (verbes)
-    r_values = [row["Apprendre"], row["Célébrer"], row["Responsabiliser"], row["Rencontrer"]]
-    theta = [45, 90, 135, 180]
-    labels = ["Apprendre", "Célébrer", "Responsabiliser", "Rencontrer"]
+    # Rosace manuelle
+    for i, (verbe, angle) in enumerate(verbes):
+        level = row[verbe]
+        color = couleurs_verbes[i]
+        fig.add_trace(go.Barpolar(
+            r=[level],
+            theta=[angle],
+            width=[40],
+            marker=dict(color=color, opacity=min(0.4 + level / 120, 1)),
+            hoverinfo="text",
+            text=f"{verbe}: {level}",
+            name=verbe,
+        ))
 
-    fig.add_trace(go.Barpolar(
-        r=r_values,
-        theta=theta,
-        width=[30]*4,
-        marker=dict(
-            color=couleurs_verbes_base,
-            line=dict(color="black", width=1)
-        ),
-        text=labels,
-        hoverinfo="text+r",
-        textposition="auto",
-        opacity=0.9
-    ))
-
-    # BARRES BAS (piliers)
-    piliers = ["Individu", "Entreprise", "Communauté", "International"]
-    y_piliers = [-row["Individu"], -row["Entreprise"], -row["Communaute"], -row["Cooperation"]]
+    # Piliers en barres
+    piliers = ["Individu", "Entreprise", "Communaute", "Cooperation"]
+    x_vals = ["Individu", "Entreprise", "Communauté", "International"]
+    y_vals = [-row["Individu"], -row["Entreprise"], -row["Communaute"], -row["Cooperation"]]
 
     fig.add_trace(go.Bar(
-        x=piliers,
-        y=y_piliers,
+        x=x_vals,
+        y=y_vals,
         marker_color=couleurs_piliers,
-        text=piliers,
-        textposition="outside",
-        textfont=dict(color="black", size=12),
         name="Piliers",
+        text=[f"{abs(val)}" for val in y_vals],
+        textposition="outside",
     ))
 
     fig.update_layout(
         polar=dict(
-            angularaxis=dict(
-                rotation=90,
-                direction="clockwise",
-                showline=False,
-                tickfont=dict(size=12),
-                ticks='',
-                showticklabels=False
-            ),
-            radialaxis=dict(visible=False)
+            radialaxis=dict(visible=False),
+            angularaxis=dict(showline=False, showticklabels=False)
         ),
+        xaxis=dict(title="", showline=False, zeroline=False),
+        yaxis=dict(range=[-100, 120], visible=False),
         barmode='overlay',
-        height=520,
-        margin=dict(t=20, b=40, l=20, r=20),
         showlegend=False,
-        yaxis=dict(range=[-100, 10], visible=False),
-        xaxis=dict(visible=True, showticklabels=False)
+        margin=dict(t=20, b=20, l=20, r=20),
+        height=500
     )
 
     return fig
@@ -89,4 +77,4 @@ for i, (_, row) in enumerate(top.iterrows()):
         picto = forme_emojis.get(row["Forme"], f"📌 {row['Forme']}")
         niveaux_str = " ".join([niveau_emoji.get(n, "") for n in row["Niveau"]])
         st.markdown(f"### {picto} — {row['Nom']} {niveaux_str}")
-        st.plotly_chart(make_custom_visual(row), use_container_width=True)
+        st.plotly_chart(make_clean_rosace_and_legs(row), use_container_width=True)
