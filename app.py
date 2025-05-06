@@ -18,14 +18,15 @@ niveau_emoji = {
     "M": "🌐"
 }
 
-# Pictos par forme
+# Pictos par forme connus (on ajoutera une valeur par défaut ensuite)
 forme_emojis = {
     "Programme": "🧠 Programme",
     "Concours": "🥇 Concours",
     "Projet": "🛠️ Projet",
     "Fonction": "👔 Fonction",
     "Equipe": "🤝 Équipe",
-    "Événement": "🎫 Événement"
+    "Événement": "🎫 Événement",
+    "initiative /programme": "🧪 Initiative/Programme"
 }
 
 couleurs_piliers = ["rgba(255,99,132,0.6)", "rgba(54,162,235,0.6)",
@@ -41,12 +42,20 @@ df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in ni
 st.sidebar.header("🔎 Filtres")
 
 formes = df["Forme"].unique().tolist()
-formes_labels = [forme_emojis[f] for f in formes]
-formes_selected = st.sidebar.multiselect("🧩 Formats", options=formes, default=formes, format_func=lambda f: forme_emojis[f])
+formes_selected = st.sidebar.multiselect(
+    "🧩 Formats",
+    options=formes,
+    default=formes,
+    format_func=lambda f: forme_emojis.get(f, f"📌 {f}")
+)
 
 niveaux = ["L", "R", "N", "Z", "M"]
-niveaux_labels = [niveau_emoji[n] for n in niveaux]
-niveaux_selected = st.sidebar.multiselect("🌍 Niveaux", options=niveaux, default=niveaux, format_func=lambda n: niveau_emoji[n])
+niveaux_selected = st.sidebar.multiselect(
+    "🌍 Niveaux",
+    options=niveaux,
+    default=niveaux,
+    format_func=lambda n: niveau_emoji.get(n, n)
+)
 
 st.sidebar.markdown("### 🧭 Engagements")
 pref_engagements = {
@@ -83,7 +92,7 @@ for i in range(min(9, len(df))):
     row = df.loc[i]
     with cols[i % 3]:
         niveaux_str = " ".join([niveau_emoji[n] for n in row["Niveau"] if n in niveau_emoji])
-        picto = forme_emojis.get(row["Forme"], "📌 Autre")
+        picto = forme_emojis.get(row["Forme"], f"📌 {row['Forme']}")
         st.markdown(f"### {picto} — {row['Nom']} {niveaux_str}")
 
         fig = go.Figure()
