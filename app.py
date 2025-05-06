@@ -89,12 +89,13 @@ niveaux_selected = st.sidebar.multiselect(
     format_func=lambda n: niveau_labels.get(n, n)
 )
 
-st.sidebar.markdown("### 🌐 ... avec un impact sur :")
+st.sidebar.markdown("### 🌐 ... qui correspond au pilier JCI :")
 pref_piliers = {}
 for pilier in ["Individu", "Entreprise", "Communaute", "Cooperation"]:
     pref_piliers[pilier] = st.sidebar.slider(pilier, 0, 100, 25, key=f"pilier_{pilier}")
 
 # Filtrage
+total_opportunities = len(df)
 df = df[df["Forme"].isin(formes_selected)]
 df = df[df["Niveau"].apply(lambda lv: any(n in niveaux_selected for n in lv))]
 
@@ -107,11 +108,11 @@ df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
 # Visualisation
-def make_visual(row, i):
+def make_visual(row, i, height=420, fontsize=12):
     niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
     fig = go.Figure()
 
-    # Centre : piliers
+    # Centre
     fig.add_trace(go.Pie(
         values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
         labels=["Individu", "Entreprise", "Communauté", "International"],
@@ -122,7 +123,6 @@ def make_visual(row, i):
         showlegend=False
     ))
 
-    # Donut externe : verbes
     donut_values = []
     donut_labels = []
     donut_colors = []
@@ -145,14 +145,15 @@ def make_visual(row, i):
     ))
 
     fig.add_annotation(text=niveaux_txt, showarrow=False,
-                       font=dict(size=12),
+                       font=dict(size=fontsize),
                        x=0.5, y=0.5, xanchor='center', yanchor='middle')
 
-    fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), height=420)
+    fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), height=height)
     return fig
 
-# Affichage
+# Affichage des principales opportunités
 top = df.head(9)
+st.markdown(f"### Tu vois ici {len(top)} opportunités sur les {total_opportunities} opportunités qu'offre la Jeune Chambre.")
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
@@ -162,3 +163,13 @@ for i, (_, row) in enumerate(top.iterrows()):
             st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{i}")
         except Exception:
             st.error("❌ Erreur lors de l’affichage de cette opportunité.")
+
+# Opportunités suivantes
+if len(df) > 9:
+    st.markdown("### 🔎 Autres opportunités proches de tes critères")
+    other = df.iloc[9:19]
+    for i, (_, row) in enumerate(other.iterrows()):
+        niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
+        with st.container():
+            st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
+            st.plotly_chart(make_visual(row, i+1000, height=240, fontsize=10), use_container_width=True)
