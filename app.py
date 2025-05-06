@@ -77,9 +77,6 @@ def score(row):
 df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
-
-
-
 def make_visual(row, i, small=False):
     niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
     fig = go.Figure()
@@ -91,19 +88,17 @@ def make_visual(row, i, small=False):
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
-        customdata=[tooltip_piliers.get(label, "") for label in piliers_labels],
-        hovertemplate='<b>%{label}</b><br>%{customdata}<extra></extra>',
+        hovertemplate='<b>%{label}</b><extra></extra>',
         showlegend=False
     ))
 
-    vals, labels, cols, descs = [], [], [], []
-    for j, label in enumerate(verbes_labels):
-        val = row.get(label, 0)
+    vals, labels, cols = [], [], []
+    for j, (col, label) in enumerate(verbe_map.items()):
+        val = row.get(col, 0)
         if val > 0:
             vals.append(val)
             labels.append(label)
             cols.append(couleurs_verbes[j])
-            descs.append(tooltip_verbes.get(label, ""))
 
     fig.add_trace(go.Pie(
         values=vals, labels=labels,
@@ -111,8 +106,7 @@ def make_visual(row, i, small=False):
         hole=0.6,
         domain={'x': [0, 1], 'y': [0, 1]},
         textinfo='none',
-        customdata=descs,
-        hovertemplate='<b>%{label}</b><br>%{customdata}<extra></extra>',
+        hovertemplate='<b>%{label}</b><extra></extra>',
         showlegend=False
     ))
 
@@ -129,3 +123,24 @@ def make_visual(row, i, small=False):
 
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
+
+# Affichage des 9 premières opportunités
+top = df.head(9)
+st.markdown (f"### ")
+cols = st.columns(3)
+for i, (_, row) in enumerate(top.iterrows()):
+    with cols[i % 3]:
+        picto = forme_emojis.get(row["Forme"], row["Forme"])
+        st.markdown(f"#### {picto} — {row['Nom']}")
+        st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{i}")
+
+# Opportunités suivantes
+if len(df) > 9:
+    st.markdown("### 🔍 D'autres opportunités proches de tes critères")
+    other = df.iloc[9:19]
+    cols = st.columns(2)
+    for i, (_, row) in enumerate(other.iterrows()):
+        with cols[i % 2]:
+            niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
+            st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
+            st.plotly_chart(make_visual(row, i+1000, small=True), use_container_width=True)
