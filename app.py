@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# Données
+# Chargement des données
 df = pd.read_csv("data.csv")
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({
@@ -119,22 +119,32 @@ def make_visual(row, i):
         showlegend=False
     ))
 
-    # Donut externe : verbes avec hover bulle BD
+    # Donut externe : verbes ≠ 0 uniquement
+    donut_values = []
+    donut_labels = []
+    donut_colors = []
+    for j, (col, label) in enumerate(verbe_map.items()):
+        value = row.get(col, 0)
+        if value > 0:
+            donut_values.append(value)
+            donut_labels.append(label)
+            donut_colors.append(couleurs_verbes[j])
+
     fig.add_trace(go.Pie(
-        values=[row[k] for k in verbe_map.keys()],
-        labels=[verbe_map[k] for k in verbe_map.keys()],
-        marker=dict(colors=couleurs_verbes, line=dict(color="white", width=2)),
+        values=donut_values,
+        labels=donut_labels,
+        marker=dict(colors=donut_colors, line=dict(color="white", width=2)),
         hole=0.6,
         domain={'x': [0, 1], 'y': [0, 1]},
         textinfo='label',
-        hovertemplate='<b style="font-size:16px;">%{label}</b><br>Score : %{value}<extra></extra>',
+        hovertemplate='<b style="font-size:16px;">%{label}</b><extra></extra>',
         showlegend=False
     ))
 
-    fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), height=400)
+    fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), height=340)
     return fig
 
-# Affichage fixe en grille
+# Affichage en grille compacte
 top = df.head(9)
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
@@ -142,7 +152,7 @@ for i, (_, row) in enumerate(top.iterrows()):
         try:
             picto = forme_emojis.get(row["Forme"], f"📌 {row['Forme']}")
             niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
-            st.markdown(f"<div style='height:520px'><h4>{picto} — {row['Nom']} <em style='font-size:90%'>{niveaux_txt}</em></h4>", unsafe_allow_html=True)
+            st.markdown(f"<div style='height:420px'><h5>{picto} — {row['Nom']} <em style='font-size:90%'>{niveaux_txt}</em></h5>", unsafe_allow_html=True)
             st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{i}")
             st.markdown("</div>", unsafe_allow_html=True)
         except Exception:
