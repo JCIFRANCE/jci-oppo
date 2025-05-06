@@ -33,57 +33,21 @@ piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
 
-# Titre et introduction
-st.markdown("<h1>🗺️ Cartographie des opportunités</h1>", unsafe_allow_html=True)
+# Titre + explication reformulée avec carrés
+st.markdown("<h1>📌 Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
 st.markdown("""
-Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement.
+Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement.  
 En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent.
 
-Les couleurs du donut représentent comment tu peux t’engager (verbes d’action).
-Le centre coloré représente l’impact sur les 4 piliers JCI.
-Le ou les niveaux d’intervention apparaissent au centre du visuel.
-""")
+**Donut extérieur** : comment tu préfères t'impliquer :  
+<span style="color:#0000FF">🟦 Apprendre</span> <span style="color:#FFD700">🟨 Célébrer</span> <span style="color:#FF0000">🟥 Prendre des responsabilités</span> <span style="color:#28A745">🟩 Se rencontrer</span>
 
-# Barre sticky
-st.markdown("""
-<style>
-.sticky-header {
-  position: sticky;
-  top: 0;
-  background-color: white;
-  z-index: 1001;
-  padding: 1rem;
-  border-bottom: 1px solid #ddd;
-}
-.color-box {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  margin-right: 6px;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-}
-</style>
-
-<div class="sticky-header">
-<p style="margin-bottom: 0.2em;"><strong>Comment tu t’engages :</strong></p>
-<p>
-<span class="color-box" style="background:#0000FF"></span>Apprendre
-<span class="color-box" style="background:#FFD700"></span>Célébrer
-<span class="color-box" style="background:#FF0000"></span>Prendre des responsabilités
-<span class="color-box" style="background:#28A745"></span>Se rencontrer
-</p>
-<p style="margin-bottom: 0.2em;"><strong>Les piliers JCI :</strong></p>
-<p>
-<span class="color-box" style="background:#A52A2A"></span>Individu
-<span class="color-box" style="background:#808080"></span>Entreprise
-<span class="color-box" style="background:#FFA500"></span>Communauté
-<span class="color-box" style="background:#800080"></span>International
-</p>
-</div>
+**Centre coloré** : domaines que tu souhaites développer grâce à cette opportunité :  
+<span style="color:#A52A2A">🟫 Individu</span> <span style="color:#808080">⬜ Entreprise</span> <span style="color:#FFA500">🟧 Communauté</span> <span style="color:#800080">🟪 International</span>  
+Le ou les niveaux d'action apparaissent au centre du visuel.
 """, unsafe_allow_html=True)
 
-# Sélection
+# Filtrage utilisateur
 st.sidebar.markdown("### 🎯 Je recherche les opportunités Jeune Chambre qui me permettront de ...")
 pref_engagements = {k: st.sidebar.slider(v, 0, 100, 25, key=f"verb_{k}") for k, v in verbe_map.items()}
 
@@ -103,7 +67,7 @@ st.sidebar.markdown("### 🌐 ... qui correspondent aux 4 piliers JCI :")
 pref_piliers = {p: st.sidebar.slider(p, 0, 100, 25, key=f"pilier_{p}")
                 for p in ["Individu", "Entreprise", "Communaute", "Cooperation"]}
 
-# Traitement
+# Préparation des données
 df = df[df["Forme"].isin(formes_selected)]
 df = df[df["Niveau"].apply(lambda lv: any(n in niveaux_selected for n in lv))]
 total_opportunities = len(df)
@@ -127,7 +91,7 @@ def make_visual(row, i, small=False):
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
-        hoverinfo='skip',
+        hovertemplate='<b>%{label}</b><extra></extra>',
         showlegend=False
     ))
 
@@ -163,7 +127,7 @@ def make_visual(row, i, small=False):
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
 
-# Haut de page
+# Affichage des 9 premières opportunités
 top = df.head(9)
 st.markdown(f"### Tu vois ici {len(top)} opportunités sur les {total_opportunities} opportunités qu'offre la Jeune Chambre. Fais varier les curseurs pour explorer davantage !")
 cols = st.columns(3)
@@ -173,7 +137,7 @@ for i, (_, row) in enumerate(top.iterrows()):
         st.markdown(f"#### {picto} — {row['Nom']}")
         st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{i}")
 
-# Suggestions
+# Opportunités suivantes
 if len(df) > 9:
     st.markdown("### 🔍 D'autres opportunités proches de tes critères")
     other = df.iloc[9:19]
