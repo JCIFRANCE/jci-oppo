@@ -3,10 +3,11 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# Charger les données
+# Chargement des données
 df = pd.read_csv("data.csv")
 
-# Corriger les valeurs de forme
+# Uniformisation des formes
+df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({"Autre": "Événement", "Evenement": "Événement"})
 
 # Emoji par niveau
@@ -18,15 +19,14 @@ niveau_emoji = {
     "M": "🌐"
 }
 
-# Pictos par forme connus (on ajoutera une valeur par défaut ensuite)
+# Emoji par forme connue (avec fallback dans le code)
 forme_emojis = {
     "Programme": "🧠 Programme",
     "Concours": "🥇 Concours",
     "Projet": "🛠️ Projet",
     "Fonction": "👔 Fonction",
     "Equipe": "🤝 Équipe",
-    "Événement": "🎫 Événement",
-    "initiative /programme": "🧪 Initiative/Programme"
+    "Événement": "🎫 Événement"
 }
 
 couleurs_piliers = ["rgba(255,99,132,0.6)", "rgba(54,162,235,0.6)",
@@ -35,13 +35,13 @@ couleurs_piliers = ["rgba(255,99,132,0.6)", "rgba(54,162,235,0.6)",
 st.set_page_config(page_title="JCI Explorer", layout="wide")
 st.title("🌟 Explorer les opportunités JCI selon vos préférences")
 
-# Convertir les niveaux multiples en listes
+# Transformation des niveaux multiples
 df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in niveau_emoji])
 
-# --- Sidebar avec pictos ---
+# --- Sidebar dynamique protégée ---
 st.sidebar.header("🔎 Filtres")
 
-formes = df["Forme"].unique().tolist()
+formes = sorted(df["Forme"].unique().tolist())
 formes_selected = st.sidebar.multiselect(
     "🧩 Formats",
     options=formes,
@@ -75,7 +75,7 @@ pref_piliers = {
 
 # Filtrage
 df = df[df["Forme"].isin(formes_selected)]
-df = df[df["Niveau"].apply(lambda levels: any(n in niveaux_selected for n in levels))]
+df = df[df["Niveau"].apply(lambda lv: any(n in niveaux_selected for n in lv))]
 
 def score(row):
     score_eng = sum((row[k] - pref_engagements[k]) ** 2 for k in pref_engagements)
@@ -85,7 +85,7 @@ def score(row):
 df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
-# Affichage radar + camembert
+# Affichage visuel
 st.subheader("🎯 Opportunités sélectionnées")
 cols = st.columns(3)
 for i in range(min(9, len(df))):
@@ -119,9 +119,7 @@ for i in range(min(9, len(df))):
         fig.update_layout(
             polar=dict(
                 radialaxis=dict(visible=True, range=[0, 100]),
-                angularaxis=dict(
-                    tickfont=dict(size=12, color="black")
-                )
+                angularaxis=dict(tickfont=dict(size=12, color="black"))
             ),
             margin=dict(l=0, r=0, t=30, b=0),
             height=380
@@ -129,6 +127,6 @@ for i in range(min(9, len(df))):
 
         st.plotly_chart(fig, use_container_width=True)
 
-# Tableau final
+# Tableau récapitulatif
 st.subheader("📋 Tableau des opportunités")
 st.dataframe(df[["Nom", "Forme", "Score"]], use_container_width=True)
