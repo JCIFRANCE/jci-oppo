@@ -7,9 +7,9 @@ import plotly.graph_objects as go
 df = pd.read_csv("data.csv")
 
 # Corriger les valeurs de forme
-df["Forme"] = df["Forme"].replace({"Autre": "Événement"})
+df["Forme"] = df["Forme"].replace({"Autre": "Événement", "Evenement": "Événement"})
 
-# Emoji par niveau (sans crochets)
+# Emoji par niveau
 niveau_emoji = {
     "L": "🏘️",
     "R": "🏙️",
