@@ -1,4 +1,5 @@
 
+
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
@@ -31,22 +32,28 @@ verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se 
 piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
-st.markdown("<h1>🗺️ Cartographie des opportunités</h1>", unsafe_allow_html=True)
 
-# Sticky header compact
+# Titre et introduction
+st.markdown("<h1>🗺️ Cartographie des opportunités</h1>", unsafe_allow_html=True)
+st.markdown("""
+Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement.
+En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent.
+
+Les couleurs du donut représentent comment tu peux t’engager (verbes d’action).
+Le centre coloré représente l’impact sur les 4 piliers JCI.
+Le ou les niveaux d’intervention apparaissent au centre du visuel.
+""")
+
+# Barre sticky
 st.markdown("""
 <style>
 .sticky-header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  width: 100%;
   background-color: white;
   z-index: 1001;
   padding: 1rem;
   border-bottom: 1px solid #ddd;
-}
-.sticky-spacer {
-  height: 180px;
 }
 .color-box {
   display: inline-block;
@@ -59,8 +66,6 @@ st.markdown("""
 </style>
 
 <div class="sticky-header">
-<h3 style="margin-bottom:0.3em;">Bienvenue dans la cartographie des opportunités de la Jeune Chambre Économique</h3>
-<p style="margin-top:0; margin-bottom:0.5em;">Visualise les façons de t’engager et explore de nouvelles opportunités !</p>
 <p style="margin-bottom: 0.2em;"><strong>Comment tu t’engages :</strong></p>
 <p>
 <span class="color-box" style="background:#0000FF"></span>Apprendre
@@ -76,7 +81,6 @@ st.markdown("""
 <span class="color-box" style="background:#800080"></span>International
 </p>
 </div>
-<div class="sticky-spacer"></div>
 """, unsafe_allow_html=True)
 
 # Sélection
@@ -141,18 +145,18 @@ def make_visual(row, i, small=False):
         hole=0.6,
         domain={'x': [0, 1], 'y': [0, 1]},
         textinfo='none',
-        hoverinfo='skip',
+        hovertemplate='<b>%{label}</b><extra></extra>',
         showlegend=False
     ))
 
     if not small:
         for j, txt in enumerate(niveaux_list):
             fig.add_annotation(
-                text=f"<span style='background-color:#f0f0f0;padding:4px;border-radius:4px;'>{txt}</span>",
+                text=f"<span style='background-color:#f0f0f0;padding:5px 8px;border-radius:4px;border:1px solid #999'>{txt}</span>",
                 showarrow=False,
-                font=dict(size=10, color="black"),
+                font=dict(size=11, color="black"),
                 align="center",
-                x=0.5, y=0.5 - j * 0.07,
+                x=0.5, y=0.5 - j * 0.09,
                 xanchor='center', yanchor='middle'
             )
 
@@ -161,7 +165,7 @@ def make_visual(row, i, small=False):
 
 # Haut de page
 top = df.head(9)
-st.markdown(f"### Tu vois ici {min(9, len(df))} opportunités sur les {total_opportunities} opportunités qu'offre la Jeune Chambre. Fais varier les curseurs pour explorer davantage !")
+st.markdown(f"### Tu vois ici {len(top)} opportunités sur les {total_opportunities} opportunités qu'offre la Jeune Chambre. Fais varier les curseurs pour explorer davantage !")
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
