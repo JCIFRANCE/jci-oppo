@@ -9,6 +9,14 @@ df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({"Autre": "Événement", "Evenement": "Événement"})
 df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
 
+# Mapping entre noms internes et noms affichés
+verbe_map = {
+    "Apprendre": "Apprendre",
+    "Célébrer": "Célébrer",
+    "Responsabiliser": "Prendre des responsabilités",
+    "Rencontrer": "Se rencontrer"
+}
+
 # Emojis et couleurs
 niveau_emoji = {"L": "🏘️", "R": "🏙️", "N": "🇫🇷", "Z": "🌍", "M": "🌐"}
 niveau_labels = {"L": "🏘️ Local", "R": "🏙️ Régional", "N": "🇫🇷 National", "Z": "🌍 Zone", "M": "🌐 Monde"}
@@ -20,7 +28,6 @@ forme_emojis = {
 couleurs_verbes = ["#FF4B4B", "#4B6CFF", "#28A745", "#FF9900"]
 couleurs_piliers = ["#FFC0CB", "#B0E0E6", "#FFFACD", "#D8BFD8"]
 
-# Texte descriptif
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
 st.title("🗺️ Cartographie des opportunités")
 
@@ -71,9 +78,9 @@ with st.sidebar:
 
     st.markdown("### 🧭 ... qui me permettra de :")
     pref_engagements = {}
-    for verbe in ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]:
+    for col, label in verbe_map.items():
         st.markdown("<div style='margin-bottom:-18px;'></div>", unsafe_allow_html=True)
-        pref_engagements[verbe] = st.slider(verbe, 0, 100, 25)
+        pref_engagements[col] = st.slider(label, 0, 100, 25)
 
     st.markdown("### 🌐 ... avec un impact sur :")
     pref_piliers = {}
@@ -81,11 +88,10 @@ with st.sidebar:
         st.markdown("<div style='margin-bottom:-18px;'></div>", unsafe_allow_html=True)
         pref_piliers[pilier] = st.slider(pilier, 0, 100, 25)
 
-# Filtrage
+# Filtrage et score
 df = df[df["Forme"].isin(formes_selected)]
 df = df[df["Niveau"].apply(lambda lv: any(n in niveaux_selected for n in lv))]
 
-# Scoring
 def score(row):
     s_eng = sum((row.get(k, 0) - pref_engagements[k]) ** 2 for k in pref_engagements)
     s_pil = sum((row.get(k, 0) - pref_piliers[k]) ** 2 for k in pref_piliers)
@@ -94,7 +100,7 @@ def score(row):
 df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
-# Visu
+# Visualisation
 def make_visual(row):
     fig = go.Figure()
 
@@ -111,13 +117,8 @@ def make_visual(row):
 
     # Extérieur : verbes
     fig.add_trace(go.Pie(
-        values=[
-            row["Apprendre"],
-            row["Célébrer"],
-            row["Prendre des responsabilités"],
-            row["Se rencontrer"]
-        ],
-        labels=["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"],
+        values=[row[k] for k in verbe_map.keys()],
+        labels=[verbe_map[k] for k in verbe_map.keys()],
         marker=dict(colors=couleurs_verbes),
         hole=0.6,
         domain={'x': [0, 1], 'y': [0, 1]},
