@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# Chargement des données
+# Données
 df = pd.read_csv("data.csv")
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({
@@ -62,34 +62,29 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Volet de sélection
-st.sidebar.markdown("<style>.css-1d391kg {width: 380px !important;}</style>", unsafe_allow_html=True)
+# Volet latéral de sélection
 st.sidebar.markdown("### 🧭 Je souhaite une opportunité qui me permet de :")
 pref_engagements = {}
 for col, label in verbe_map.items():
-    st.sidebar.markdown("<div style='margin-bottom:-18px;'></div>", unsafe_allow_html=True)
     pref_engagements[col] = st.sidebar.slider(label, 0, 100, 25, key=f"verb_{col}")
 
 st.sidebar.markdown("### 🔸 ... sous la forme de :")
 formes = sorted(df["Forme"].unique().tolist())
 formes_selected = st.sidebar.multiselect(
     "Formats", options=formes, default=formes,
-    format_func=lambda f: forme_emojis.get(f, f),
-    label_visibility="collapsed"
+    format_func=lambda f: forme_emojis.get(f, f)
 )
 
 st.sidebar.markdown("### 🌍 ... au niveau :")
 niveaux = ["L", "R", "N", "Z", "M"]
 niveaux_selected = st.sidebar.multiselect(
     "Niveaux", options=niveaux, default=niveaux,
-    format_func=lambda n: niveau_labels.get(n, n),
-    label_visibility="collapsed"
+    format_func=lambda n: niveau_labels.get(n, n)
 )
 
 st.sidebar.markdown("### 🌐 ... avec un impact sur :")
 pref_piliers = {}
 for pilier in ["Individu", "Entreprise", "Communaute", "Cooperation"]:
-    st.sidebar.markdown("<div style='margin-bottom:-18px;'></div>", unsafe_allow_html=True)
     pref_piliers[pilier] = st.sidebar.slider(pilier, 0, 100, 25, key=f"pilier_{pilier}")
 
 # Filtrage
