@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# Données
+# Chargement des données
 df = pd.read_csv("data.csv")
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({
@@ -40,7 +40,13 @@ couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
 st.title("🗺️ Cartographie des opportunités")
 
-# Légende
+# Explication et légende
+st.markdown("""
+> Cette cartographie vous permet de **découvrir les multiples opportunités proposées par la Jeune Chambre Économique**, en fonction de ce que vous cherchez à vivre, développer ou expérimenter.
+> 
+> Pour chaque opportunité, un **donut vif** vous présente l’intensité des **4 verbes d’engagement** (Apprendre, Célébrer, Prendre des responsabilités, Se rencontrer), et un **centre en couleurs douces** représente la répartition des **4 piliers de développement** (Individu, Entreprise, Communauté, International).
+""")
+
 st.markdown("""
 <div style="position: sticky; top: 0; background-color: white; z-index: 999; padding-bottom: 10px; border-bottom: 1px solid #ddd;">
 <h4>📍 Légende</h4>
@@ -62,20 +68,20 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Volet latéral de sélection
-st.sidebar.markdown("### 🧭 Je souhaite une opportunité qui me permet de :")
+# Volet latéral
+st.sidebar.markdown("### 🎯 Je recherche les opportunités Jeune Chambre qui me permettront de ...")
 pref_engagements = {}
 for col, label in verbe_map.items():
     pref_engagements[col] = st.sidebar.slider(label, 0, 100, 25, key=f"verb_{col}")
 
-st.sidebar.markdown("### 🔸 ... sous la forme de :")
+st.sidebar.markdown("### 🧩 Sous la forme de :")
 formes = sorted(df["Forme"].unique().tolist())
 formes_selected = st.sidebar.multiselect(
     "Formats", options=formes, default=formes,
     format_func=lambda f: forme_emojis.get(f, f)
 )
 
-st.sidebar.markdown("### 🌍 ... au niveau :")
+st.sidebar.markdown("### 🌍 À un niveau :")
 niveaux = ["L", "R", "N", "Z", "M"]
 niveaux_selected = st.sidebar.multiselect(
     "Niveaux", options=niveaux, default=niveaux,
@@ -147,8 +153,7 @@ for i, (_, row) in enumerate(top.iterrows()):
         try:
             picto = forme_emojis.get(row["Forme"], f"📌 {row['Forme']}")
             niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
-            st.markdown(f"<div style='height:460px'><h5>{picto} — {row['Nom']} <em style='font-size:90%'>{niveaux_txt}</em></h5>", unsafe_allow_html=True)
+            st.markdown(f"#### {picto} — {row['Nom']} *{niveaux_txt}*")
             st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{i}")
-            st.markdown("</div>", unsafe_allow_html=True)
         except Exception:
             st.error("❌ Erreur lors de l’affichage de cette opportunité.")
