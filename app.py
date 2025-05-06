@@ -3,39 +3,50 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# Charger depuis Google Sheets ou fichier local
+# Charger les données
 df = pd.read_csv("data.csv")
 
-# Emoji par niveau
+# Corriger les valeurs de forme
+df["Forme"] = df["Forme"].replace({"Autre": "Événement"})
+
+# Emoji par niveau (sans crochets)
 niveau_emoji = {
-    "L": "🏘️ [Local]",
-    "R": "🏙️ [Régional]",
-    "N": "🇫🇷 [National]",
-    "Z": "🌍 [Zone]",
-    "M": "🌐 [Monde]"
+    "L": "🏘️",
+    "R": "🏙️",
+    "N": "🇫🇷",
+    "Z": "🌍",
+    "M": "🌐"
 }
 
+# Pictos par forme
 forme_emojis = {
-    "Programme": "🧠 [Programme]",
-    "Concours": "🥇 [Concours]",
-    "Projet": "🛠️ [Projet]",
-    "Fonction": "👔 [Fonction]",
-    "Equipe": "🤝 [Équipe]",
-    "Autre": "🎯 [Autre]"
+    "Programme": "🧠 Programme",
+    "Concours": "🥇 Concours",
+    "Projet": "🛠️ Projet",
+    "Fonction": "👔 Fonction",
+    "Equipe": "🤝 Équipe",
+    "Événement": "🎫 Événement"
 }
 
-couleurs_piliers = ["rgba(255,99,132,0.6)", "rgba(54,162,235,0.6)", "rgba(255,206,86,0.6)", "rgba(75,192,192,0.6)"]
+couleurs_piliers = ["rgba(255,99,132,0.6)", "rgba(54,162,235,0.6)",
+                    "rgba(255,206,86,0.6)", "rgba(75,192,192,0.6)"]
 
 st.set_page_config(page_title="JCI Explorer", layout="wide")
 st.title("🌟 Explorer les opportunités JCI selon vos préférences")
 
-# Sidebar
-st.sidebar.header("🔎 Filtres")
-formes = df["Forme"].unique().tolist()
-formes_selected = st.sidebar.multiselect("🧩 Formats", formes, default=formes)
+# Convertir les niveaux multiples en listes
+df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in niveau_emoji])
 
-niveaux = df["Niveau"].unique().tolist()
-niveaux_selected = st.sidebar.multiselect("🌍 Niveaux", niveaux, default=niveaux)
+# --- Sidebar avec pictos ---
+st.sidebar.header("🔎 Filtres")
+
+formes = df["Forme"].unique().tolist()
+formes_labels = [forme_emojis[f] for f in formes]
+formes_selected = st.sidebar.multiselect("🧩 Formats", options=formes, default=formes, format_func=lambda f: forme_emojis[f])
+
+niveaux = ["L", "R", "N", "Z", "M"]
+niveaux_labels = [niveau_emoji[n] for n in niveaux]
+niveaux_selected = st.sidebar.multiselect("🌍 Niveaux", options=niveaux, default=niveaux, format_func=lambda n: niveau_emoji[n])
 
 st.sidebar.markdown("### 🧭 Engagements")
 pref_engagements = {
@@ -54,7 +65,8 @@ pref_piliers = {
 }
 
 # Filtrage
-df = df[df["Forme"].isin(formes_selected) & df["Niveau"].isin(niveaux_selected)]
+df = df[df["Forme"].isin(formes_selected)]
+df = df[df["Niveau"].apply(lambda levels: any(n in niveaux_selected for n in levels))]
 
 def score(row):
     score_eng = sum((row[k] - pref_engagements[k]) ** 2 for k in pref_engagements)
@@ -62,17 +74,17 @@ def score(row):
     return (score_eng + score_pil) ** 0.5
 
 df["Score"] = df.apply(score, axis=1)
-df = df.sort_values("Score")
+df = df.sort_values("Score").reset_index(drop=True)
 
-# Affichage
+# Affichage radar + camembert
 st.subheader("🎯 Opportunités sélectionnées")
 cols = st.columns(3)
 for i in range(min(9, len(df))):
-    row = df.iloc[i]
+    row = df.loc[i]
     with cols[i % 3]:
-        picto = forme_emojis.get(row["Forme"], "📌 [Autre]")
-        niveau = niveau_emoji.get(row["Niveau"], "")
-        st.markdown(f"### {picto} {row['Nom']} {niveau}")
+        niveaux_str = " ".join([niveau_emoji[n] for n in row["Niveau"] if n in niveau_emoji])
+        picto = forme_emojis.get(row["Forme"], "📌 Autre")
+        st.markdown(f"### {picto} — {row['Nom']} {niveaux_str}")
 
         fig = go.Figure()
 
@@ -92,17 +104,22 @@ for i in range(min(9, len(df))):
             hole=0.0,
             textinfo="none",
             showlegend=False,
-            domain={'x': [0.15, 0.85], 'y': [0.15, 0.85]}
+            domain={'x': [0.1, 0.9], 'y': [0.1, 0.9]}
         ))
 
         fig.update_layout(
-            polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
-            showlegend=False,
-            margin=dict(l=10, r=10, t=30, b=30),
-            height=400
+            polar=dict(
+                radialaxis=dict(visible=True, range=[0, 100]),
+                angularaxis=dict(
+                    tickfont=dict(size=12, color="black")
+                )
+            ),
+            margin=dict(l=0, r=0, t=30, b=0),
+            height=380
         )
+
         st.plotly_chart(fig, use_container_width=True)
 
 # Tableau final
 st.subheader("📋 Tableau des opportunités")
-st.dataframe(df[["Nom", "Forme", "Niveau", "Score"]], use_container_width=True)
+st.dataframe(df[["Nom", "Forme", "Score"]], use_container_width=True)
