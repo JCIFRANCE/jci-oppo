@@ -38,13 +38,14 @@ st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>
 st.markdown("""
 Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent. 
 Tu y retrouves en un coup d'oeil : 
-- Le ou les niveaux d'action au centre du visuel ; les pictogrammes du type d'opportunité : 🎓 Formation / 🎫 Événement / 🤝 Équipe / 🧪 Programme et initiatives / 🥇 Concours / 🛠️ Projet et action
+- Le ou les niveaux d'action au centre du visuel 
+- Les pictogrammes du type d'opportunité : 🎓 Formation / 🎫 Événement / 🤝 Équipe / 🧪 Programme et initiatives / 🥇 Concours / 🛠️ Projet et action
 - **Ce que tu souhaites développer** : le cercle interieur des piliers JCI <span style="color:#A52A2A">🟫 Individu</span> <span style="color:#808080">⬜ Entreprise</span> <span style="color:#FFA500">🟧 Communauté</span> <span style="color:#800080">🟪 International</span>  
 - **Comment tu préfères t'impliquer** : le cercle extérieur : <span style="color:#0000FF">🟦 Apprendre</span> <span style="color:#FFD700">🟨 Célébrer</span> <span style="color:#FF0000">🟥 Prendre des responsabilités</span> <span style="color:#28A745">🟩 Se rencontrer</span>
 """, unsafe_allow_html=True)
 
 # Filtrage utilisateur
-st.sidebar.markdown("### 🎯 Je recherche les opportunités Jeune Chambre qui me permettront de ...")
+st.sidebar.markdown("### 💓 Ce qui me fait vibrer c'est ...")
 pref_engagements = {k: st.sidebar.slider(v, 0, 100, 25, key=f"verb_{k}") for k, v in verbe_map.items()}
 
 st.sidebar.markdown("### 🧩 ... sous la forme principale de :")
@@ -53,15 +54,15 @@ formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
                                          format_func=lambda f: forme_emojis.get(f, f),
                                          label_visibility="collapsed")
 
+st.sidebar.markdown("### 🎯 Je souhaite développer ...")
+pref_piliers = {p: st.sidebar.slider(p, 0, 100, 25, key=f"pilier_{p}")
+                for p in ["Individu", "Entreprise", "Communaute", "Cooperation"]}
+
 st.sidebar.markdown("### 🌍 ... à un niveau :")
 niveaux = ["L", "R", "N", "Z", "M"]
 niveaux_selected = st.sidebar.multiselect("", options=niveaux, default=niveaux,
                                           format_func=lambda n: niveau_labels.get(n, n),
                                           label_visibility="collapsed")
-
-st.sidebar.markdown("### 🌐 ... qui correspondent aux 4 piliers JCI :")
-pref_piliers = {p: st.sidebar.slider(p, 0, 100, 25, key=f"pilier_{p}")
-                for p in ["Individu", "Entreprise", "Communaute", "Cooperation"]}
 
 # Préparation des données
 df = df[df["Forme"].isin(formes_selected)]
