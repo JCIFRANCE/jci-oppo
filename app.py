@@ -10,7 +10,7 @@ df = pd.read_csv("data.csv")
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({"Autre": "Événement", "Evenement": "Événement"})
 
-# Emoji par niveau
+# Emoji + texte pour les niveaux (dans filtres), emoji seul dans visuels
 niveau_emoji = {
     "L": "🏘️",
     "R": "🏙️",
@@ -19,7 +19,15 @@ niveau_emoji = {
     "M": "🌐"
 }
 
-# Emoji par forme connue (avec fallback dans le code)
+niveau_labels = {
+    "L": "🏘️ Local",
+    "R": "🏙️ Régional",
+    "N": "🇫🇷 National",
+    "Z": "🌍 Zone",
+    "M": "🌐 Monde"
+}
+
+# Emoji par forme connue (fallback prévu)
 forme_emojis = {
     "Programme": "🧠 Programme",
     "Concours": "🥇 Concours",
@@ -54,10 +62,13 @@ niveaux_selected = st.sidebar.multiselect(
     "🌍 Niveaux",
     options=niveaux,
     default=niveaux,
-    format_func=lambda n: niveau_emoji.get(n, n)
+    format_func=lambda n: niveau_labels.get(n, n)
 )
 
+# Espacement réduit des sliders
 st.sidebar.markdown("### 🧭 Engagements")
+for key in ["Apprendre", "Célébrer", "Responsabiliser", "Rencontrer"]:
+    st.sidebar.markdown(f"<div style='margin-bottom: -15px'></div>", unsafe_allow_html=True)
 pref_engagements = {
     "Apprendre": st.sidebar.slider("Apprendre", 0, 100, 25),
     "Célébrer": st.sidebar.slider("Célébrer", 0, 100, 25),
@@ -66,6 +77,8 @@ pref_engagements = {
 }
 
 st.sidebar.markdown("### 🌍 Piliers")
+for key in ["Individu", "Entreprise", "Cooperation", "Communaute"]:
+    st.sidebar.markdown(f"<div style='margin-bottom: -15px'></div>", unsafe_allow_html=True)
 pref_piliers = {
     "Individu": st.sidebar.slider("Individu", 0, 100, 25),
     "Entreprise": st.sidebar.slider("Entreprise", 0, 100, 25),
@@ -113,16 +126,16 @@ for i in range(min(9, len(df))):
             hole=0.0,
             textinfo="none",
             showlegend=False,
-            domain={'x': [0.1, 0.9], 'y': [0.1, 0.9]}
+            domain={'x': [0.12, 0.88], 'y': [0.12, 0.88]}
         ))
 
         fig.update_layout(
             polar=dict(
-                radialaxis=dict(visible=True, range=[0, 100]),
-                angularaxis=dict(tickfont=dict(size=12, color="black"))
+                radialaxis=dict(visible=True, range=[0, 100], showline=True, linewidth=1),
+                angularaxis=dict(tickfont=dict(size=14, color="black"))
             ),
-            margin=dict(l=0, r=0, t=30, b=0),
-            height=380
+            margin=dict(l=0, r=0, t=20, b=0),
+            height=370
         )
 
         st.plotly_chart(fig, use_container_width=True)
