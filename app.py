@@ -45,7 +45,7 @@ st.title("🗺️ Cartographie des opportunités")
 st.markdown("""
 > Cette cartographie vous permet de **découvrir les multiples opportunités proposées par la Jeune Chambre Économique**, en fonction de ce que vous cherchez à vivre, développer ou expérimenter.
 > 
-> Pour chaque opportunité, un **donut vif** vous présente l’intensité des **4 verbes d’engagement** (Apprendre, Célébrer, Prendre des responsabilités, Se rencontrer), et un **centre en couleurs douces** représente la répartition des **4 piliers de développement** (Individu, Entreprise, Communauté, International).
+> Pour chaque opportunité, un **donut vif** vous présente l’intensité des **4 verbes d’engagement** (Apprendre, Célébrer, Prendre des responsabilités, Se rencontrer), et un **centre en couleurs douces** représente la répartition des **4 piliers JCI** (Individu, Entreprise, Communauté, International).
 """)
 
 st.markdown("""
@@ -58,7 +58,7 @@ st.markdown("""
         <span style="color:#FF0000">🟥 Prendre des responsabilités</span>,
         <span style="color:#28A745">🟩 Se rencontrer</span>.
     </li>
-    <li><strong>Piliers (centre)</strong> :
+    <li><strong>Piliers JCI (centre)</strong> :
         <span style="color:#A52A2A">🟫 Individu</span>,
         <span style="color:#808080">⬜ Entreprise</span>,
         <span style="color:#FFA500">🟧 Communauté</span>,
@@ -108,6 +108,7 @@ df = df.sort_values("Score").reset_index(drop=True)
 
 # Visualisation
 def make_visual(row, i):
+    niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
     fig = go.Figure()
 
     # Centre : piliers
@@ -121,7 +122,7 @@ def make_visual(row, i):
         showlegend=False
     ))
 
-    # Donut externe : verbes ≠ 0 uniquement
+    # Donut externe : verbes
     donut_values = []
     donut_labels = []
     donut_colors = []
@@ -143,6 +144,10 @@ def make_visual(row, i):
         showlegend=False
     ))
 
+    fig.add_annotation(text=niveaux_txt, showarrow=False,
+                       font=dict(size=12),
+                       x=0.5, y=0.5, xanchor='center', yanchor='middle')
+
     fig.update_layout(margin=dict(t=10, b=10, l=10, r=10), height=420)
     return fig
 
@@ -153,8 +158,7 @@ for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
         try:
             picto = forme_emojis.get(row["Forme"], f"📌 {row['Forme']}")
-            niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
-            st.markdown(f"#### {picto} — {row['Nom']} *{niveaux_txt}*")
+            st.markdown(f"#### {picto} — {row['Nom']}")
             st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{i}")
         except Exception:
             st.error("❌ Erreur lors de l’affichage de cette opportunité.")
