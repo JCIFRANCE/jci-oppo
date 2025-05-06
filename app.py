@@ -1,6 +1,5 @@
 
 
-
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
@@ -79,6 +78,8 @@ df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
 
+
+
 def make_visual(row, i, small=False):
     niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
     fig = go.Figure()
@@ -90,8 +91,8 @@ def make_visual(row, i, small=False):
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
+        customdata=[tooltip_piliers.get(label, "") for label in piliers_labels],
         hovertemplate='<b>%{label}</b><br>%{customdata}<extra></extra>',
-        customdata=[tooltip_piliers.get(p, "") for p in piliers_labels],
         showlegend=False
     ))
 
@@ -110,8 +111,8 @@ def make_visual(row, i, small=False):
         hole=0.6,
         domain={'x': [0, 1], 'y': [0, 1]},
         textinfo='none',
-        hovertemplate='<b>%{label}</b><br>%{customdata}<extra></extra>',
         customdata=descs,
+        hovertemplate='<b>%{label}</b><br>%{customdata}<extra></extra>',
         showlegend=False
     ))
 
@@ -120,7 +121,7 @@ def make_visual(row, i, small=False):
             fig.add_annotation(
                 text=f"<span style='background-color:#f0f0f0;padding:5px 8px;border-radius:4px;border:1px solid #999'>{txt}</span>",
                 showarrow=False,
-                font={"size": 11, "color": "black"},
+                font=dict(size=11, color="black"),
                 align="center",
                 x=0.5, y=0.5 - j * 0.09,
                 xanchor='center', yanchor='middle'
