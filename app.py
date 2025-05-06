@@ -21,8 +21,8 @@ forme_emojis = {
 couleurs_verbes = ["#FF6666", "#6666FF", "#66CC66", "#FFB266"]
 couleurs_piliers = ["#c2f0c2", "#c2d1f0", "#ffe6cc", "#e6ccff"]
 
-st.set_page_config(page_title="Rosace haute + piliers en barres", layout="wide")
-st.title("🌼 Verbes en rosace haute + piliers en barres descendantes")
+st.set_page_config(page_title="Sunburst semi-circulaire + barres", layout="wide")
+st.title("🌗 Sunburst demi-cercle pour les verbes + barres nettes pour les piliers")
 
 # Volet de sélection
 formes = sorted(df["Forme"].unique().tolist())
@@ -71,48 +71,52 @@ def score(row):
 df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
-# Fonction de visualisation combinée
-def make_half_rosace_and_pillars(row):
+# Fonction graphique combinée
+def make_sunburst_and_bars(row):
     fig = go.Figure()
 
-    # Rosace demi-cercle : 0 à 180 degrés
+    # 4 segments de 45° chacun dans la demi-rosace
     verbes = [("Apprendre", 0), ("Célébrer", 45), ("Responsabiliser", 90), ("Rencontrer", 135)]
     for i, (verbe, angle) in enumerate(verbes):
         level = row[verbe]
         fig.add_trace(go.Barpolar(
             r=[level],
             theta=[angle],
-            width=[40],
+            width=[45],
             marker=dict(color=couleurs_verbes[i], opacity=min(0.3 + level / 100, 1)),
             text=f"{verbe} : {level}",
             hoverinfo="text"
         ))
 
-    # Piliers : barres descendantes
-    x_piliers = ["Individu", "Entreprise", "Communauté", "International"]
-    y_piliers = [-row["Individu"], -row["Entreprise"], -row["Communaute"], -row["Cooperation"]]
-
-    fig.add_trace(go.Bar(
-        x=x_piliers,
-        y=y_piliers,
-        marker_color=couleurs_piliers,
-        text=[f"{abs(v)}" for v in y_piliers],
-        textposition="outside",
-        name="Piliers"
-    ))
-
     fig.update_layout(
         polar=dict(
             radialaxis=dict(visible=False),
-            angularaxis=dict(showticklabels=False, showline=False)
+            angularaxis=dict(showline=False, showticklabels=False)
         ),
-        xaxis=dict(title="", showline=False, showticklabels=True),
-        yaxis=dict(range=[-100, 120], visible=False),
-        margin=dict(t=20, b=30, l=10, r=10),
-        showlegend=False,
-        height=500
+        margin=dict(t=10, b=10, l=10, r=10),
+        height=300,
+        showlegend=False
     )
-    return fig
+
+    # Enchaînement avec les piliers
+    pilier_labels = ["Individu", "Entreprise", "Communauté", "International"]
+    pilier_values = [row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]]
+    bar_fig = go.Figure(go.Bar(
+        x=pilier_labels,
+        y=pilier_values,
+        marker_color=couleurs_piliers,
+        text=pilier_values,
+        textposition="auto"
+    ))
+
+    bar_fig.update_layout(
+        height=200,
+        margin=dict(t=0, b=40, l=40, r=40),
+        showlegend=False,
+        yaxis=dict(range=[0, 100])
+    )
+
+    return fig, bar_fig
 
 # Affichage
 top = df.head(9)
@@ -122,4 +126,6 @@ for i, (_, row) in enumerate(top.iterrows()):
         picto = forme_emojis.get(row["Forme"], f"📌 {row['Forme']}")
         niveaux_str = " ".join([niveau_emoji.get(n, "") for n in row["Niveau"]])
         st.markdown(f"### {picto} — {row['Nom']} {niveaux_str}")
-        st.plotly_chart(make_half_rosace_and_pillars(row), use_container_width=True)
+        polar_fig, bars_fig = make_sunburst_and_bars(row)
+        st.plotly_chart(polar_fig, use_container_width=True)
+        st.plotly_chart(bars_fig, use_container_width=True)
