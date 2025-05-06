@@ -124,7 +124,7 @@ def make_visual(row, i, small=False):
 
 # Affichage des 9 premières opportunités
 top = df.head(9)
-st.markdown
+st.markdown (f"### ")
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
