@@ -76,3 +76,4 @@ for i in range(min(9, len(top))):
         )
 
         st.plotly_chart(fig, use_container_width=True)
+        
