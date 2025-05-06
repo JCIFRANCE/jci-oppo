@@ -27,11 +27,13 @@ forme_emojis = {
 }
 couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]
 couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
+verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
+piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
 st.markdown("<h1>🗺️ Cartographie des opportunités</h1>", unsafe_allow_html=True)
 
-# Bloc de texte et légende sticky
+# Sticky header compact
 st.markdown("""
 <style>
 .sticky-header {
@@ -44,20 +46,35 @@ st.markdown("""
   border-bottom: 1px solid #ddd;
 }
 .sticky-spacer {
-  height: 290px;
+  height: 180px;
+}
+.color-box {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
 }
 </style>
 
 <div class="sticky-header">
-<h3>Bienvenue dans la cartographie des opportunités JCI</h3>
-<p>Tu peux visualiser ici les différentes façons de t’engager dans la Jeune Chambre, en fonction de ce que tu souhaites expérimenter.</p>
-<p>🟦 <strong>Donut extérieur</strong> : niveau d'engagement selon les 4 verbes (apprendre, célébrer, prendre des responsabilités, se rencontrer).</p>
-<p>🎯 <strong>Cœur central</strong> : répartition entre les 4 <strong>piliers JCI</strong> (individu, entreprise, communauté, international).</p>
-<p>🔍 Pour découvrir plus d’opportunités, fais varier les curseurs dans le menu à gauche !</p>
-<ul>
-    <li>Verbes : bleu, jaune, rouge, vert</li>
-    <li>Piliers : marron, gris, orange, violet</li>
-</ul>
+<h3 style="margin-bottom:0.3em;">Bienvenue dans la cartographie des opportunités de la Jeune Chambre Économique</h3>
+<p style="margin-top:0; margin-bottom:0.5em;">Visualise les façons de t’engager et explore de nouvelles opportunités !</p>
+<p style="margin-bottom: 0.2em;"><strong>Comment tu t’engages :</strong></p>
+<p>
+<span class="color-box" style="background:#0000FF"></span>Apprendre
+<span class="color-box" style="background:#FFD700"></span>Célébrer
+<span class="color-box" style="background:#FF0000"></span>Prendre des responsabilités
+<span class="color-box" style="background:#28A745"></span>Se rencontrer
+</p>
+<p style="margin-bottom: 0.2em;"><strong>Les piliers JCI :</strong></p>
+<p>
+<span class="color-box" style="background:#A52A2A"></span>Individu
+<span class="color-box" style="background:#808080"></span>Entreprise
+<span class="color-box" style="background:#FFA500"></span>Communauté
+<span class="color-box" style="background:#800080"></span>International
+</p>
 </div>
 <div class="sticky-spacer"></div>
 """, unsafe_allow_html=True)
@@ -96,16 +113,17 @@ df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
 def make_visual(row, i, small=False):
-    niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
+    niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
     fig = go.Figure()
 
     fig.add_trace(go.Pie(
         values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
-        labels=["Individu", "Entreprise", "Communauté", "International"],
+        labels=piliers_labels,
         marker=dict(colors=couleurs_piliers),
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
+        hoverinfo='skip',
         showlegend=False
     ))
 
@@ -122,21 +140,21 @@ def make_visual(row, i, small=False):
         marker=dict(colors=cols, line=dict(color="white", width=2)),
         hole=0.6,
         domain={'x': [0, 1], 'y': [0, 1]},
-        textinfo='none',  # <-- remove labels from all donuts
-        hovertemplate='<b>%{label}</b><extra></extra>',
+        textinfo='none',
+        hoverinfo='skip',
         showlegend=False
     ))
 
     if not small:
-        fig.add_annotation(
-            text="  ".join([f"<span style='background-color:#eee;padding:3px;border-radius:4px'>{niveau_labels.get(n,n)}</span>" for n in row["Niveau"]]),
-            showarrow=False,
-            font=dict(size=10, color="black"),
-            align="center",
-            x=0.5, y=0.5, xanchor='center', yanchor='middle',
-            bordercolor="black", borderwidth=1, borderpad=4,
-            bgcolor="#f9f9f9", opacity=0.9
-        )
+        for j, txt in enumerate(niveaux_list):
+            fig.add_annotation(
+                text=f"<span style='background-color:#f0f0f0;padding:4px;border-radius:4px;'>{txt}</span>",
+                showarrow=False,
+                font=dict(size=10, color="black"),
+                align="center",
+                x=0.5, y=0.5 - j * 0.07,
+                xanchor='center', yanchor='middle'
+            )
 
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
