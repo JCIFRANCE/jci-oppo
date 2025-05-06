@@ -21,8 +21,8 @@ forme_emojis = {
 couleurs_verbes = ["#FF6666", "#6666FF", "#66CC66", "#FFB266"]
 couleurs_piliers = ["#c2f0c2", "#c2d1f0", "#ffe6cc", "#e6ccff"]
 
-st.set_page_config(page_title="Sunburst semi-circulaire + barres", layout="wide")
-st.title("🌗 Sunburst demi-cercle pour les verbes + barres nettes pour les piliers")
+st.set_page_config(page_title="Sunburst + Marimekko", layout="wide")
+st.title("🌗 Demi-sunburst pour les verbes + Marimekko carré pour les piliers")
 
 # Volet de sélection
 formes = sorted(df["Forme"].unique().tolist())
@@ -71,52 +71,60 @@ def score(row):
 df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
-# Fonction graphique combinée
-def make_sunburst_and_bars(row):
-    fig = go.Figure()
-
-    # 4 segments de 45° chacun dans la demi-rosace
-    verbes = [("Apprendre", 0), ("Célébrer", 45), ("Responsabiliser", 90), ("Rencontrer", 135)]
-    for i, (verbe, angle) in enumerate(verbes):
-        level = row[verbe]
-        fig.add_trace(go.Barpolar(
-            r=[level],
-            theta=[angle],
-            width=[45],
-            marker=dict(color=couleurs_verbes[i], opacity=min(0.3 + level / 100, 1)),
-            text=f"{verbe} : {level}",
-            hoverinfo="text"
-        ))
-
-    fig.update_layout(
-        polar=dict(
-            radialaxis=dict(visible=False),
-            angularaxis=dict(showline=False, showticklabels=False)
-        ),
-        margin=dict(t=10, b=10, l=10, r=10),
-        height=300,
-        showlegend=False
-    )
-
-    # Enchaînement avec les piliers
-    pilier_labels = ["Individu", "Entreprise", "Communauté", "International"]
-    pilier_values = [row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]]
-    bar_fig = go.Figure(go.Bar(
-        x=pilier_labels,
-        y=pilier_values,
-        marker_color=couleurs_piliers,
-        text=pilier_values,
-        textposition="auto"
+# Fonction graphique
+def make_diagrams(row):
+    # Demi-sunburst
+    labels = ["", "Apprendre", "Célébrer", "Responsabiliser", "Rencontrer"]
+    parents = ["", "", "", "", ""]
+    values = [0, row["Apprendre"], row["Célébrer"], row["Responsabiliser"], row["Rencontrer"]]
+    fig = go.Figure(go.Sunburst(
+        labels=labels,
+        parents=parents,
+        values=values,
+        branchvalues="total",
+        marker=dict(colors=["white"] + couleurs_verbes),
+        insidetextorientation='radial',
+        maxdepth=2
     ))
 
-    bar_fig.update_layout(
-        height=200,
-        margin=dict(t=0, b=40, l=40, r=40),
-        showlegend=False,
-        yaxis=dict(range=[0, 100])
+    fig.update_layout(
+        margin=dict(t=0, b=0, l=0, r=0),
+        sunburstcolorway=couleurs_verbes,
+        height=300,
+        uniformtext=dict(minsize=10, mode='hide'),
     )
 
-    return fig, bar_fig
+    # Marimekko carré
+    total = sum([row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]])
+    widths = [row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]]
+    widths = [w / total for w in widths]
+
+    base_x = 0.25
+    shapes = []
+    annotations = []
+    for i, w in enumerate(widths):
+        x0 = base_x
+        x1 = base_x + w * 0.5
+        shapes.append(dict(
+            type="rect",
+            xref="paper", yref="paper",
+            x0=x0, x1=x1,
+            y0=0.0, y1=0.2,
+            fillcolor=couleurs_piliers[i],
+            line=dict(width=0)
+        ))
+        annotations.append(dict(
+            x=(x0 + x1) / 2, y=0.1,
+            xref="paper", yref="paper",
+            text=["Individu", "Entreprise", "Communauté", "International"][i],
+            showarrow=False,
+            font=dict(size=10)
+        ))
+        base_x += w * 0.5
+
+    fig.update_layout(shapes=shapes, annotations=annotations)
+
+    return fig
 
 # Affichage
 top = df.head(9)
@@ -126,6 +134,4 @@ for i, (_, row) in enumerate(top.iterrows()):
         picto = forme_emojis.get(row["Forme"], f"📌 {row['Forme']}")
         niveaux_str = " ".join([niveau_emoji.get(n, "") for n in row["Niveau"]])
         st.markdown(f"### {picto} — {row['Nom']} {niveaux_str}")
-        polar_fig, bars_fig = make_sunburst_and_bars(row)
-        st.plotly_chart(polar_fig, use_container_width=True)
-        st.plotly_chart(bars_fig, use_container_width=True)
+        st.plotly_chart(make_diagrams(row), use_container_width=True)
