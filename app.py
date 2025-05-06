@@ -3,68 +3,80 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# Chargement des données
+# Données
 df = pd.read_csv("data.csv")
-
-# Normalisation
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({"Autre": "Événement", "Evenement": "Événement"})
 df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
 
-# Emojis
 niveau_emoji = {"L": "🏘️", "R": "🏙️", "N": "🇫🇷", "Z": "🌍", "M": "🌐"}
 forme_emojis = {
     "Programme": "🧠 Programme", "Concours": "🥇 Concours", "Projet": "🛠️ Projet",
     "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement"
 }
 
-# Couleurs
+# Couleurs dynamiques pour les verbes (intensité)
+couleurs_verbes_base = ["#FF9999", "#9999FF", "#99FF99", "#FFD580"]
 couleurs_piliers = ["#b6d7a8", "#a4c2f4", "#f9cb9c", "#c9daf8"]
-couleurs_verbes = ["#FF0000", "#0000FF", "#008000", "#FFA500"]
 
-st.set_page_config(page_title="Verbes en rosace + piliers en barres", layout="wide")
-st.title("🌸 Rosace 180° pour verbes + piliers en barres descendantes")
+st.set_page_config(page_title="Rosace + Piliers", layout="wide")
+st.title("🌼 Verbes en rosace 180° + piliers en barres descendantes")
 
-# Fonction de visualisation
-def make_rosace_and_legs(row):
+# Fonction visuelle
+def make_custom_visual(row):
     fig = go.Figure()
 
-    # Rosace 180° en haut
+    # ROSACE HAUT (verbes)
+    r_values = [row["Apprendre"], row["Célébrer"], row["Responsabiliser"], row["Rencontrer"]]
+    theta = [45, 90, 135, 180]
+    labels = ["Apprendre", "Célébrer", "Responsabiliser", "Rencontrer"]
+
     fig.add_trace(go.Barpolar(
-        r=[row["Apprendre"], row["Célébrer"], row["Responsabiliser"], row["Rencontrer"]],
-        theta=[45, 90, 135, 180],
-        width=[30, 30, 30, 30],
-        marker_color=couleurs_verbes,
-        marker_line_color="black",
-        marker_line_width=1,
-        opacity=0.8,
-        name="Engagements"
+        r=r_values,
+        theta=theta,
+        width=[30]*4,
+        marker=dict(
+            color=couleurs_verbes_base,
+            line=dict(color="black", width=1)
+        ),
+        text=labels,
+        hoverinfo="text+r",
+        textposition="auto",
+        opacity=0.9
     ))
 
-    # Barres piliers en bas (comme jambes)
-    x_piliers = ["Individu", "Entreprise", "Communauté", "International"]
+    # BARRES BAS (piliers)
+    piliers = ["Individu", "Entreprise", "Communauté", "International"]
     y_piliers = [-row["Individu"], -row["Entreprise"], -row["Communaute"], -row["Cooperation"]]
 
     fig.add_trace(go.Bar(
-        x=x_piliers,
+        x=piliers,
         y=y_piliers,
         marker_color=couleurs_piliers,
+        text=piliers,
+        textposition="outside",
+        textfont=dict(color="black", size=12),
         name="Piliers",
-        width=0.5,
-        offsetgroup=1
     ))
 
     fig.update_layout(
         polar=dict(
-            radialaxis=dict(range=[0, 100], visible=True, angle=90),
-            angularaxis=dict(direction="clockwise", rotation=90)
+            angularaxis=dict(
+                rotation=90,
+                direction="clockwise",
+                showline=False,
+                tickfont=dict(size=12),
+                ticks='',
+                showticklabels=False
+            ),
+            radialaxis=dict(visible=False)
         ),
         barmode='overlay',
-        height=500,
-        margin=dict(t=40, b=40, l=40, r=40),
+        height=520,
+        margin=dict(t=20, b=40, l=20, r=20),
         showlegend=False,
-        yaxis=dict(range=[-100, 0], visible=False),
-        xaxis=dict(showticklabels=False)
+        yaxis=dict(range=[-100, 10], visible=False),
+        xaxis=dict(visible=True, showticklabels=False)
     )
 
     return fig
@@ -77,5 +89,4 @@ for i, (_, row) in enumerate(top.iterrows()):
         picto = forme_emojis.get(row["Forme"], f"📌 {row['Forme']}")
         niveaux_str = " ".join([niveau_emoji.get(n, "") for n in row["Niveau"]])
         st.markdown(f"### {picto} — {row['Nom']} {niveaux_str}")
-        st.plotly_chart(make_rosace_and_legs(row), use_container_width=True)
-
+        st.plotly_chart(make_custom_visual(row), use_container_width=True)
