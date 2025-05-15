@@ -32,18 +32,16 @@ piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
 st.markdown("""
 <style>
-/* Réduction des marges verticales autour des sliders */
+/* Réduction des marges verticales dans la sidebar */
 section[data-testid="stSidebar"] .stSlider {
     margin-top: -10px;
     margin-bottom: -10px;
 }
 
-/* Réduction des marges autour des titres h3/h4 */
+/* Réduction marges des titres et paragraphes */
 section[data-testid="stSidebar"] h3, section[data-testid="stSidebar"] h4 {
     margin-bottom: 0.2rem;
 }
-
-/* Réduction des marges autour des textes descriptifs */
 section[data-testid="stSidebar"] p {
     margin-top: -6px;
     margin-bottom: 4px;
@@ -51,13 +49,13 @@ section[data-testid="stSidebar"] p {
     color: grey;
 }
 
-/* Cacher les labels de valeur min/max des sliders (0 / 100) */
-section[data-testid="stSidebar"] .stSlider > label + div div:nth-child(1),
-section[data-testid="stSidebar"] .stSlider > label + div div:nth-child(3) {
-    display: none !important;
+/* Cache les ticks de valeur 0/100 sur les sliders */
+section[data-testid="stSidebar"] .stSlider div[data-testid="stTickBar"] {
+    display: none;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 
