@@ -42,33 +42,8 @@ section[data-testid="stSidebar"] .stSlider {
     margin-top: -10px;
     margin-bottom: 4px;
 }
-
-/* Réduction des marges verticales dans la sidebar */
-section[data-testid="stSidebar"] .stSlider {
-    margin-top: -10px;
-    margin-bottom: -10px;
-}
-
-/* Réduction marges des titres et paragraphes */
-section[data-testid="stSidebar"] h3, section[data-testid="stSidebar"] h4 {
-    margin-bottom: 0.2rem;
-}
-section[data-testid="stSidebar"] p {
-    margin-top: -6px;
-    margin-bottom: 4px;
-    font-size: 12px;
-    color: grey;
-}
-
-/* Cache les ticks de valeur 0/100 sur les sliders */
-section[data-testid="stSidebar"] .stSlider div[data-testid="stTickBar"] {
-    display: none;
-}
 </style>
 """, unsafe_allow_html=True)
-
-
-
 
 # Titre + explication reformulée avec carrés
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
@@ -151,10 +126,45 @@ pilier_icons = {
     "Cooperation": ("🟪", "International")
 }
 
+# PILIERS : symbole + label + couleur
+pilier_icons = {
+    "Développement individuel": ("🟫", "Individu", "#A52A2A"),
+    "Entreprise": ("⬜", "Entreprise", "#808080"),
+    "Communaute": ("🟧", "Communauté", "#FFA500"),
+    "Cooperation": ("🟪", "International", "#800080")
+}
+
 pref_piliers = {}
-for p, (emoji, label) in pilier_icons.items():
+for p, (emoji, label, color) in pilier_icons.items():
     st.sidebar.markdown(f"<span style='font-weight: 500;'>{emoji} {label}</span>", unsafe_allow_html=True)
-    pref_piliers[p] = st.sidebar.slider("", min_value=0, max_value=100, value=25, label_visibility="collapsed", key=f"pilier_{p}")
+    slider_id = f"pilier_{p}"
+    value = st.sidebar.slider(
+        label="",
+        min_value=0,
+        max_value=100,
+        value=25,
+        label_visibility="collapsed",
+        key=slider_id
+    )
+    pref_piliers[p] = value
+    st.sidebar.markdown(
+        f"""
+        <style>
+        div[data-testid="stSidebar"] div[data-testid="{slider_id}"] .st-c6 {{
+            background: {color};
+        }}
+        div[data-testid="stSidebar"] div[data-testid="{slider_id}"] .st-bx {{
+            font-size: 11px;
+            color: grey;
+            text-align: center;
+            margin-top: -4px;
+        }}
+        </style>
+        <div style='font-size:11px; color: grey; text-align: center;'>{value}</div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
 st.sidebar.markdown("### 🌍 ... à un niveau :")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Quelle portée a mon engagement : le <em>où</em></span>", unsafe_allow_html=True)
