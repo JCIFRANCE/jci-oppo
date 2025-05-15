@@ -1,14 +1,8 @@
-
-
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# 🔗 Chargement du fichier CSV depuis Google Drive
-url = "https://drive.google.com/uc?export=download&id=1cQxjIyK3LjuoNNK58Mm4BRbhb6uv7nES"
-df = pd.read_csv(url, sep=';', encoding='utf-8-sig')
-
-# Nettoyage des noms de forme
+df = pd.read_csv("data.csv")
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({
     "Autre": "Événement",
@@ -17,10 +11,7 @@ df["Forme"] = df["Forme"].replace({
     "Initiative /programme": "Programme",
     "Initiative/programme": "Programme"
 })
-
-# Conversion du champ Niveau
 df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
-
 
 verbe_map = {
     "Apprendre": "Apprendre",
@@ -31,7 +22,7 @@ verbe_map = {
 niveau_labels = {"L": "Local", "R": "Régional", "N": "National", "Z": "Zone", "M": "Monde"}
 forme_emojis = {
     "Programme": "🧪 Programme", "Concours": "🥇 Concours", "Projet": "🛠️ Projet",
-    "Fonction": "👔 Fonction", "Equipe": "🤝 En Équipe", "Événement": "🎫 Lors d'un Événement", "Formation": "🎓 Formation"
+    "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement", "Formation": "🎓 Formation"
 }
 couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]
 couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
@@ -47,7 +38,7 @@ Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre 
 Tu y retrouves en un coup d'oeil : 
 - Le ou les niveaux d'action au centre du visuel 
 - Les pictogrammes du type d'opportunité : 🎓 Formation / 🎫 Événement / 🤝 Équipe / 🧪 Programme et initiatives / 🥇 Concours / 🛠️ Projet et action
-- **Ce que tu souhaites développer** : le cercle intérieur des piliers JCI <span style="color:#A52A2A">🟫 Développement individuel</span> <span style="color:#808080">⬜ Compétences professionnelles et entrepreneuriales </span> <span style="color:#FFA500">🟧 Service à la Communauté et aux territoires</span> <span style="color:#800080">🟪 Coopération International</span>  
+- **Ce que tu souhaites développer** : le cercle interieur des piliers JCI <span style="color:#A52A2A">🟫 Individu</span> <span style="color:#808080">⬜ Entreprise</span> <span style="color:#FFA500">🟧 Communauté</span> <span style="color:#800080">🟪 International</span>  
 - **Comment tu préfères t'impliquer** : le cercle extérieur : <span style="color:#0000FF">🟦 Apprendre</span> <span style="color:#FFD700">🟨 Célébrer</span> <span style="color:#FF0000">🟥 Prendre des responsabilités</span> <span style="color:#28A745">🟩 Se rencontrer</span>
 """, unsafe_allow_html=True)
 
@@ -150,4 +141,5 @@ if len(df) > 9:
         with cols[i % 2]:
             niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
             st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
-            st.plotly_chart(make_visual(row, i+1000, small=True), use_container_width=True)
+            st.plotly_chart(make_visual(row, i+1000, small=True), use_container_width=True
+            
