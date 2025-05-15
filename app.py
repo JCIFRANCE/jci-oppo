@@ -40,7 +40,7 @@ section[data-testid="stSidebar"] .stSlider {
 
 /* Cacher les ticks (0 / 100) sous les sliders */
 section[data-testid="stSidebar"] .stSlider div[data-testid="stTickBar"] {
-    display: none !important;
+    display: none;
 }
 
 /* Cacher les bulles de valeur (Streamlit les rend dynamiquement dans une div positionnée en absolu) */
@@ -94,29 +94,7 @@ for k, (emoji, label, color) in verbe_icons.items():
         label_visibility="collapsed",
         key=slider_id
     )
-    pref_engagements[k] = value
-    st.sidebar.markdown(
-        f"""
-        <style>
-        /* Couleur de la barre du slider */
-        div[data-testid="stSidebar"] div[data-testid="{slider_id}"] .st-c6 {{
-            background: {color};
-        }}
-
-        /* Affichage valeur réduite sous la barre */
-        div[data-testid="stSidebar"] div[data-testid="{slider_id}"] .st-bx {{
-            font-size: 11px;
-            color: grey;
-            text-align: center;
-            margin-top: -4px;
-        }}
-        </style>
-        <div style='font-size:11px; color: grey; text-align: center;'>{value}</div>
-        """,
-        unsafe_allow_html=True
-    )
-
-
+   
 st.sidebar.markdown("### 🧩 ... sous la forme principale de :")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>La forme de mon engagement : le <em>quoi</em></span>", unsafe_allow_html=True)
 formes = sorted(df["Forme"].unique().tolist())
