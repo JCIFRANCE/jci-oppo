@@ -117,7 +117,18 @@ st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspo
 
 st.sidebar.markdown("### 💓 Ce qui me fait vibrer c'est ...")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
-pref_engagements = {k: st.sidebar.slider(v, 0, 100, 25, key=f"verb_{k}") for k, v in verbe_map.items()}
+verbe_couleurs = {
+    "Apprendre": "#0000FF",
+    "Célébrer": "#FFD700",
+    "Responsabiliser": "#FF0000",
+    "Rencontrer": "#28A745"
+}
+
+pref_engagements = {}
+for k, v in verbe_map.items():
+    couleur = verbe_couleurs.get(k, "#000000")
+    st.sidebar.markdown(f"<span style='color:{couleur}; font-weight:600'>{v}</span>", unsafe_allow_html=True)
+    pref_engagements[k] = st.sidebar.slider("", 0, 100, 25, key=f"verb_{k}")
 
 st.sidebar.markdown("### 🧩 ... sous la forme principale de :")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>La forme de mon engagement : le <em>quoi</em></span>", unsafe_allow_html=True)
