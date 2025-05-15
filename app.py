@@ -108,24 +108,24 @@ def make_visual(row, i, small=False):
         showlegend=False
     ))
 
-if not small:
-    for j, txt in enumerate(niveaux_list):
-        fig.add_annotation(
-            text=txt,
-            showarrow=False,
-            font=dict(size=11, color="black"),
-            align="center",
-            x=0.5, y=0.5 - j * 0.09,
-            xanchor='center', yanchor='middle',
-            bgcolor="#ffe6f0",  # Rose clair
-            bordercolor="#ccc",
-            borderwidth=1,
-            borderpad=4
-        )
+    if not small:
+        for j, txt in enumerate(niveaux_list):
+            fig.add_annotation(
+                text=txt,
+                showarrow=False,
+                font=dict(size=11, color="black"),
+                align="center",
+                x=0.5, y=0.5 - j * 0.09,
+                xanchor='center', yanchor='middle',
+                bgcolor="#ffe6f0",  # Rose clair
+                bordercolor="#ccc",
+                borderwidth=1,
+                borderpad=4
+            )
 
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
-
+    
 # Affichage des 9 premières opportunités
 top = df.head(9)
 st.markdown (f"### ")
