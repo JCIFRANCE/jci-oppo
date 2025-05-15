@@ -43,6 +43,9 @@ Tu y retrouves en un coup d'oeil :
 """, unsafe_allow_html=True)
 
 # Filtrage utilisateur
+st.sidebar.markdown("## 🗺️ Cartographie des opportunités")
+st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Découvre les opportunités JCI qui correspondent à ton style d'engagement</span>", unsafe_allow_html=True)
+
 st.sidebar.markdown("### 💓 Ce qui me fait vibrer c'est ...")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
 pref_engagements = {k: st.sidebar.slider(v, 0, 100, 25, key=f"verb_{k}") for k, v in verbe_map.items()}
