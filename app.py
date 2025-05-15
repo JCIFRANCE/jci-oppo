@@ -31,31 +31,34 @@ piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
 st.markdown("""
-    <style>
-    /* Réduction des marges verticales autour des sliders */
-    section[data-testid="stSidebar"] .stSlider {
-        margin-top: -10px;
-        margin-bottom: -10px;
-    }
+<style>
+/* Réduction des marges verticales autour des sliders */
+section[data-testid="stSidebar"] .stSlider {
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
 
-    /* Réduction des marges autour des titres h3/h4 */
-    .stMarkdown h3, .stMarkdown h4 {
-        margin-bottom: 0.2rem;
-    }
+/* Réduction des marges autour des titres h3/h4 */
+section[data-testid="stSidebar"] h3, section[data-testid="stSidebar"] h4 {
+    margin-bottom: 0.2rem;
+}
 
-    /* Réduction des marges autour des labels custom */
-    .stMarkdown p {
-        margin-top: -8px;
-        margin-bottom: 4px;
-    }
+/* Réduction des marges autour des textes descriptifs */
+section[data-testid="stSidebar"] p {
+    margin-top: -6px;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: grey;
+}
 
-    /* Cache les ticks (0 / 100) des sliders */
-    .stSlider > div[data-baseweb="slider"] > div > div:nth-child(1),
-    .stSlider > div[data-baseweb="slider"] > div > div:nth-child(3) {
-        display: none;
-    }
-    </style>
+/* Cacher les labels de valeur min/max des sliders (0 / 100) */
+section[data-testid="stSidebar"] .stSlider > label + div div:nth-child(1),
+section[data-testid="stSidebar"] .stSlider > label + div div:nth-child(3) {
+    display: none !important;
+}
+</style>
 """, unsafe_allow_html=True)
+
 
 
 # Titre + explication reformulée avec carrés
