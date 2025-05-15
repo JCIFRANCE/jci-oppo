@@ -48,6 +48,12 @@ st.markdown("""
         margin-top: -8px;
         margin-bottom: 4px;
     }
+
+    /* Cache les ticks (0 / 100) des sliders */
+    .stSlider > div[data-baseweb="slider"] > div > div:nth-child(1),
+    .stSlider > div[data-baseweb="slider"] > div > div:nth-child(3) {
+        display: none;
+    }
     </style>
 """, unsafe_allow_html=True)
 
