@@ -38,14 +38,12 @@ Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre 
 Tu y retrouves en un coup d'oeil : 
 - Le ou les niveaux d'action au centre du visuel : Local / Régional / National / Zone / Mondial
 - Les pictogrammes du type d'opportunité : 🎓 Formations et ateliers / 🎫 Événements / 🤝 En Équipe / 🧪 Programmes et initiatives / 🥇 Concours / 🛠️ Projets et actions
-- **Ce que tu souhaites développer** : le cercle intérieur des piliers JCI <span style="color:#A52A2A">🟫 Développement personnel (pilier JCI "Individu")</span> <span style="color:#808080">⬜ Compétences professionnelles et entrepreneuriales (pilier JCI "Business")</span> <span style="color:#FFA500">🟧 Service au territoire ( pilier JCI "Communauté")</span> <span style="color:#800080">🟪 Coopération internationale (pilier JCI "International")</span>  
+- **Ce que tu souhaites développer** : le cercle intérieur des piliers JCI <span style="color:#A52A2A">🟫 Développement personnel (pilier "Individu")</span> <span style="color:#808080">⬜ Compétences professionnelles et entrepreneuriales (pilier "Business")</span> <span style="color:#FFA500">🟧 Service au territoire ( pilier "Communauté")</span> <span style="color:#800080">🟪 Coopération internationale (pilier "International")</span>  
 - **Comment tu préfères t'impliquer** : le cercle extérieur : <span style="color:#0000FF">🟦 Apprendre</span> <span style="color:#FFD700">🟨 Célébrer</span> <span style="color:#FF0000">🟥 Prendre des responsabilités</span> <span style="color:#28A745">🟩 Se rencontrer</span>
 """, unsafe_allow_html=True)
 
 # Filtrage utilisateur
-st.sidebar.markdown("## 🗺️ Cartographie des opportunités")
-
-st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Découvre les opportunités JCI qui correspondent à ton style d'engagement</span>", unsafe_allow_html=True)
+st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
 
 st.sidebar.markdown("### 💓 Ce qui me fait vibrer c'est ...")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
