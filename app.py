@@ -4,7 +4,11 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-df = pd.read_csv("data.csv")
+# 🔗 Chargement du fichier CSV depuis Google Drive
+url = "https://drive.google.com/uc?export=download&id=1cQxjIyK3LjuoNNK58Mm4BRbhb6uv7nES"
+df = pd.read_csv(url, sep=';', encoding='utf-8-sig')
+
+# Nettoyage des noms de forme
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({
     "Autre": "Événement",
@@ -13,7 +17,10 @@ df["Forme"] = df["Forme"].replace({
     "Initiative /programme": "Programme",
     "Initiative/programme": "Programme"
 })
+
+# Conversion du champ Niveau
 df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
+
 
 verbe_map = {
     "Apprendre": "Apprendre",
