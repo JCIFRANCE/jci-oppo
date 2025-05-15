@@ -44,32 +44,6 @@ Tu y retrouves en un coup d'oeil :
 
 # Filtrage utilisateur
 st.sidebar.markdown("## 🗺️ Cartographie des opportunités")
-st.sidebar.markdown("""
-    <style>
-    /* Réduit l'espacement vertical entre les éléments dans la sidebar */
-    section[data-testid="stSidebar"] div {
-        margin-bottom: 0.3rem !important;
-    }
-
-    /* Réduit l'espacement entre les titres et les sliders/multiselect */
-    .stSlider, .stMultiSelect {
-        margin-top: -10px;
-        margin-bottom: -5px;
-    }
-
-    /* Réduit la marge sous les titres h3/h4 */
-    .stMarkdown h3 {
-        margin-bottom: 0.2rem;
-    }
-
-    /* Diminue l’espacement autour des textes explicatifs */
-    .stMarkdown p {
-        margin-top: -6px;
-        margin-bottom: 2px;
-        font-size: 12px;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Découvre les opportunités JCI qui correspondent à ton style d'engagement</span>", unsafe_allow_html=True)
 
