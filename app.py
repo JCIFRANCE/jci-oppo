@@ -30,6 +30,37 @@ verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se 
 piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
+st.markdown("""
+    <style>
+    /* Curseurs pour les verbes (engagement) */
+    section[data-testid="stSidebar"] .stSlider:nth-of-type(1) input[type="range"] {
+        accent-color: #0000FF;  /* Apprendre */
+    }
+    section[data-testid="stSidebar"] .stSlider:nth-of-type(2) input[type="range"] {
+        accent-color: #FFD700;  /* Célébrer */
+    }
+    section[data-testid="stSidebar"] .stSlider:nth-of-type(3) input[type="range"] {
+        accent-color: #FF0000;  /* Prendre des responsabilités */
+    }
+    section[data-testid="stSidebar"] .stSlider:nth-of-type(4) input[type="range"] {
+        accent-color: #28A745;  /* Se rencontrer */
+    }
+
+    /* Curseurs pour les piliers */
+    section[data-testid="stSidebar"] .stSlider:nth-of-type(5) input[type="range"] {
+        accent-color: #A52A2A;  /* Individu */
+    }
+    section[data-testid="stSidebar"] .stSlider:nth-of-type(6) input[type="range"] {
+        accent-color: #808080;  /* Entreprise */
+    }
+    section[data-testid="stSidebar"] .stSlider:nth-of-type(7) input[type="range"] {
+        accent-color: #FFA500;  /* Communauté */
+    }
+    section[data-testid="stSidebar"] .stSlider:nth-of-type(8) input[type="range"] {
+        accent-color: #800080;  /* International */
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # Titre + explication reformulée avec carrés
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
