@@ -1,61 +1,69 @@
-
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# === Chargement des données ===
-url = "https://drive.google.com/uc?export=download&id=1cQxjIyK3LjuoNNK58Mm4BRbhb6uv7nES"
-df = pd.read_csv(url, sep=';', skiprows=5, encoding='utf-8-sig')
-
-# Nettoyage des colonnes
-df.columns = df.columns.str.strip()
+# Chargement local du fichier CSV
+df = pd.read_csv("data.csv")
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
-df["NIVEAU"] = df["NIVEAU"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
+df["Forme"] = df["Forme"].replace({
+    "Autre": "Événement",
+    "Evenement": "Événement",
+    "Formation /atelier": "Formation",
+    "Initiative /programme": "Programme",
+    "Initiative/programme": "Programme"
+})
+df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
 
-# Dictionnaires de correspondance
+verbe_map = {
+    "Apprendre": "Apprendre",
+    "Célébrer": "Célébrer",
+    "Responsabiliser": "Prendre des responsabilités",
+    "Rencontrer": "Se rencontrer"
+}
 niveau_labels = {"L": "Local", "R": "Régional", "N": "National", "Z": "Zone", "M": "Monde"}
 forme_emojis = {
     "Programme": "🧪 Programme", "Concours": "🥇 Concours", "Projet": "🛠️ Projet",
     "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement", "Formation": "🎓 Formation"
 }
-
-# Libellés affichés pour les sliders
-verbe_labels = {
-    "Apprendre": "🔵 Apprendre",
-    "Prendre des responsabilités": "🔴 Prendre des responsabilités",
-    "Célébrer": "🟡 Célébrer",
-    "Se rencontrer": "🟢 Se rencontrer"
-}
-pilier_labels = {
-    "Individu": "🌐 Développement individuel",
-    "Entreprise": "💼 Entreprise",
-    "International": "🌍 Coopération internationale",
-    "Communauté": "🏢 Service à la communauté"
-}
-
-couleurs_verbes = ["#0000FF", "#FF0000", "#FFD700", "#28A745"]
-couleurs_piliers = ["#A52A2A", "#808080", "#800080", "#FFA500"]
+couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]
+couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
+verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
+piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
-st.title("🗺️ Cartographie des opportunités JCEF")
 
-# === Filtres ===
-st.sidebar.markdown("### 💗 Ce que j'aime faire")
-pref_verbes = {v: st.sidebar.slider(verbe_labels[v], 0, 100, 25) for v in verbe_labels}
+# Titre + explication reformulée avec carrés
+st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
+st.markdown("""
+Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent. 
+Tu y retrouves en un coup d'oeil : 
+- Le ou les niveaux d'action au centre du visuel 
+- Les pictogrammes du type d'opportunité : 🎓 Formation / 🎫 Événement / 🤝 Équipe / 🧪 Programme et initiatives / 🥇 Concours / 🛠️ Projet et action
+- **Ce que tu souhaites développer** : le cercle interieur des piliers JCI <span style="color:#A52A2A">🟫 Individu</span> <span style="color:#808080">⬜ Entreprise</span> <span style="color:#FFA500">🟧 Communauté</span> <span style="color:#800080">🟪 International</span>  
+- **Comment tu préfères t'impliquer** : le cercle extérieur : <span style="color:#0000FF">🟦 Apprendre</span> <span style="color:#FFD700">🟨 Célébrer</span> <span style="color:#FF0000">🟥 Prendre des responsabilités</span> <span style="color:#28A745">🟩 Se rencontrer</span>
+""", unsafe_allow_html=True)
 
-st.sidebar.markdown("### 🎯 Je souhaite développer")
-pref_piliers = {k: st.sidebar.slider(pilier_labels[k], 0, 100, 25) for k in pilier_labels}
+# Filtrage utilisateur
+st.sidebar.markdown("### 💓 Ce qui me fait vibrer c'est ...")
+pref_engagements = {k: st.sidebar.slider(v, 0, 100, 25, key=f"verb_{k}", help="xxxx") for k, v in verbe_map.items()}
 
-st.sidebar.markdown("### 🌍 Niveau d'engagement")
+st.sidebar.markdown("### 🧩 ... sous la forme principale de :")
+formes = sorted(df["Forme"].unique().tolist())
+formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
+                                         format_func=lambda f: f"<span style='background-color:#f0f0f0;padding:2px'>{forme_emojis.get(f, f)}</span>",
+                                         label_visibility="collapsed",
+                                         help="xxxx")
+
+st.sidebar.markdown("### 🎯 Je souhaite développer ...")
+pref_piliers = {p: st.sidebar.slider(p, 0, 100, 25, key=f"pilier_{p}", help="xxxx")
+                for p in ["Individu", "Entreprise", "Communaute", "Cooperation"]}
+
+st.sidebar.markdown("### 🌍 ... à un niveau :")
 niveaux = ["L", "R", "N", "Z", "M"]
 niveaux_selected = st.sidebar.multiselect("", options=niveaux, default=niveaux,
-                                          format_func=lambda n: niveau_labels[n], label_visibility="collapsed")
-
-formes = sorted(df["Forme"].dropna().unique().tolist())
-st.sidebar.markdown("### 📊 Type d'opportunité")
-formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
-                                         format_func=lambda f: forme_emojis.get(f, f),
-                                         label_visibility="collapsed")
+                                          format_func=lambda n: f"<span style='background-color:#f0f0f0;padding:2px'>{niveau_labels.get(n, n)}</span>",
+                                          label_visibility="collapsed",
+                                          help="xxxx")
 
 # === Filtrage ===
 df = df[df["Forme"].isin(formes_selected)]
