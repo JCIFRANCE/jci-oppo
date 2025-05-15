@@ -69,55 +69,83 @@ slider_styles = """<style>
 
 st.markdown(slider_styles, unsafe_allow_html=True)
 
-# === INTERFACE SIDEBAR ===
-with st.sidebar:
-    st.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui te correspondent")
-    st.markdown("### 💓 Ce qui me fait vibrer c'est ...")
-    st.markdown("<span style='font-size: 11px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
+# === FILTRAGE DES DONNÉES ===
+df = df[df["Forme"].isin(formes_selected)]
+df = df[df["Niveau"].apply(lambda lv: any(n in niveaux_selected for n in lv))]
 
-    verbe_icons = {
-        "Apprendre": ("🟦", "Apprendre"),
-        "Célébrer": ("🟨", "Célébrer"),
-        "Responsabiliser": ("🟥", "Prendre des responsabilités"),
-        "Rencontrer": ("🟩", "Se rencontrer")
-    }
+def score(row):
+    s_eng = sum((row.get(k, 0) - pref_engagements[k]) ** 2 for k in pref_engagements)
+    s_pil = sum((row.get(k, 0) - pref_piliers[k]) ** 2 for k in pref_piliers)
+    return (s_eng + s_pil) ** 0.5
 
-    pref_engagements = {}
+df["Score"] = df.apply(score, axis=1)
+df = df.sort_values("Score").reset_index(drop=True)
+
+# === VISUALISATION OPPORTUNITÉS ===
+def make_visual(row, i, small=False):
+    niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
+    fig = go.Figure()
+
+    fig.add_trace(go.Pie(
+        values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
+        labels=piliers_labels,
+        marker=dict(colors=list(couleurs_piliers.values())),
+        hole=0.3,
+        domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
+        textinfo='none',
+        hovertemplate='<b>%{label}</b><extra></extra>',
+        showlegend=False
+    ))
+
+    vals, labels, cols = [], [], []
+    for j, (col, label) in enumerate(verbe_map.items()):
+        val = row.get(col, 0)
+        if val > 0:
+            vals.append(val)
+            labels.append(label)
+            cols.append(list(couleurs_verbes.values())[j])
+
+    fig.add_trace(go.Pie(
+        values=vals, labels=labels,
+        marker=dict(colors=cols, line=dict(color="white", width=2)),
+        hole=0.6,
+        domain={'x': [0, 1], 'y': [0, 1]},
+        textinfo='none',
+        hovertemplate='<b>%{label}</b><extra></extra>',
+        showlegend=False
+    ))
+
+    if not small:
+        for j, txt in enumerate(niveaux_list):
+            fig.add_annotation(
+                text=txt,
+                showarrow=False,
+                font=dict(size=11, color="black"),
+                align="center",
+                x=0.5, y=0.5 - j * 0.09,
+                xanchor='center', yanchor='middle',
+                borderpad=4
+            )
+
+    fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
+    return fig
+
+# === AFFICHAGE DES OPPORTUNITÉS ===
+top = df.head(9)
+st.markdown("### ")
+cols = st.columns(3)
+for i, (_, row) in enumerate(top.iterrows()):
+    with cols[i % 3]:
+        picto = forme_emojis.get(row["Forme"], row["Forme"])
+        st.markdown(f"#### {picto} — {row['Nom']}")
+        st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{i}")
+
+if len(df) > 9:
+    st.markdown("### 🔍 D'autres opportunités proches de tes critères")
+    other = df.iloc[9:19]
     cols = st.columns(2)
-    for idx, (key, (emoji, label)) in enumerate(verbe_icons.items()):
-        with cols[idx % 2]:
-            st.markdown(f"<span style='color:{couleurs_verbes[key]}; font-weight:500;'>{emoji} {label}</span>", unsafe_allow_html=True)
-            value = st.slider("", 0, 100, 25, key=f"verb_{key}", label_visibility="collapsed")
-            pref_engagements[key] = value
-
-    st.markdown("### 🎯 Je souhaite développer ...")
-    st.markdown("<span style='font-size: 11px; color: grey;'>Les 4 piliers JCI = les raisons de mon engagement : le <em>pourquoi</em></span>", unsafe_allow_html=True)
-
-    pilier_icons = {
-        "Développement individuel": ("🟫", "Individu"),
-        "Entreprise": ("⬜", "Entreprise"),
-        "Communaute": ("🟧", "Communauté"),
-        "Cooperation": ("🟪", "International")
-    }
-
-    pref_piliers = {}
-    cols = st.columns(2)
-    for idx, (key, (emoji, label)) in enumerate(pilier_icons.items()):
-        with cols[idx % 2]:
-            st.markdown(f"<span style='color:{couleurs_piliers[key]}; font-weight:500;'>{emoji} {label}</span>", unsafe_allow_html=True)
-            value = st.slider("", 0, 100, 25, key=f"pilier_{key}", label_visibility="collapsed")
-            pref_piliers[key] = value
-
-    st.markdown("### 🌍 ... à un niveau :")
-    st.markdown("<span style='font-size: 11px; color: grey;'>Quelle portée a mon engagement : le <em>où</em></span>", unsafe_allow_html=True)
-    niveaux = ["L", "R", "N", "Z", "M"]
-    niveaux_selected = st.multiselect("", options=niveaux, default=niveaux,
-                                      format_func=lambda n: niveau_labels.get(n, n),
-                                      label_visibility="collapsed")
-
-    st.markdown("### 🧩 ... sous la forme principale de :")
-    st.markdown("<span style='font-size: 11px; color: grey;'>La forme de mon engagement : le <em>quoi</em></span>", unsafe_allow_html=True)
-    formes = sorted(df["Forme"].unique().tolist())
-    formes_selected = st.multiselect("", options=formes, default=formes,
-                                     format_func=lambda f: forme_emojis.get(f, f),
-                                     label_visibility="collapsed")
+    for i, (_, row) in enumerate(other.iterrows()):
+        with cols[i % 2]:
+            niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
+            st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
+            st.plotly_chart(make_visual(row, i+1000, small=True), use_container_width=True)
