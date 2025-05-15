@@ -44,19 +44,23 @@ Tu y retrouves en un coup d'oeil :
 
 # Filtrage utilisateur
 st.sidebar.markdown("### 💓 Ce qui me fait vibrer c'est ...")
+st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
 pref_engagements = {k: st.sidebar.slider(v, 0, 100, 25, key=f"verb_{k}") for k, v in verbe_map.items()}
 
 st.sidebar.markdown("### 🧩 ... sous la forme principale de :")
+st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>La forme de mon engagement : le <em>quoi</em></span>", unsafe_allow_html=True)
 formes = sorted(df["Forme"].unique().tolist())
 formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
                                          format_func=lambda f: forme_emojis.get(f, f),
                                          label_visibility="collapsed")
 
 st.sidebar.markdown("### 🎯 Je souhaite développer ...")
+st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Les 4 piliers JCI = les raisons de mon engagement : le <em>pourquoi</em></span>", unsafe_allow_html=True)
 pref_piliers = {p: st.sidebar.slider(p, 0, 100, 25, key=f"pilier_{p}")
                 for p in ["Développement individuel", "Entreprise", "Communaute", "Cooperation"]}
 
 st.sidebar.markdown("### 🌍 ... à un niveau :")
+st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Quelle portée a mon engagement : le <em>où</em></span>", unsafe_allow_html=True)
 niveaux = ["L", "R", "N", "Z", "M"]
 niveaux_selected = st.sidebar.multiselect("", options=niveaux, default=niveaux,
                                           format_func=lambda n: niveau_labels.get(n, n),
