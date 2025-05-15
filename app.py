@@ -32,70 +32,21 @@ piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
 st.markdown("""
     <style>
-    /* Applique la couleur du slider à l'aide de WebKit/Mozilla */
-
-    /* Apprendre - bleu */
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(1)::-webkit-slider-thumb {
-        background-color: #0000FF;
-    }
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(1)::-moz-range-thumb {
-        background-color: #0000FF;
+    /* Réduction des marges verticales autour des sliders */
+    section[data-testid="stSidebar"] .stSlider {
+        margin-top: -10px;
+        margin-bottom: -10px;
     }
 
-    /* Célébrer - jaune */
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(2)::-webkit-slider-thumb {
-        background-color: #FFD700;
-    }
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(2)::-moz-range-thumb {
-        background-color: #FFD700;
+    /* Réduction des marges autour des titres h3/h4 */
+    .stMarkdown h3, .stMarkdown h4 {
+        margin-bottom: 0.2rem;
     }
 
-    /* Prendre des responsabilités - rouge */
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(3)::-webkit-slider-thumb {
-        background-color: #FF0000;
-    }
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(3)::-moz-range-thumb {
-        background-color: #FF0000;
-    }
-
-    /* Se rencontrer - vert */
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(4)::-webkit-slider-thumb {
-        background-color: #28A745;
-    }
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(4)::-moz-range-thumb {
-        background-color: #28A745;
-    }
-
-    /* Développement individuel - marron */
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(5)::-webkit-slider-thumb {
-        background-color: #A52A2A;
-    }
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(5)::-moz-range-thumb {
-        background-color: #A52A2A;
-    }
-
-    /* Entreprise - gris */
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(6)::-webkit-slider-thumb {
-        background-color: #808080;
-    }
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(6)::-moz-range-thumb {
-        background-color: #808080;
-    }
-
-    /* Communauté - orange */
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(7)::-webkit-slider-thumb {
-        background-color: #FFA500;
-    }
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(7)::-moz-range-thumb {
-        background-color: #FFA500;
-    }
-
-    /* International - violet */
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(8)::-webkit-slider-thumb {
-        background-color: #800080;
-    }
-    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(8)::-moz-range-thumb {
-        background-color: #800080;
+    /* Réduction des marges autour des labels custom */
+    .stMarkdown p {
+        margin-top: -8px;
+        margin-bottom: 4px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -124,11 +75,18 @@ verbe_couleurs = {
     "Rencontrer": "#28A745"
 }
 
+verbe_icons = {
+    "Apprendre": ("🟦", "Apprendre"),
+    "Célébrer": ("🟨", "Célébrer"),
+    "Responsabiliser": ("🟥", "Prendre des responsabilités"),
+    "Rencontrer": ("🟩", "Se rencontrer")
+}
+
 pref_engagements = {}
-for k, v in verbe_map.items():
-    couleur = verbe_couleurs.get(k, "#000000")
-    st.sidebar.markdown(f"<span style='color:{couleur}; font-weight:600'>{v}</span>", unsafe_allow_html=True)
-    pref_engagements[k] = st.sidebar.slider("", 0, 100, 25, key=f"verb_{k}")
+for k, (emoji, label) in verbe_icons.items():
+    st.sidebar.markdown(f"<span style='font-weight: 500;'>{emoji} {label}</span>", unsafe_allow_html=True)
+    pref_engagements[k] = st.sidebar.slider("", min_value=0, max_value=100, value=25, label_visibility="collapsed", key=f"verb_{k}")
+
 
 st.sidebar.markdown("### 🧩 ... sous la forme principale de :")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>La forme de mon engagement : le <em>quoi</em></span>", unsafe_allow_html=True)
@@ -139,8 +97,17 @@ formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
 
 st.sidebar.markdown("### 🎯 Je souhaite développer ...")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Les 4 piliers JCI = les raisons de mon engagement : le <em>pourquoi</em></span>", unsafe_allow_html=True)
-pref_piliers = {p: st.sidebar.slider(p, 0, 100, 25, key=f"pilier_{p}")
-                for p in ["Développement individuel", "Entreprise", "Communaute", "Cooperation"]}
+pilier_icons = {
+    "Développement individuel": ("🟫", "Individu"),
+    "Entreprise": ("⬜", "Entreprise"),
+    "Communaute": ("🟧", "Communauté"),
+    "Cooperation": ("🟪", "International")
+}
+
+pref_piliers = {}
+for p, (emoji, label) in pilier_icons.items():
+    st.sidebar.markdown(f"<span style='font-weight: 500;'>{emoji} {label}</span>", unsafe_allow_html=True)
+    pref_piliers[p] = st.sidebar.slider("", min_value=0, max_value=100, value=25, label_visibility="collapsed", key=f"pilier_{p}")
 
 st.sidebar.markdown("### 🌍 ... à un niveau :")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Quelle portée a mon engagement : le <em>où</em></span>", unsafe_allow_html=True)
