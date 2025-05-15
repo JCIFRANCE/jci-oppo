@@ -66,70 +66,34 @@ Tu y retrouves en un coup d'oeil :
 # Filtrage utilisateur
 st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
 
-import streamlit.components.v1 as components
-
 st.sidebar.markdown("### 💓 Ce qui me fait vibrer c'est ...")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
+verbe_couleurs = {
+    "Apprendre": "#0000FF",
+    "Célébrer": "#FFD700",
+    "Responsabiliser": "#FF0000",
+    "Rencontrer": "#28A745"
+}
 
-verbes_circulaires = [
-    ("🟦", "Apprendre", "#0000FF", "circular_slider_apprendre"),
-    ("🟨", "Célébrer", "#FFD700", "circular_slider_celebrer"),
-    ("🟥", "Prendre des responsabilités", "#FF0000", "circular_slider_responsabiliser"),
-    ("🟩", "Se rencontrer", "#28A745", "circular_slider_rencontrer")
-]
+verbe_icons = {
+    "Apprendre": ("🟦", "Apprendre", "#0000FF"),
+    "Célébrer": ("🟨", "Célébrer", "#FFD700"),
+    "Responsabiliser": ("🟥", "Prendre des responsabilités", "#FF0000"),
+    "Rencontrer": ("🟩", "Se rencontrer", "#28A745")
+}
 
-for emoji, label, color, slider_id in verbes_circulaires:
-    st.sidebar.markdown(f"#### {emoji} {label}")
-
-    components.html(f"""
-    <div style="display: flex; justify-content: center; align-items: center; height: 200px;">
-      <div id="{slider_id}_container" style="position: relative; width: 150px; height: 150px;">
-        <input id="{slider_id}" type="range" min="0" max="100" value="25"
-          style="
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            transform: rotate(-90deg);
-            opacity: 0;
-            z-index: 2;
-            cursor: pointer;
-          " oninput="document.getElementById('{slider_id}_value').innerText = this.value; update_{slider_id}(this.value);" />
-        
-        <svg width="150" height="150" style="position: absolute; top: 0; left: 0;">
-          <circle cx="75" cy="75" r="65" stroke="#eee" stroke-width="12" fill="none" />
-          <circle id="{slider_id}_progress" cx="75" cy="75" r="65" stroke="{color}" stroke-width="12" fill="none"
-            stroke-dasharray="408.4"
-            stroke-dashoffset="306.3"
-            transform="rotate(-90 75 75)"
-          />
-        </svg>
-
-        <div id="{slider_id}_value" style="
-          position: absolute;
-          width: 100%;
-          top: 50%;
-          left: 0;
-          transform: translateY(-50%);
-          text-align: center;
-          font-size: 18px;
-          font-weight: bold;
-          color: {color};
-          z-index: 1;
-        ">25</div>
-      </div>
-    </div>
-
-    <script>
-      function update_{slider_id}(value) {{
-        const max = 100;
-        const percent = value / max;
-        const offset = 408.4 - percent * 408.4;
-        document.getElementById('{slider_id}_progress').style.strokeDashoffset = offset;
-      }}
-    </script>
-    """, height=220)
-
+pref_engagements = {}
+for k, (emoji, label, color) in verbe_icons.items():
+    st.sidebar.markdown(f"<span style='font-weight: 500;'>{emoji} {label}</span>", unsafe_allow_html=True)
+    slider_id = f"verb_{k}"
+    value = st.sidebar.slider(
+        label="",
+        min_value=0,
+        max_value=100,
+        value=25,
+        label_visibility="collapsed",
+        key=slider_id
+    )
    
 st.sidebar.markdown("### 🧩 ... sous la forme principale de :")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>La forme de mon engagement : le <em>quoi</em></span>", unsafe_allow_html=True)
