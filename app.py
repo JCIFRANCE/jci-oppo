@@ -32,35 +32,74 @@ piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
 st.markdown("""
     <style>
-    /* Curseurs pour les verbes (engagement) */
-    section[data-testid="stSidebar"] .stSlider:nth-of-type(1) input[type="range"] {
-        accent-color: #0000FF;  /* Apprendre */
+    /* Applique la couleur du slider à l'aide de WebKit/Mozilla */
+
+    /* Apprendre - bleu */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(1)::-webkit-slider-thumb {
+        background-color: #0000FF;
     }
-    section[data-testid="stSidebar"] .stSlider:nth-of-type(2) input[type="range"] {
-        accent-color: #FFD700;  /* Célébrer */
-    }
-    section[data-testid="stSidebar"] .stSlider:nth-of-type(3) input[type="range"] {
-        accent-color: #FF0000;  /* Prendre des responsabilités */
-    }
-    section[data-testid="stSidebar"] .stSlider:nth-of-type(4) input[type="range"] {
-        accent-color: #28A745;  /* Se rencontrer */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(1)::-moz-range-thumb {
+        background-color: #0000FF;
     }
 
-    /* Curseurs pour les piliers */
-    section[data-testid="stSidebar"] .stSlider:nth-of-type(5) input[type="range"] {
-        accent-color: #A52A2A;  /* Individu */
+    /* Célébrer - jaune */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(2)::-webkit-slider-thumb {
+        background-color: #FFD700;
     }
-    section[data-testid="stSidebar"] .stSlider:nth-of-type(6) input[type="range"] {
-        accent-color: #808080;  /* Entreprise */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(2)::-moz-range-thumb {
+        background-color: #FFD700;
     }
-    section[data-testid="stSidebar"] .stSlider:nth-of-type(7) input[type="range"] {
-        accent-color: #FFA500;  /* Communauté */
+
+    /* Prendre des responsabilités - rouge */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(3)::-webkit-slider-thumb {
+        background-color: #FF0000;
     }
-    section[data-testid="stSidebar"] .stSlider:nth-of-type(8) input[type="range"] {
-        accent-color: #800080;  /* International */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(3)::-moz-range-thumb {
+        background-color: #FF0000;
+    }
+
+    /* Se rencontrer - vert */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(4)::-webkit-slider-thumb {
+        background-color: #28A745;
+    }
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(4)::-moz-range-thumb {
+        background-color: #28A745;
+    }
+
+    /* Développement individuel - marron */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(5)::-webkit-slider-thumb {
+        background-color: #A52A2A;
+    }
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(5)::-moz-range-thumb {
+        background-color: #A52A2A;
+    }
+
+    /* Entreprise - gris */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(6)::-webkit-slider-thumb {
+        background-color: #808080;
+    }
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(6)::-moz-range-thumb {
+        background-color: #808080;
+    }
+
+    /* Communauté - orange */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(7)::-webkit-slider-thumb {
+        background-color: #FFA500;
+    }
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(7)::-moz-range-thumb {
+        background-color: #FFA500;
+    }
+
+    /* International - violet */
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(8)::-webkit-slider-thumb {
+        background-color: #800080;
+    }
+    section[data-testid="stSidebar"] input[type="range"]:nth-of-type(8)::-moz-range-thumb {
+        background-color: #800080;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 # Titre + explication reformulée avec carrés
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
