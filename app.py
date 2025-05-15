@@ -50,95 +50,86 @@ Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre 
 Tu y retrouves en un coup d'œil :
 - Le ou les niveaux d'action au centre du visuel : Local / Régional / National / Zone / Mondial
 - Les pictogrammes du type d'opportunité : 🎓 Formations et ateliers / 🎫 Événements / 🤝 En Équipe / 🧪 Programmes et initiatives / 🥇 Concours / 🛠️ Projets et actions
-- **Ce que tu souhaites développer** : le cercle intérieur des piliers JCI <span style=\"color:#A52A2A\">🟫 Développement personnel (pilier \"Individu\")</span> <span style=\"color:#808080\">⬜ Compétences professionnelles et entrepreneuriales (pilier \"Business\")</span> <span style=\"color:#FFA500\">🟧 Service au territoire (pilier \"Communauté\")</span> <span style=\"color:#800080\">🟪 Coopération internationale (pilier \"International\")</span>  
-- **Comment tu préfères t'impliquer** : le cercle extérieur : <span style=\"color:#0000FF\">🟦 Apprendre</span> <span style=\"color:#FFD700\">🟨 Célébrer</span> <span style=\"color:#FF0000\">🟥 Prendre des responsabilités</span> <span style=\"color:#28A745\">🟩 Se rencontrer</span>
+- **Ce que tu souhaites développer** : le cercle intérieur des piliers JCI <span style="color:#A52A2A">🟫 Développement personnel (pilier "Individu")</span> <span style="color:#808080">⬜ Compétences professionnelles et entrepreneuriales (pilier "Business")</span> <span style="color:#FFA500">🟧 Service au territoire (pilier "Communauté")</span> <span style="color:#800080">🟪 Coopération internationale (pilier "International")</span>  
+- **Comment tu préfères t'impliquer** : le cercle extérieur : <span style="color:#0000FF">🟦 Apprendre</span> <span style="color:#FFD700">🟨 Célébrer</span> <span style="color:#FF0000">🟥 Prendre des responsabilités</span> <span style="color:#28A745">🟩 Se rencontrer</span>
 """, unsafe_allow_html=True)
 
-# === CSS dynamique par slider ===
-slider_styles = """<style>
-%s
-</style>""" % "\n".join([
-    f"input[key=\"verb_{key}\"]::-webkit-slider-thumb {{ background: {color} !important; }}\n"
-    f"input[key=\"verb_{key}\"]::-moz-range-thumb {{ background: {color} !important; }}"
-    for key, color in couleurs_verbes.items()
-] + [
-    f"input[key=\"pilier_{key}\"]::-webkit-slider-thumb {{ background: {color} !important; }}\n"
-    f"input[key=\"pilier_{key}\"]::-moz-range-thumb {{ background: {color} !important; }}"
-    for key, color in couleurs_piliers.items()
-])
+# === Interface de sélection utilisateur ===
+with st.sidebar:
+    st.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui te correspondent")
 
-st.markdown(slider_styles, unsafe_allow_html=True)
+    st.markdown("### 💓 Ce qui me fait vibrer c'est ...")
+    pref_engagements = {}
+    for key, color in couleurs_verbes.items():
+        st.markdown(f"<span style='color:{color}'>{key}</span>", unsafe_allow_html=True)
+        pref_engagements[key] = st.slider("", 0, 100, 25, key=f"verb_{key}", label_visibility="collapsed")
 
-# === FILTRAGE DES DONNÉES ===
+    st.markdown("### 🎯 Je souhaite développer ...")
+    pref_piliers = {}
+    for key, color in couleurs_piliers.items():
+        st.markdown(f"<span style='color:{color}'>{key}</span>", unsafe_allow_html=True)
+        pref_piliers[key] = st.slider("", 0, 100, 25, key=f"pilier_{key}", label_visibility="collapsed")
+
+    st.markdown("### 🌍 ... à un niveau :")
+    niveaux = ["L", "R", "N", "Z", "M"]
+    niveaux_selected = st.multiselect("", niveaux, default=niveaux, format_func=lambda x: niveau_labels[x], label_visibility="collapsed")
+
+    st.markdown("### 🧩 ... sous la forme principale de :")
+    formes = sorted(df["Forme"].unique())
+    formes_selected = st.multiselect("", formes, default=formes, format_func=lambda f: forme_emojis.get(f, f), label_visibility="collapsed")
+
+# === Filtrage et scoring ===
 df = df[df["Forme"].isin(formes_selected)]
 df = df[df["Niveau"].apply(lambda lv: any(n in niveaux_selected for n in lv))]
 
 def score(row):
-    s_eng = sum((row.get(k, 0) - pref_engagements[k]) ** 2 for k in pref_engagements)
-    s_pil = sum((row.get(k, 0) - pref_piliers[k]) ** 2 for k in pref_piliers)
-    return (s_eng + s_pil) ** 0.5
+    s1 = sum((row.get(k, 0) - pref_engagements[k]) ** 2 for k in pref_engagements)
+    s2 = sum((row.get(k, 0) - pref_piliers[k]) ** 2 for k in pref_piliers)
+    return (s1 + s2) ** 0.5
 
 df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
-# === VISUALISATION OPPORTUNITÉS ===
+# === Visualisation ===
 def make_visual(row, i, small=False):
-    niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
     fig = go.Figure()
-
     fig.add_trace(go.Pie(
         values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
         labels=piliers_labels,
         marker=dict(colors=list(couleurs_piliers.values())),
         hole=0.3,
-        domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
-        hovertemplate='<b>%{label}</b><extra></extra>',
+        domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         showlegend=False
     ))
 
-    vals, labels, cols = [], [], []
-    for j, (col, label) in enumerate(verbe_map.items()):
-        val = row.get(col, 0)
-        if val > 0:
-            vals.append(val)
-            labels.append(label)
-            cols.append(list(couleurs_verbes.values())[j])
+    values, labels, colors = [], [], []
+    for j, k in enumerate(verbe_map.keys()):
+        v = row.get(k, 0)
+        if v > 0:
+            values.append(v)
+            labels.append(verbe_map[k])
+            colors.append(couleurs_verbes[k])
 
     fig.add_trace(go.Pie(
-        values=vals, labels=labels,
-        marker=dict(colors=cols, line=dict(color="white", width=2)),
+        values=values, labels=labels,
+        marker=dict(colors=colors, line=dict(color="white", width=2)),
         hole=0.6,
         domain={'x': [0, 1], 'y': [0, 1]},
         textinfo='none',
-        hovertemplate='<b>%{label}</b><extra></extra>',
         showlegend=False
     ))
-
-    if not small:
-        for j, txt in enumerate(niveaux_list):
-            fig.add_annotation(
-                text=txt,
-                showarrow=False,
-                font=dict(size=11, color="black"),
-                align="center",
-                x=0.5, y=0.5 - j * 0.09,
-                xanchor='center', yanchor='middle',
-                borderpad=4
-            )
-
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
 
-# === AFFICHAGE DES OPPORTUNITÉS ===
+# === Affichage des résultats ===
 top = df.head(9)
-st.markdown("### ")
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
         picto = forme_emojis.get(row["Forme"], row["Forme"])
         st.markdown(f"#### {picto} — {row['Nom']}")
-        st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{i}")
+        st.plotly_chart(make_visual(row, i), use_container_width=True)
 
 if len(df) > 9:
     st.markdown("### 🔍 D'autres opportunités proches de tes critères")
@@ -146,6 +137,6 @@ if len(df) > 9:
     cols = st.columns(2)
     for i, (_, row) in enumerate(other.iterrows()):
         with cols[i % 2]:
-            niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
+            niveaux_txt = ", ".join(niveau_labels.get(n, n) for n in row["Niveau"])
             st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
-            st.plotly_chart(make_visual(row, i+1000, small=True), use_container_width=True)
+            st.plotly_chart(make_visual(row, i + 1000, small=True), use_container_width=True)
