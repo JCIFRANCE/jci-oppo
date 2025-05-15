@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-df = pd.read_csv("data.csv")
+df = pd.read_csv("https://drive.google.com/uc?export=download&id=1IkZKSpLxSW7741IYVZET-rc_fJbUZb1v", encoding="utf-8")
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({
     "Autre": "Événement",
