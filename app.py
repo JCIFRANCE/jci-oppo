@@ -32,18 +32,25 @@ piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
 st.markdown("""
 <style>
-/* Cache les ticks (0 / 100) sous les sliders */
-section[data-testid="stSidebar"] .stSlider div[data-testid="stTickBar"] {
-    display: none !important;
-}
-
-/* Réduction marges */
+/* Réduction marges sliders */
 section[data-testid="stSidebar"] .stSlider {
     margin-top: -10px;
     margin-bottom: 4px;
 }
+
+/* Cacher les ticks (0 / 100) sous les sliders */
+section[data-testid="stSidebar"] .stSlider div[data-testid="stTickBar"] {
+    display: none !important;
+}
+
+/* Cacher les bulles de valeur (Streamlit les rend dynamiquement dans une div positionnée en absolu) */
+section[data-testid="stSidebar"] .stSlider > div > div > div[role="slider"]::after {
+    content: none !important;
+    display: none !important;
+}
 </style>
 """, unsafe_allow_html=True)
+
 
 # Titre + explication reformulée avec carrés
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
