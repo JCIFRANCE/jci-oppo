@@ -125,9 +125,6 @@ def make_visual(row, i, small=False):
                 align="center",
                 x=0.5, y=0.5 - j * 0.09,
                 xanchor='center', yanchor='middle',
-                bgcolor="#ffe6f0",  # Rose clair
-                bordercolor="#ccc",
-                borderwidth=1,
                 borderpad=4
             )
 
