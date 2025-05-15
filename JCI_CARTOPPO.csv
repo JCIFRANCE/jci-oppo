@@ -1,0 +1,107 @@
+﻿;;dans quel type d'activité je m'engage;à quel niveau je m'engage;Pourquoi je m'engage ;Pourquoi je m'engage ;Pourquoi je m'engage ;Pourquoi je m'engage ;Comment je préfère m'engager ;Comment je préfère m'engager ;Comment je préfère m'engager ;Comment je préfère m'engager 
+;;QUOI ?;Où ?;POURQUOI ?;POURQUOI ?;POURQUOI ?;POURQUOI ?;COMMENT ? ;COMMENT ? ;COMMENT ? ;COMMENT ? 
+;;… sous la forme de …;J'explore le niveau …;Je veux développer …;Je veux développer …;Je veux développer …;Je veux développer …;Ce que j'ai plaisir à faire, c'est …;Ce que j'ai plaisir à faire, c'est …;Ce que j'ai plaisir à faire, c'est …;Ce que j'ai plaisir à faire, c'est …
+Mouse-over;;;;Savoir-être, développement personnel, outils du citoyen responsable, défense des valeurs, éthique;Savoir-faire, compétences techniques de management et d'entrepreneuriat, relations économiques, réseau business, apprentissage par essai-erreur;Diplomatie internationale, interculturalité, communauté internationale unie, franchir les frontières, construction de projets inter-organisations;Service aux territoires et aux communautés, benchmark des actions, réflexion pour construire un monde meilleur;se former, monter en compétence et grandir;expérimenter l'exercice du pouvoir prendre la responsabilité, transmettre, diriger, coacher;célébrer les temps forts, fêter les réussites , marquer les jalons, réserver du temps pour prendre plaisir collectivement;faire de nouveaux contacts, élargir son réseau de pairs, échanger des cartes de visite, se réunir autour d'une table
+Nom long;;;;Développement individuel;Entreprise et compétences professionnelles ;Coopération internationale;Service à la communauté;Apprendre;Prendre des responsabilités;Célébrer;Se rencontrer
+Nom court;Opportunités;Forme;NIVEAU;Individu;Entreprise;International;Communauté;Apprendre;Prendre des responsabilités;Célébrer;Se rencontrer
+;Écrire un dossier récompense régional;Concours;R;0.0;0.0;0.0;100.0;40.0;10.0;50.0;0.0
+;Être jury des récompenses à la JCEF;Concours;N;0.0;0.0;0.0;100.0;30.0;70.0;0.0;0.0
+;Écrire un dossier récompense national;Concours;N;0.0;0.0;0.0;100.0;30.0;60.0;10.0;0.0
+;Proposer une personne au concours TOYP au congrès mondial;Concours;M;25.0;30.0;10.0;35.0;0.0;0.0;40.0;60.0
+;Être jury des récompenses en conférence de zone;Concours;Z;20.0;0.0;40.0;40.0;30.0;60.0;0.0;10.0
+;Être jury des récompenses au congrès mondial;Concours;M;20.0;0.0;40.0;40.0;30.0;60.0;0.0;10.0
+;Écrire un dossier récompense en conférence de zone;Concours;Z;0.0;0.0;50.0;50.0;30.0;60.0;10.0;0.0
+;Écrire un dossier récompense au congrès mondial;Concours;M;0.0;0.0;50.0;50.0;20.0;60.0;20.0;0.0
+;Participer au concours CYE au niveau national;Concours;N;20.0;70.0;0.0;10.0;30.0;10.0;30.0;30.0
+;Participer au concours CYE en conférence de zone;Concours;Z;10.0;70.0;10.0;10.0;20.0;10.0;30.0;40.0
+;Participer au concours CYE en congrès mondial;Concours;M;10.0;70.0;10.0;10.0;10.0;10.0;30.0;50.0
+;Participer au concours joutes et débats au niveau local;Concours;L;80.0;10.0;0.0;10.0;50.0;0.0;25.0;25.0
+;Participer au concours joutes et débats au niveau régional;Concours;R;80.0;10.0;0.0;10.0;50.0;0.0;25.0;25.0
+;Participer au concours joutes et débats;Concours;L, R, N;80.0;10.0;0.0;10.0;50.0;0.0;25.0;25.0
+;Participer au concours joutes et débats en conférence de zone;Concours;Z;70.0;10.0;10.0;10.0;50.0;0.0;25.0;25.0
+;Participer au concours joutes et débats en congrès mondial;Concours;M;70.0;10.0;10.0;10.0;50.0;0.0;25.0;25.0
+;Participer au concours public speaking en conférence de zone;Concours;Z;90.0;0.0;10.0;0.0;70.0;0.0;20.0;10.0
+;Participer au concours public speaking en congrès mondial;Concours;M;90.0;0.0;10.0;0.0;60.0;0.0;20.0;20.0
+;"Participer à l'initiative ""star recognition"" - membres";Concours;M;70.0;0.0;20.0;10.0;10.0;0.0;90.0;0.0
+;"Participer à l'initiative ""star recognition"" - président local";Concours;M;70.0;0.0;20.0;10.0;10.0;0.0;90.0;0.0
+;Être jury des joutes & débat au niveau local /régional / national;Concours;L, R, N;100.0;0.0;0.0;0.0;20.0;40.0;10.0;30.0
+;Membre de comité;Equipe;N;30.0;0.0;0.0;70.0;50.0;0.0;0.0;50.0
+;Membre de commission;Equipe;L;20.0;0.0;0.0;80.0;50.0;0.0;0.0;50.0
+;Devenir ambassadeur JCI JVC;Equipe;M;10.0;0.0;10.0;80.0;10.0;60.0;0.0;30.0
+;Devenir ambassadeur JCI communication;Equipe;Z;10.0;0.0;30.0;60.0;10.0;60.0;0.0;30.0
+;Chargé de mission;Equipe;L, R;30.0;0.0;0.0;70.0;40.0;60.0;0.0;0.0
+;Membre du bureau;Equipe;L, R;20.0;0.0;0.0;80.0;30.0;70.0;0.0;0.0
+;Président;Equipe;L, R;10.0;0.0;0.0;90.0;20.0;80.0;0.0;0.0
+;Directeur de commission;Equipe;L;20.0;0.0;0.0;80.0;20.0;60.0;0.0;20.0
+;Mandat externe;Equipe;L, R, N;20.0;0.0;0.0;80.0;0.0;70.0;0.0;30.0
+;Prendre des responsabilités en bureau national;Equipe;N;30.0;10.0;20.0;40.0;10.0;70.0;10.0;10.0
+;Devenir représentant JCI France pour la taskforce débats;Equipe;Z;30.0;20.0;50.0;0.0;40.0;30.0;0.0;30.0
+;Devenir ambassadeur JCI international human duties day;Equipe;M;10.0;0.0;60.0;30.0;10.0;60.0;0.0;30.0
+;Devenir ambassadeur JCI RISE;Equipe;M;10.0;0.0;70.0;20.0;10.0;60.0;0.0;30.0
+;Prendre des responsabilités au board de l'European developpment council;Equipe;Z;30.0;20.0;50.0;0.0;10.0;70.0;10.0;10.0
+;Prendre des responsabilités au board mondial;Equipe;M;20.0;20.0;40.0;20.0;10.0;70.0;10.0;10.0
+;Devenir sénateur JCI - sur dossier;Equipe;M;0.0;0.0;50.0;50.0;0.0;60.0;10.0;30.0
+;Devenir charge de mission locale;Equipe;L;40.0;30.0;0.0;30.0;40.0;30.0;0.0;30.0
+;Devenir assistant du président mondial;Equipe;M;50.0;0.0;50.0;0.0;40.0;0.0;20.0;40.0
+;Devenir charge de mission régionale;Equipe;R;40.0;40.0;0.0;20.0;30.0;40.0;0.0;30.0
+;Devenir charge de mission nationale;Equipe;N;40.0;40.0;10.0;10.0;30.0;50.0;0.0;20.0
+;Devenir charge de mission JCI Europe;Equipe;Z;50.0;0.0;50.0;0.0;20.0;40.0;0.0;40.0
+;Prendre des responsabilités en bureau local;Equipe;L;40.0;20.0;10.0;30.0;30.0;50.0;10.0;10.0
+;Prendre des responsabilités en bureau régional;Equipe;R;50.0;20.0;0.0;30.0;20.0;60.0;10.0;10.0
+;Devenir ambassadeur régional - sur dossier;Equipe;R;50.0;0.0;0.0;50.0;0.0;70.0;10.0;20.0
+;Parrainer / marraine un membre;Equipe;L;100.0;0.0;0.0;0.0;0.0;80.0;0.0;20.0
+;Devenir alumni;Equipe;N;80.0;10.0;0.0;10.0;0.0;0.0;30.0;70.0
+;Participer aux conventions de l'ONU avec JCI;Evenement;M;0.0;10.0;50.0;40.0;30.0;30.0;10.0;30.0
+;Participer au congrès mondial JCI;Evenement;M;30.0;20.0;40.0;10.0;20.0;0.0;40.0;40.0
+;Participer à l'European capitals meeting;Evenement;Z;30.0;10.0;40.0;20.0;20.0;0.0;40.0;40.0
+;Participer à une conférence de zone JCI;Evenement;Z;30.0;20.0;40.0;10.0;30.0;0.0;30.0;40.0
+;"Participer à une ""JCI conférence"" (baltic, balkans, etc)";Evenement;Z;30.0;40.0;20.0;10.0;30.0;0.0;20.0;50.0
+;Faire participer ses enfants au JCI kids camp;Evenement;Z;80.0;0.0;20.0;0.0;40.0;0.0;20.0;40.0
+;Participer à un journée de formation régionale;Evenement;R;100.0;0.0;0.0;0.0;60.0;0.0;10.0;30.0
+;Participer à un congrès régional;Evenement;R;100.0;0.0;0.0;0.0;30.0;0.0;40.0;30.0
+;Participer à là JCI European academy;Evenement;Z;100.0;0.0;0.0;0.0;70.0;0.0;0.0;30.0
+;Participer à la francoformation;Evenement;M;80.0;0.0;20.0;0.0;40.0;0.0;20.0;40.0
+;Participer au JCI Europe Know-How Transfer;Evenement;Z;70.0;10.0;10.0;10.0;60.0;0.0;0.0;40.0
+;Participer à la peace makers academy - JCI France;Evenement;M;40.0;0.0;30.0;30.0;60.0;0.0;0.0;40.0
+;Participer à la JCI European Debate academy - Scotland;Evenement;Z;100.0;0.0;0.0;0.0;60.0;0.0;0.0;40.0
+;Participer à la globals goals academy - JCI Geneve;Evenement;M;40.0;20.0;20.0;20.0;50.0;0.0;10.0;40.0
+;Participer à la strategy academy - JCI Finland;Evenement;Z;40.0;30.0;20.0;10.0;50.0;0.0;10.0;40.0
+;Participer à la mediterranean academy – JCI Catalunya;Evenement;Z;50.0;10.0;20.0;20.0;40.0;0.0;20.0;40.0
+;Participer à un congrès national;Evenement;N;100.0;0.0;0.0;0.0;30.0;0.0;40.0;30.0
+;Participer à une convention nationale;Evenement;N;100.0;0.0;0.0;0.0;30.0;0.0;40.0;30.0
+;Participer à l'European presidents meeting;Evenement;Z;50.0;0.0;40.0;10.0;40.0;0.0;10.0;50.0
+;Participer à un évènement convivial international (JCI golf, ski, waltz, crayfish conférence...);Evenement;Z;50.0;20.0;30.0;0.0;0.0;0.0;40.0;60.0
+;Animer des ateliers offre engage;Formation et Atelier;L;20.0;60.0;0.0;20.0;0.0;60.0;0.0;40.0
+;Devenir formateur JCI en participant au trainers forum -international;Formation et Atelier;Z;90.0;0.0;10.0;0.0;70.0;0.0;0.0;30.0
+;Devenir formateur JCI en participant au trainers forum -national;Formation et Atelier;N;90.0;0.0;10.0;0.0;70.0;0.0;0.0;30.0
+;Suivre les formations JCI (discover, adventure, engage, rse, communication);Formation et Atelier;M;100.0;0.0;0.0;0.0;80.0;0.0;0.0;20.0
+;Suivre les formations fondamentales;Formation et Atelier;N;100.0;0.0;0.0;0.0;80.0;0.0;0.0;20.0
+;Suivre les formations loading leader;Formation et Atelier;N;100.0;0.0;0.0;0.0;80.0;0.0;0.0;20.0
+;Suivre les formations leader accompli;Formation et Atelier;N;100.0;0.0;0.0;0.0;80.0;0.0;0.0;20.0
+;Suivre les webinaires thematiques JCEF;Formation et Atelier;N;50.0;10.0;20.0;20.0;80.0;0.0;0.0;20.0
+;Participer aux ateliers JCEF;Formation et Atelier;N;70.0;30.0;0.0;0.0;80.0;0.0;0.0;20.0
+;Devenir formateur concepteur;Formation et Atelier;N;100.0;0.0;0.0;0.0;80.0;0.0;0.0;20.0
+;Devenir formateur co-animateur JCEF;Formation et Atelier;N;100.0;0.0;0.0;0.0;80.0;0.0;0.0;20.0
+;Devenir formateur leader JCEF;Formation et Atelier;N;100.0;0.0;0.0;0.0;80.0;0.0;0.0;20.0
+;Devenir formateur mentor JCEF;Formation et Atelier;N;100.0;0.0;0.0;0.0;90.0;0.0;0.0;10.0
+;Participer aux formations global leadership masterclass;Formation et Atelier;M;60.0;30.0;0.0;10.0;100.0;0.0;0.0;0.0
+;Animer les formations JCI (discover, adventure, engage, rse, communication);Formation et Atelier;L, R, N, Z, M;100.0;0.0;0.0;0.0;0.0;80.0;0.0;20.0
+;Coanimer des formations;Formation et Atelier;L, R, N;100.0;0.0;0.0;0.0;30.0;50.0;0.0;20.0
+;Animer des formations en tant que formateur leader;Formation et Atelier;L, R, N;50.0;0.0;0.0;50.0;0.0;80.0;0.0;20.0
+;Coacher des formateurs JCEF en tant que formateur mentor;Formation et Atelier;N;100.0;0.0;0.0;0.0;0.0;80.0;0.0;20.0
+;Concevoir ou mettre à jour des formations;Formation et Atelier;N;100.0;0.0;0.0;0.0;20.0;80.0;0.0;0.0
+;Participer à la JCI japan academy;Formation et Atelier;M;80.0;0.0;20.0;0.0;40.0;0.0;0.0;60.0
+;Participer au backpack project;Initiatives et Programmes;Z;0.0;10.0;50.0;40.0;0.0;0.0;0.0;100.0
+;"Participer à l'initiative ""JCI business scaling program""";Initiatives et Programmes;M;20.0;70.0;10.0;0.0;80.0;0.0;0.0;20.0
+;Participer à l'initiative JCI in business;Initiatives et Programmes;M;20.0;50.0;30.0;0.0;20.0;0.0;0.0;80.0
+;Participer à l'initiative shadow the president;Initiatives et Programmes;M;80.0;20.0;0.0;0.0;80.0;0.0;0.0;20.0
+;Faire le grand slam;Initiatives et Programmes;M;100.0;0.0;0.0;0.0;20.0;0.0;40.0;40.0
+;Participer à l'initiative JCI mentor-mentee program;Initiatives et Programmes;M;100.0;0.0;0.0;0.0;0.0;30.0;0.0;70.0
+;"Utiliser et remplir là ""European leaders map"" pour se rencontrer";Initiatives et Programmes;Z;40.0;30.0;30.0;0.0;0.0;0.0;0.0;100.0
+;Monter des actions flash;Projet;L;0.0;0.0;0.0;100.0;20.0;60.0;0.0;20.0
+;Organiser une journée de formation régionale ou locale;Projet;L, R;30.0;0.0;0.0;70.0;20.0;50.0;10.0;20.0
+;Organiser un congrès régional;Projet;R;30.0;0.0;0.0;70.0;10.0;60.0;10.0;20.0
+;Faire vivre un jumelage;Projet;M;0.0;10.0;50.0;40.0;10.0;20.0;40.0;30.0
+;Organiser un jumelage;Projet;M;0.0;0.0;70.0;30.0;10.0;40.0;20.0;30.0
+;Organiser une académie en France;Projet;M;30.0;10.0;50.0;10.0;10.0;50.0;10.0;30.0
+;Organiser un évènement national (conférence des présidents, convention, congrès );Projet;N;10.0;40.0;10.0;40.0;30.0;50.0;0.0;20.0
