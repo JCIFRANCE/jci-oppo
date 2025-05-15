@@ -42,10 +42,7 @@ section[data-testid="stSidebar"] .stSlider {
     margin-top: -10px;
     margin-bottom: 4px;
 }
-</style>
-""", unsafe_allow_html=True)
-st.markdown("""
-<style>
+
 /* Réduction des marges verticales dans la sidebar */
 section[data-testid="stSidebar"] .stSlider {
     margin-top: -10px;
@@ -97,16 +94,45 @@ verbe_couleurs = {
 }
 
 verbe_icons = {
-    "Apprendre": ("🟦", "Apprendre"),
-    "Célébrer": ("🟨", "Célébrer"),
-    "Responsabiliser": ("🟥", "Prendre des responsabilités"),
-    "Rencontrer": ("🟩", "Se rencontrer")
+    "Apprendre": ("🟦", "Apprendre", "#0000FF"),
+    "Célébrer": ("🟨", "Célébrer", "#FFD700"),
+    "Responsabiliser": ("🟥", "Prendre des responsabilités", "#FF0000"),
+    "Rencontrer": ("🟩", "Se rencontrer", "#28A745")
 }
 
 pref_engagements = {}
-for k, (emoji, label) in verbe_icons.items():
+for k, (emoji, label, color) in verbe_icons.items():
     st.sidebar.markdown(f"<span style='font-weight: 500;'>{emoji} {label}</span>", unsafe_allow_html=True)
-    pref_engagements[k] = st.sidebar.slider("", min_value=0, max_value=100, value=25, label_visibility="collapsed", key=f"verb_{k}")
+    slider_id = f"verb_{k}"
+    value = st.sidebar.slider(
+        label="",
+        min_value=0,
+        max_value=100,
+        value=25,
+        label_visibility="collapsed",
+        key=slider_id
+    )
+    pref_engagements[k] = value
+    st.sidebar.markdown(
+        f"""
+        <style>
+        /* Couleur de la barre du slider */
+        div[data-testid="stSidebar"] div[data-testid="{slider_id}"] .st-c6 {{
+            background: {color};
+        }}
+
+        /* Affichage valeur réduite sous la barre */
+        div[data-testid="stSidebar"] div[data-testid="{slider_id}"] .st-bx {{
+            font-size: 11px;
+            color: grey;
+            text-align: center;
+            margin-top: -4px;
+        }}
+        </style>
+        <div style='font-size:11px; color: grey; text-align: center;'>{value}</div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 st.sidebar.markdown("### 🧩 ... sous la forme principale de :")
