@@ -66,36 +66,14 @@ Tu y retrouves en un coup d'oeil :
 # Filtrage utilisateur
 st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
 
-# ========== CSS : sliders à 2 colonnes + suppression 0/100 ==========
-st.markdown("""
-<style>
-/* 2 sliders par ligne dans la sidebar */
-div.slider-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem;
-}
-div.slider-item {
-    width: 48%;
-}
-
-/* Cache les ticks (0 / 100) */
-section[data-testid="stSidebar"] .stSlider div[data-testid="stTickBar"] {
-    display: none !important;
-}
-
-/* Marges réduites */
-section[data-testid="stSidebar"] .stSlider {
-    margin-top: -10px;
-    margin-bottom: 4px;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# ========== SLIDERS VERBES ==========
 st.sidebar.markdown("### 💓 Ce qui me fait vibrer c'est ...")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
+verbe_couleurs = {
+    "Apprendre": "#0000FF",
+    "Célébrer": "#FFD700",
+    "Responsabiliser": "#FF0000",
+    "Rencontrer": "#28A745"
+}
 
 verbe_icons = {
     "Apprendre": ("🟦", "Apprendre", "#0000FF"),
@@ -104,55 +82,18 @@ verbe_icons = {
     "Rencontrer": ("🟩", "Se rencontrer", "#28A745")
 }
 
-st.sidebar.markdown("<div class='slider-grid'>", unsafe_allow_html=True)
 pref_engagements = {}
-
-for key, (emoji, label, color) in verbe_icons.items():
-    st.sidebar.markdown(f"<div class='slider-item'>", unsafe_allow_html=True)
-    st.sidebar.markdown(f"<span style='color:{color}; font-weight:500;'>{emoji} {label}</span>", unsafe_allow_html=True)
+for k, (emoji, label, color) in verbe_icons.items():
+    st.sidebar.markdown(f"<span style='font-weight: 500;'>{emoji} {label}</span>", unsafe_allow_html=True)
+    slider_id = f"verb_{k}"
     value = st.sidebar.slider(
         label="",
         min_value=0,
         max_value=100,
         value=25,
-        key=f"verb_{key}",
-        label_visibility="collapsed"
+        label_visibility="collapsed",
+        key=slider_id
     )
-    pref_engagements[key] = value
-    st.sidebar.markdown("</div>", unsafe_allow_html=True)
-
-st.sidebar.markdown("</div>", unsafe_allow_html=True)
-
-# ========== SLIDERS PILIERS ==========
-st.sidebar.markdown("### 🎯 Je souhaite développer ...")
-st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>Les 4 piliers JCI = les raisons de mon engagement : le <em>pourquoi</em></span>", unsafe_allow_html=True)
-
-pilier_icons = {
-    "Développement individuel": ("🟫", "Individu", "#A52A2A"),
-    "Entreprise": ("⬜", "Entreprise", "#808080"),
-    "Communaute": ("🟧", "Communauté", "#FFA500"),
-    "Cooperation": ("🟪", "International", "#800080")
-}
-
-st.sidebar.markdown("<div class='slider-grid'>", unsafe_allow_html=True)
-pref_piliers = {}
-
-for key, (emoji, label, color) in pilier_icons.items():
-    st.sidebar.markdown(f"<div class='slider-item'>", unsafe_allow_html=True)
-    st.sidebar.markdown(f"<span style='color:{color}; font-weight:500;'>{emoji} {label}</span>", unsafe_allow_html=True)
-    value = st.sidebar.slider(
-        label="",
-        min_value=0,
-        max_value=100,
-        value=25,
-        key=f"pilier_{key}",
-        label_visibility="collapsed"
-    )
-    pref_piliers[key] = value
-    st.sidebar.markdown("</div>", unsafe_allow_html=True)
-
-st.sidebar.markdown("</div>", unsafe_allow_html=True)
-
    
 st.sidebar.markdown("### 🧩 ... sous la forme principale de :")
 st.sidebar.markdown("<span style='font-size: 11px; color: grey;'>La forme de mon engagement : le <em>quoi</em></span>", unsafe_allow_html=True)
@@ -282,3 +223,4 @@ if len(df) > 9:
             niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
             st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
             st.plotly_chart(make_visual(row, i+1000, small=True), use_container_width=True)
+            
