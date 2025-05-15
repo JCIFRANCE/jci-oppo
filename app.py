@@ -110,14 +110,14 @@ def make_visual(row, i, small=False):
 
     if not small:
         for j, txt in enumerate(niveaux_list):
-            fig.add_annotation(
-                text=f"<span style='background-color:#f0f0f0;padding:5px 8px;border-radius:4px;border:1px solid #999'>{txt}</span>",
-                showarrow=False,
-                font=dict(size=11, color="black"),
-                align="center",
-                x=0.5, y=0.5 - j * 0.09,
-                xanchor='center', yanchor='middle'
-            )
+          fig.add_annotation(
+    text=f"<span style='background-color:#ffe6f0;padding:5px 8px;border-radius:6px;border:1px solid #ccc'>{txt}</span>",
+    showarrow=False,
+    font=dict(size=11, color="black"),
+    align="center",
+    x=0.5, y=0.5 - j * 0.09,
+    xanchor='center', yanchor='middle'
+)
 
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
