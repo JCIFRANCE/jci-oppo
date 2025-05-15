@@ -54,7 +54,7 @@ formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
 
 st.sidebar.markdown("### 🎯 Je souhaite développer ...")
 pref_piliers = {p: st.sidebar.slider(p, 0, 100, 25, key=f"pilier_{p}")
-                for p in ["Individu", "Entreprise", "Communaute", "Cooperation"]}
+                for p in ["Développement individuel", "Entreprise", "Communaute", "Cooperation"]}
 
 st.sidebar.markdown("### 🌍 ... à un niveau :")
 niveaux = ["L", "R", "N", "Z", "M"]
