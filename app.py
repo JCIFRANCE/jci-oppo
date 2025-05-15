@@ -154,23 +154,7 @@ for p, (emoji, label, color) in pilier_icons.items():
         key=slider_id
     )
     pref_piliers[p] = value
-    st.sidebar.markdown(
-        f"""
-        <style>
-        div[data-testid="stSidebar"] div[data-testid="{slider_id}"] .st-c6 {{
-            background: {color};
-        }}
-        div[data-testid="stSidebar"] div[data-testid="{slider_id}"] .st-bx {{
-            font-size: 11px;
-            color: grey;
-            text-align: center;
-            margin-top: -4px;
-        }}
-        </style>
-        <div style='font-size:11px; color: grey; text-align: center;'>{value}</div>
-        """,
-        unsafe_allow_html=True
-    )
+ 
 
 
 st.sidebar.markdown("### 🌍 ... à un niveau :")
