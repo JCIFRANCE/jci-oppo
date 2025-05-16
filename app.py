@@ -74,41 +74,86 @@ st.markdown("""
     position: sticky;
     top: 1rem;
     background-color: white;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     z-index: 100;
+    margin-bottom: 1rem;
 }
 
 #legende-sticky .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 0.5rem 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
     font-size: 15px;
-    line-height: 1.4;
+}
+
+#legende-sticky h4 {
+    margin-bottom: 0.5rem;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#legende-sticky ul {
+    padding-left: 1rem;
+    margin: 0;
+}
+
+#legende-sticky li {
+    list-style: none;
+    padding: 2px 0;
 }
 </style>
 
 <div id="legende-sticky">
     <h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>
     <p>Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent.</p>
+
     <div class="grid">
-        <div>🟦 <b>Apprendre</b> – Comment tu préfères t'impliquer</div>
-        <div>🟨 <b>Célébrer</b> – Comment tu préfères t'impliquer</div>
-        <div>🟥 <b>Prendre des responsabilités</b> – Comment tu préfères t'impliquer</div>
-        <div>🟩 <b>Se rencontrer</b> – Comment tu préfères t'impliquer</div>
-
-        <div>🟫 <b>Développement personnel</b> – Ce que tu souhaites développer (pilier "Individu")</div>
-        <div>⬜ <b>Entreprise</b> – Pilier Compétences entrepreneuriales</div>
-        <div>🟧 <b>Communauté</b> – Service au territoire</div>
-        <div>🟪 <b>International</b> – Coopération internationale</div>
-
-        <div>🎓 <b>Formations</b>, 🎫 Événements, 🤝 Équipe, 🧪 Programmes, 🥇 Concours, 🛠️ Projets</div>
-        <div><b>Niveaux d'action :</b> Local / Régional / National / Zone / Mondial</div>
+        <div>
+            <h4>Sur le cercle extérieur : <br>Comment tu préfères t'impliquer</h4>
+            <ul>
+                <li>🟦 Apprendre</li>
+                <li>🟨 Célébrer</li>
+                <li>🟥 Prendre des responsabilités</li>
+                <li>🟩 Se rencontrer</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Sur le cercle intérieur : <br>Ce que tu souhaites développer</h4>
+            <ul>
+                <li>🟫 Développement personnel (Individu)</li>
+                <li>⬜ Compétences entrepreneuriales (Entreprise)</li>
+                <li>🟧 Service au territoire (Communauté)</li>
+                <li>🟪 Coopération internationale (International)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Dans le titre : <br>La forme de l'opportunité</h4>
+            <ul>
+                <li>🎓 Formations et ateliers</li>
+                <li>🎫 Événements</li>
+                <li>🤝 En Équipe</li>
+                <li>🧪 Programmes et initiatives</li>
+                <li>🥇 Concours</li>
+                <li>🛠️ Projets et actions</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Au centre du visuel : <br>Les niveaux d'action</h4>
+            <ul>
+                <li>📍 Local</li>
+                <li>🏘️ Régional</li>
+                <li>🇫🇷 National</li>
+                <li>🌍 Zone</li>
+                <li>🗺️ Mondial</li>
+            </ul>
+        </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
+
 
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
 st.markdown("""
