@@ -217,11 +217,11 @@ def make_visual(row, i, small=False):
     values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
     labels=piliers_labels,
     marker=dict(color=[
-        couleurs_piliers["Développement individuel"],
-        couleurs_piliers["Entreprise"],
-        couleurs_piliers["Communaute"],
-        couleurs_piliers["Cooperation"]
-    ]),
+    couleurs_piliers["Développement individuel"],
+    couleurs_piliers["Entreprise"],
+    couleurs_piliers["Communaute"],
+    couleurs_piliers["Cooperation"]
+]),
     hole=0.3,
     domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
     textinfo='none',
