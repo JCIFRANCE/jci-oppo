@@ -29,43 +29,44 @@ couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
 piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
-st.set_page_config(page_title="Cartographie des opportunités", layout="wide")
+import streamlit as st
+
+# Configuration de la page
+st.set_page_config(
+    page_title="Cartographie des opportunités",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Style personnalisé pour la sidebar
 st.markdown("""
 <style>
-/* Réduction marges sliders */
+/* Réduction des marges autour des sliders */
 section[data-testid="stSidebar"] .stSlider {
-    margin-top: -10px;
-    margin-bottom: 4px;
+    margin-top: -6px;
+    margin-bottom: 6px;
 }
 
-/* Cacher les ticks (0 / 100) sous les sliders */
-section[data-testid="stSidebar"] .stSlider div[data-testid="stTickBar"] {
-    display: none;
-}
-
-/* Cacher les bulles de valeur (Streamlit les rend dynamiquement dans une div positionnée en absolu) */
-section[data-testid="stSidebar"] .stSlider > div > div > div[role="slider"]::after {
-    content: none !important;
+/* Supprimer les ticks 0 / 100 */
+div[data-testid="stTickBar"] {
     display: none !important;
 }
 
-/* Cacher la bulle de valeur au-dessus du slider */
-section[data-testid="stSidebar"] .stSlider div[role="slider"]::after {
-    content: none !important;
+/* Supprimer la bulle de valeur flottante */
+div[role="tooltip"] {
     display: none !important;
 }
 
-/* Réduction de l'espacement après les titres de la sidebar */
-section[data-testid="stSidebar"] h3, 
-section[data-testid="stSidebar"] h2, 
+/* Réduction des marges après les titres */
+section[data-testid="stSidebar"] h3,
+section[data-testid="stSidebar"] h2,
 section[data-testid="stSidebar"] h4 {
-    margin-bottom: 0.3rem !important;
-    margin-top: 0rem !important;
+    margin-bottom: 0.2rem !important;
+    margin-top: 0.3rem !important;
 }
 </style>
-
-
 """, unsafe_allow_html=True)
+
 
 
 # Titre + explication reformulée avec carrés
