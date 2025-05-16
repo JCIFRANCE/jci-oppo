@@ -59,8 +59,8 @@ section[data-testid="stSidebar"] .stSlider div[role="slider"]::after {
 section[data-testid="stSidebar"] h3, 
 section[data-testid="stSidebar"] h2, 
 section[data-testid="stSidebar"] h4 {
-    margin-bottom: 0.2rem !important;
-    margin-top: 0.2rem !important;
+    margin-bottom: 0.3rem !important;
+    margin-top: 0rem !important;
 }
 </style>
 
