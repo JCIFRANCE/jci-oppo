@@ -1,84 +1,4 @@
-
 import streamlit as st
-
-# ✅ Cette ligne doit être la première commande Streamlit
-st.set_page_config(
-    page_title="Cartographie des opportunités",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# ✅ HTML et CSS pour le bandeau sticky avec légende
-st.markdown("""
-<style>
-#top-legend {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: white;
-    padding: 1rem 2rem;
-    z-index: 1000;
-    border-bottom: 1px solid #ccc;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-#top-legend .grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1.5rem;
-}
-#top-legend .col {
-    flex: 1 1 22%;
-    min-width: 200px;
-    font-size: 14px;
-}
-#top-legend h4 {
-    margin-bottom: 0.5rem;
-    font-size: 16px;
-}
-/* Décalage du contenu principal */
-section.main > div.block-container {
-    padding-top: 260px;
-}
-</style>
-
-<div id="top-legend">
-    <div class="grid">
-        <div class="col">
-            <h4>🔄 Comment tu préfères t'impliquer</h4>
-            🟦 Apprendre<br>
-            🟨 Célébrer<br>
-            🟥 Prendre des responsabilités<br>
-            🟩 Se rencontrer
-        </div>
-        <div class="col">
-            <h4>🧭 Ce que tu souhaites développer</h4>
-            🟫 Développement personnel<br>
-            ⬜ Compétences entrepreneuriales<br>
-            🟧 Service au territoire<br>
-            🟪 Coopération internationale
-        </div>
-        <div class="col">
-            <h4>🏷️ Forme de l’opportunité</h4>
-            🎓 Formations<br>
-            🎫 Événements<br>
-            🤝 En Équipe<br>
-            🧪 Programmes<br>
-            🥇 Concours<br>
-            🛠️ Projets
-        </div>
-        <div class="col">
-            <h4>📍 Niveaux d’action</h4>
-            📍 Local<br>
-            🏘️ Régional<br>
-            🇫🇷 National<br>
-            🌍 Zone<br>
-            🗺️ Mondial
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
 import pandas as pd
 import plotly.graph_objects as go
 
@@ -108,6 +28,8 @@ couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]
 couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
 piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
+
+import streamlit as st
 
 # Configuration de la page
 st.set_page_config(
@@ -141,6 +63,95 @@ section[data-testid="stSidebar"] h4 {
     margin-top: 0rem !important;
 }
 </style>
+""", unsafe_allow_html=True)
+# Ajouter le style sticky pour l'encapsuler
+st.markdown("""
+<style>
+div.sticky-legend {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    z-index: 999;
+    border-bottom: 1px solid #eee;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+#legende-sticky {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 1rem;
+    z-index: 999;
+    border-bottom: 1px solid #eee;
+}
+
+#legende-sticky table {
+    width: 100%;
+    table-layout: fixed;
+    font-size: 15px;
+}
+
+#legende-sticky th {
+    text-align: left;
+    padding-bottom: 0.5rem;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#legende-sticky td {
+    vertical-align: top;
+    padding-right: 1rem;
+}
+</style>
+
+<div id="legende-sticky">
+    <h2>🗺️ Cartographie des opportunités de la Jeune Chambre</h2>
+    <p>Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent.</p>
+
+    <table>
+        <tr>
+            <th>Comment tu préfères t'impliquer</th>
+            <th>Ce que tu souhaites développer</th>
+            <th>La forme de l'opportunité</th>
+            <th>Les niveaux d'action</th>
+        </tr>
+        <tr>
+            <td>
+                🟦 Apprendre<br>
+                🟨 Célébrer<br>
+                🟥 Prendre des responsabilités<br>
+                🟩 Se rencontrer
+            </td>
+            <td>
+                🟫 Développement personnel (Individu)<br>
+                ⬜ Compétences entrepreneuriales (Entreprise)<br>
+                🟧 Service au territoire (Communauté)<br>
+                🟪 Coopération internationale (International)
+            </td>
+            <td>
+                🎓 Formations<br>
+                🎫 Événements<br>
+                🤝 En Équipe<br>
+                🧪 Programmes<br>
+                🥇 Concours<br>
+                🛠️ Projets
+            </td>
+            <td>
+                📍 Local<br>
+                🏘️ Régional<br>
+                🇫🇷 National<br>
+                🌍 Zone<br>
+                🗺️ Mondial
+            </td>
+        </tr>
+    </table>
+</div>
 """, unsafe_allow_html=True)
 
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
