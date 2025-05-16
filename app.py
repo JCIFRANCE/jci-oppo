@@ -69,9 +69,7 @@ section[data-testid="stSidebar"] h4 {
 
 # Titre + explication reformulée avec carrés
 st.markdown("""
-<style>
-/* Force les styles dans les composants Streamlit */
-div[data-testid="stMarkdownContainer"] > div#legende-sticky {
+<div style='
     position: sticky;
     top: 1rem;
     background-color: white;
@@ -79,60 +77,34 @@ div[data-testid="stMarkdownContainer"] > div#legende-sticky {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    z-index: 100;
     margin-bottom: 1rem;
-}
-
-div[data-testid="stMarkdownContainer"] > div#legende-sticky .bloc-colonnes {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.2rem;
-    font-size: 15px;
-}
-
-#legende-sticky h4 {
-    margin-bottom: 0.5rem;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-#legende-sticky ul {
-    padding-left: 1rem;
-    margin: 0;
-}
-
-#legende-sticky li {
-    list-style: none;
-    padding: 2px 0;
-}
-</style>
-
-<div id="legende-sticky">
+    z-index: 100;
+'>
     <h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>
     <p>Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement.</p>
 
-    <div class="bloc-colonnes">
-        <div>
+    <div style='display: flex; flex-wrap: wrap; gap: 2rem;'>
+        <div style='flex: 1 1 220px;'>
             <h4>Comment tu préfères t'impliquer</h4>
-            <ul>
+            <ul style='margin: 0; padding-left: 1.2rem;'>
                 <li>🟦 Apprendre</li>
                 <li>🟨 Célébrer</li>
                 <li>🟥 Prendre des responsabilités</li>
                 <li>🟩 Se rencontrer</li>
             </ul>
         </div>
-        <div>
+        <div style='flex: 1 1 220px;'>
             <h4>Ce que tu souhaites développer</h4>
-            <ul>
+            <ul style='margin: 0; padding-left: 1.2rem;'>
                 <li>🟫 Développement personnel</li>
                 <li>⬜ Compétences entrepreneuriales</li>
                 <li>🟧 Service au territoire</li>
                 <li>🟪 Coopération internationale</li>
             </ul>
         </div>
-        <div>
+        <div style='flex: 1 1 220px;'>
             <h4>La forme de l'opportunité</h4>
-            <ul>
+            <ul style='margin: 0; padding-left: 1.2rem;'>
                 <li>🎓 Formations</li>
                 <li>🎫 Événements</li>
                 <li>🤝 En Équipe</li>
@@ -141,9 +113,9 @@ div[data-testid="stMarkdownContainer"] > div#legende-sticky .bloc-colonnes {
                 <li>🛠️ Projets</li>
             </ul>
         </div>
-        <div>
+        <div style='flex: 1 1 220px;'>
             <h4>Les niveaux d'action</h4>
-            <ul>
+            <ul style='margin: 0; padding-left: 1.2rem;'>
                 <li>📍 Local</li>
                 <li>🏘️ Régional</li>
                 <li>🇫🇷 National</li>
