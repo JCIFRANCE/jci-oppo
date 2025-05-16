@@ -76,7 +76,7 @@ Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre 
 st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
 
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 0px;'>💓 Ce qui me fait vibrer c'est ...</div>", unsafe_allow_html=True)
-st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
+st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Ma préférence d'engagement : <em>(le comment ?)</em></span>", unsafe_allow_html=True)
 # VERBES : carré + label + description légère
 descriptions_verbes = {
     "Apprendre": "Se former, comprendre",
@@ -113,14 +113,14 @@ for k, (emoji, label, color) in verbe_icons.items():
     pref_engagements[k] = value
    
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🧩 ... sous la forme principale de :</div>", unsafe_allow_html=True)
-st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon engagement : le <em>quoi</em></span>", unsafe_allow_html=True)
+st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon engagement : <em>(le quoi ?)</em></span>", unsafe_allow_html=True)
 formes = sorted(df["Forme"].unique().tolist())
 formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
                                          format_func=lambda f: forme_emojis.get(f, f),
                                          label_visibility="collapsed")
 
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🎯 Je souhaite développer ...</div>", unsafe_allow_html=True)
-st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Les 4 piliers JCI = les raisons de mon engagement : le <em>pourquoi</em></span>", unsafe_allow_html=True)
+st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Les 4 piliers JCI = les raisons de mon engagement : <em>(le pourquoi ?)</em></span>", unsafe_allow_html=True)
 pilier_icons = {
     "Développement individuel": ("🟫", "Individu"),
     "Entreprise": ("⬜", "Entreprise"),
@@ -153,7 +153,7 @@ for p, (emoji, label, color) in pilier_icons.items():
 
 
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🌍 ... à un niveau :</div>", unsafe_allow_html=True)
-st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Quelle portée a mon engagement : le <em>où</em></span>", unsafe_allow_html=True)
+st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Quelle portée a mon engagement : <em>(le où ?)</em></span>", unsafe_allow_html=True)
 niveaux = ["L", "R", "N", "Z", "M"]
 niveaux_selected = st.sidebar.multiselect("", options=niveaux, default=niveaux,
                                           format_func=lambda n: niveau_labels.get(n, n),
