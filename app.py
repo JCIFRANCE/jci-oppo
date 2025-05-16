@@ -1,40 +1,16 @@
-import streamlit as st
-import pandas as pd
-import plotly.graph_objects as go
-
-df = pd.read_csv("https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv", encoding="utf-8")
-df["Forme"] = df["Forme"].str.strip().str.capitalize()
-df["Forme"] = df["Forme"].replace({
-    "Autre": "Événement",
-    "Evenement": "Événement",
-    "Formation /atelier": "Formation",
-    "Initiative /programme": "Programme",
-    "Initiative/programme": "Programme"
-})
-df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
-
-verbe_map = {
-    "Apprendre": "Apprendre",
-    "Célébrer": "Célébrer",
-    "Responsabiliser": "Prendre des responsabilités",
-    "Rencontrer": "Se rencontrer"
-}
-niveau_labels = {"L": "Local", "R": "Régional", "N": "National", "Z": "Zone", "M": "Monde"}
-forme_emojis = {
-    "Programme": "🧪 Programme", "Concours": "🥇 Concours", "Projet": "🛠️ Projet",
-    "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement", "Formation": "🎓 Formation"
-}
-couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]
-couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
-verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
-piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
 import streamlit as st
 
-# Ajouter le style global sticky + décalage de contenu principal
+# ✅ Cette ligne doit être la première commande Streamlit
+st.set_page_config(
+    page_title="Cartographie des opportunités",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# ✅ HTML et CSS pour le bandeau sticky avec légende
 st.markdown("""
 <style>
-/* Volet fixe en haut */
 #top-legend {
     position: fixed;
     top: 0;
@@ -46,28 +22,24 @@ st.markdown("""
     border-bottom: 1px solid #ccc;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
-
-/* Grille 4 colonnes */
 #top-legend .grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 1.5rem;
 }
-
 #top-legend .col {
     flex: 1 1 22%;
     min-width: 200px;
     font-size: 14px;
 }
-
 #top-legend h4 {
     margin-bottom: 0.5rem;
     font-size: 16px;
 }
-
-body, .main, .block-container {
-    margin-top: 240px;  /* Décalage pour ne pas masquer le contenu */
+/* Décalage du contenu principal */
+section.main > div.block-container {
+    padding-top: 260px;
 }
 </style>
 
@@ -107,6 +79,35 @@ body, .main, .block-container {
     </div>
 </div>
 """, unsafe_allow_html=True)
+import pandas as pd
+import plotly.graph_objects as go
+
+df = pd.read_csv("https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv", encoding="utf-8")
+df["Forme"] = df["Forme"].str.strip().str.capitalize()
+df["Forme"] = df["Forme"].replace({
+    "Autre": "Événement",
+    "Evenement": "Événement",
+    "Formation /atelier": "Formation",
+    "Initiative /programme": "Programme",
+    "Initiative/programme": "Programme"
+})
+df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
+
+verbe_map = {
+    "Apprendre": "Apprendre",
+    "Célébrer": "Célébrer",
+    "Responsabiliser": "Prendre des responsabilités",
+    "Rencontrer": "Se rencontrer"
+}
+niveau_labels = {"L": "Local", "R": "Régional", "N": "National", "Z": "Zone", "M": "Monde"}
+forme_emojis = {
+    "Programme": "🧪 Programme", "Concours": "🥇 Concours", "Projet": "🛠️ Projet",
+    "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement", "Formation": "🎓 Formation"
+}
+couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]
+couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
+verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
+piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
 # Configuration de la page
 st.set_page_config(
