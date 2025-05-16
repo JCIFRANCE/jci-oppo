@@ -78,8 +78,8 @@ st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspo
 
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>💓 Ce qui me fait vibrer c'est ...</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
-# VERBES : symbole + label + slider + explication
-explanations_verbes = {
+# VERBES : symbole + label + slider + explication avec HTML simplifié
+descriptions_verbes = {
     "Apprendre": "Se former, comprendre",
     "Célébrer": "Valoriser, s'enthousiasmer",
     "Responsabiliser": "Prendre le lead, s'engager",
@@ -95,7 +95,12 @@ verbe_icons = {
 
 pref_engagements = {}
 for k, (emoji, label, color) in verbe_icons.items():
-    st.sidebar.markdown(f"<span style='font-weight: 500;'>{emoji} {label}</span>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"""
+    <div style='margin-bottom: 0.2rem;'>
+        <span style='font-weight: 500;'>{emoji} {label}</span><br>
+        <span style='font-size: 14px; color: grey;'>{descriptions_verbes[k]}</span>
+    </div>
+    """, unsafe_allow_html=True)
     slider_id = f"verb_{k}"
     value = st.sidebar.slider(
         label="",
@@ -105,21 +110,8 @@ for k, (emoji, label, color) in verbe_icons.items():
         label_visibility="collapsed",
         key=slider_id
     )
-    st.sidebar.markdown(f"<span style='font-size: 14px; color: grey;'>{explanations_verbes[k]}</span>", unsafe_allow_html=True)
-}
+    pref_engagements[k] = value
 
-pref_engagements = {}
-for k, (emoji, label, color) in verbe_icons.items():
-    st.sidebar.markdown(f"<span style='font-weight: 500;'>{emoji} {label}</span>", unsafe_allow_html=True)
-    slider_id = f"verb_{k}"
-    value = st.sidebar.slider(
-        label="",
-        min_value=0,
-        max_value=100,
-        value=25,
-        label_visibility="collapsed",
-        key=slider_id
-    )
    
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🧩 ... sous la forme principale de :</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon engagement : le <em>quoi</em></span>", unsafe_allow_html=True)
