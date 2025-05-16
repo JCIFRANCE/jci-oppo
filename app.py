@@ -78,11 +78,12 @@ st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspo
 
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>💓 Ce qui me fait vibrer c'est ...</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
-verbe_couleurs = {
-    "Apprendre": "#0000FF",
-    "Célébrer": "#FFD700",
-    "Responsabiliser": "#FF0000",
-    "Rencontrer": "#28A745"
+# VERBES : symbole + label + slider + explication
+explanations_verbes = {
+    "Apprendre": "Se former, comprendre",
+    "Célébrer": "Valoriser, s'enthousiasmer",
+    "Responsabiliser": "Prendre le lead, s'engager",
+    "Rencontrer": "Créer du lien"
 }
 
 verbe_icons = {
@@ -90,6 +91,21 @@ verbe_icons = {
     "Célébrer": ("🟨", "Célébrer", "#FFD700"),
     "Responsabiliser": ("🟥", "Prendre des responsabilités", "#FF0000"),
     "Rencontrer": ("🟩", "Se rencontrer", "#28A745")
+}
+
+pref_engagements = {}
+for k, (emoji, label, color) in verbe_icons.items():
+    st.sidebar.markdown(f"<span style='font-weight: 500;'>{emoji} {label}</span>", unsafe_allow_html=True)
+    slider_id = f"verb_{k}"
+    value = st.sidebar.slider(
+        label="",
+        min_value=0,
+        max_value=100,
+        value=25,
+        label_visibility="collapsed",
+        key=slider_id
+    )
+    st.sidebar.markdown(f"<span style='font-size: 14px; color: grey;'>{explanations_verbes[k]}</span>", unsafe_allow_html=True)
 }
 
 pref_engagements = {}
