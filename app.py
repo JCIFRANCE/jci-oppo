@@ -53,8 +53,8 @@ section[data-testid="stSidebar"] .stSlider > div > div > div[role="slider"]::aft
 section[data-testid="stSidebar"] h3, 
 section[data-testid="stSidebar"] h2, 
 section[data-testid="stSidebar"] h4 {
-    margin-bottom: 0.3rem !important;
-    margin-top: 0.3rem !important;
+    margin-bottom: 0.2rem !important;
+    margin-top: 0.2rem !important;
 }
 </style>
 
@@ -65,18 +65,17 @@ section[data-testid="stSidebar"] h4 {
 # Titre + explication reformulée avec carrés
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
 st.markdown("""
-Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent. 
-Tu y retrouves en un coup d'oeil : 
-- Le ou les niveaux d'action au centre du visuel : Local / Régional / National / Zone / Mondial
-- Les pictogrammes du type d'opportunité : 🎓 Formations et ateliers / 🎫 Événements / 🤝 En Équipe / 🧪 Programmes et initiatives / 🥇 Concours / 🛠️ Projets et actions
-- **Ce que tu souhaites développer** : le cercle intérieur des piliers JCI <span style="color:#A52A2A">🟫 Développement personnel (pilier "Individu")</span> <span style="color:#808080">⬜ Compétences professionnelles et entrepreneuriales (pilier "Entreprise")</span> <span style="color:#FFA500">🟧 Service au territoire ( pilier "Communauté")</span> <span style="color:#800080">🟪 Coopération internationale (pilier "International")</span>  
-- **Comment tu préfères t'impliquer** : le cercle extérieur : <span style="color:#0000FF">🟦 Apprendre</span> <span style="color:#FFD700">🟨 Célébrer</span> <span style="color:#FF0000">🟥 Prendre des responsabilités</span> <span style="color:#28A745">🟩 Se rencontrer</span>
+Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent. Tu y retrouves en un coup d'oeil : 
+- Sur le cercle extérieur : les verbes pour définir **Comment tu préfères t'impliquer** : <span style="color:#0000FF">🟦 Apprendre</span> <span style="color:#FFD700">🟨 Célébrer</span> <span style="color:#FF0000">🟥 Prendre des responsabilités</span> <span style="color:#28A745">🟩 Se rencontrer</span>
+- Sur le cercle intérieur : les piliers JCI de **ce que tu souhaites développer** <span style="color:#A52A2A">🟫 Développement personnel (pilier "Individu")</span> <span style="color:#808080">⬜ Compétences professionnelles et entrepreneuriales (pilier "Entreprise")</span> <span style="color:#FFA500">🟧 Service au territoire ( pilier "Communauté")</span> <span style="color:#800080">🟪 Coopération internationale (pilier "International")</span>  
+- Dans le titre : les pictogrammes de la forme de l'opportunité : 🎓 Formations et ateliers / 🎫 Événements / 🤝 En Équipe / 🧪 Programmes et initiatives / 🥇 Concours / 🛠️ Projets et actions
+- Au centre du visuel : le ou les niveaux d'action : Local / Régional / National / Zone / Mondial
 """, unsafe_allow_html=True)
 
 # Filtrage utilisateur
 st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
 
-st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 1px;'>💓 Ce qui me fait vibrer c'est ...</div>", unsafe_allow_html=True)
+st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 0px;'>💓 Ce qui me fait vibrer c'est ...</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
 # VERBES : symbole + label + slider + explication avec HTML simplifié
 descriptions_verbes = {
