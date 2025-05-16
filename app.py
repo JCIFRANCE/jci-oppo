@@ -44,16 +44,14 @@ st.markdown("""
 /* Réduction des marges autour des sliders */
 section[data-testid="stSidebar"] .stSlider {
     margin-top: -6px;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
 }
 
-/* Supprimer les ticks 0 / 100 */
-div[data-testid="stTickBar"] {
-    display: none !important;
-}
-
-/* Supprimer la bulle de valeur flottante */
-div[role="tooltip"] {
+/* Cache tout texte dans les sliders */
+section[data-testid="stSidebar"] .stSlider label,
+section[data-testid="stSidebar"] .stSlider div[data-testid="stTickBar"],
+section[data-testid="stSidebar"] .stSlider div[role="tooltip"],
+section[data-testid="stSidebar"] .stSlider span {
     display: none !important;
 }
 
