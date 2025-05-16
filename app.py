@@ -68,6 +68,48 @@ section[data-testid="stSidebar"] h4 {
 
 
 # Titre + explication reformulée avec carrés
+st.markdown("""
+<style>
+#legende-sticky {
+    position: sticky;
+    top: 1rem;
+    background-color: white;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+
+#legende-sticky .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.5rem 1.5rem;
+    font-size: 15px;
+    line-height: 1.4;
+}
+</style>
+
+<div id="legende-sticky">
+    <h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>
+    <p>Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent.</p>
+    <div class="grid">
+        <div>🟦 <b>Apprendre</b> – Comment tu préfères t'impliquer</div>
+        <div>🟨 <b>Célébrer</b> – Comment tu préfères t'impliquer</div>
+        <div>🟥 <b>Prendre des responsabilités</b> – Comment tu préfères t'impliquer</div>
+        <div>🟩 <b>Se rencontrer</b> – Comment tu préfères t'impliquer</div>
+
+        <div>🟫 <b>Développement personnel</b> – Ce que tu souhaites développer (pilier "Individu")</div>
+        <div>⬜ <b>Entreprise</b> – Pilier Compétences entrepreneuriales</div>
+        <div>🟧 <b>Communauté</b> – Service au territoire</div>
+        <div>🟪 <b>International</b> – Coopération internationale</div>
+
+        <div>🎓 <b>Formations</b>, 🎫 Événements, 🤝 Équipe, 🧪 Programmes, 🥇 Concours, 🛠️ Projets</div>
+        <div><b>Niveaux d'action :</b> Local / Régional / National / Zone / Mondial</div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
 st.markdown("""
 Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent. Tu y retrouves en un coup d'oeil : 
