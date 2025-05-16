@@ -80,44 +80,79 @@ div.sticky-legend {
 </style>
 """, unsafe_allow_html=True)
 
-# Légende sticky via conteneur personnalisé
-st.markdown("<div class='sticky-legend'>", unsafe_allow_html=True)
+st.markdown("""
+<style>
+#legende-sticky {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 1rem;
+    z-index: 999;
+    border-bottom: 1px solid #eee;
+}
 
-st.markdown("## 🗺️ Cartographie des opportunités de la Jeune Chambre")
-st.markdown("Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent.")
+#legende-sticky table {
+    width: 100%;
+    table-layout: fixed;
+    font-size: 15px;
+}
 
-cols = st.columns(4)
+#legende-sticky th {
+    text-align: left;
+    padding-bottom: 0.5rem;
+    font-size: 16px;
+    font-weight: 600;
+}
 
-with cols[0]:
-    st.markdown("**🔄 Comment tu préfères t'impliquer**")
-    st.markdown("- 🟦 Apprendre")
-    st.markdown("- 🟨 Célébrer")
-    st.markdown("- 🟥 Prendre des responsabilités")
-    st.markdown("- 🟩 Se rencontrer")
+#legende-sticky td {
+    vertical-align: top;
+    padding-right: 1rem;
+}
+</style>
 
-with cols[1]:
-    st.markdown("**🧭 Ce que tu souhaites développer**")
-    st.markdown("- 🟫 Développement personnel (Individu)")
-    st.markdown("- ⬜ Compétences entrepreneuriales (Entreprise)")
-    st.markdown("- 🟧 Service au territoire (Communauté)")
-    st.markdown("- 🟪 Coopération internationale (International)")
+<div id="legende-sticky">
+    <h2>🗺️ Cartographie des opportunités de la Jeune Chambre</h2>
+    <p>Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent.</p>
 
-with cols[2]:
-    st.markdown("**🏷️ La forme de l'opportunité**")
-    st.markdown("- 🎓 Formations")
-    st.markdown("- 🎫 Événements")
-    st.markdown("- 🤝 En Équipe")
-    st.markdown("- 🧪 Programmes")
-    st.markdown("- 🥇 Concours")
-    st.markdown("- 🛠️ Projets")
-
-with cols[3]:
-    st.markdown("**📍 Les niveaux d'action**")
-    st.markdown("- Local")
-    st.markdown("- Régional")
-    st.markdown("- National")
-    st.markdown("- Zone")
-    st.markdown("- Mondial")
+    <table>
+        <tr>
+            <th>Comment tu préfères t'impliquer</th>
+            <th>Ce que tu souhaites développer</th>
+            <th>La forme de l'opportunité</th>
+            <th>Les niveaux d'action</th>
+        </tr>
+        <tr>
+            <td>
+                🟦 Apprendre<br>
+                🟨 Célébrer<br>
+                🟥 Prendre des responsabilités<br>
+                🟩 Se rencontrer
+            </td>
+            <td>
+                🟫 Développement personnel (Individu)<br>
+                ⬜ Compétences entrepreneuriales (Entreprise)<br>
+                🟧 Service au territoire (Communauté)<br>
+                🟪 Coopération internationale (International)
+            </td>
+            <td>
+                🎓 Formations<br>
+                🎫 Événements<br>
+                🤝 En Équipe<br>
+                🧪 Programmes<br>
+                🥇 Concours<br>
+                🛠️ Projets
+            </td>
+            <td>
+                📍 Local<br>
+                🏘️ Régional<br>
+                🇫🇷 National<br>
+                🌍 Zone<br>
+                🗺️ Mondial
+            </td>
+        </tr>
+    </table>
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
 st.markdown("""
