@@ -48,7 +48,6 @@ section[data-testid="stSidebar"] .stSlider > div > div > div[role="slider"]::aft
     content: none !important;
     display: none !important;
 }
-</style>
 
 /* Réduction de l'espacement après les titres de la sidebar */
 section[data-testid="stSidebar"] h3, 
@@ -57,6 +56,9 @@ section[data-testid="stSidebar"] h4 {
     margin-bottom: 0.3rem !important;
     margin-top: 0.3rem !important;
 }
+</style>
+
+
 """, unsafe_allow_html=True)
 
 
