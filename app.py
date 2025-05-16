@@ -29,8 +29,6 @@ couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
 piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
-import streamlit as st
-
 # Configuration de la page
 st.set_page_config(
     page_title="Cartographie des opportunités",
@@ -44,7 +42,7 @@ st.markdown("""
 /* Réduction des marges autour des sliders */
 section[data-testid="stSidebar"] .stSlider {
     margin-top: -6px;
-    margin-bottom: 3px;
+    margin-bottom: 1px;
 }
 
 /* Cache tout texte dans les sliders */
