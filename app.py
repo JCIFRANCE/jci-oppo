@@ -76,7 +76,7 @@ Tu y retrouves en un coup d'oeil :
 # Filtrage utilisateur
 st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
 
-st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>💓 Ce qui me fait vibrer c'est ...</div>", unsafe_allow_html=True)
+st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 1px;'>💓 Ce qui me fait vibrer c'est ...</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
 # VERBES : symbole + label + slider + explication avec HTML simplifié
 descriptions_verbes = {
