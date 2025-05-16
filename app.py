@@ -112,7 +112,7 @@ st.markdown("""
 
     <div class="grid">
         <div>
-            <h4>Sur le cercle extérieur : <br>Comment tu préfères t'impliquer</h4>
+            <h4>Comment tu préfères t'impliquer</h4>
             <ul>
                 <li>🟦 Apprendre</li>
                 <li>🟨 Célébrer</li>
@@ -121,7 +121,7 @@ st.markdown("""
             </ul>
         </div>
         <div>
-            <h4>Sur le cercle intérieur : <br>Ce que tu souhaites développer</h4>
+            <h4>Ce que tu souhaites développer</h4>
             <ul>
                 <li>🟫 Développement personnel (Individu)</li>
                 <li>⬜ Compétences entrepreneuriales (Entreprise)</li>
@@ -130,7 +130,7 @@ st.markdown("""
             </ul>
         </div>
         <div>
-            <h4>Dans le titre : <br>La forme de l'opportunité</h4>
+            <h4>La forme de l'opportunité</h4>
             <ul>
                 <li>🎓 Formations et ateliers</li>
                 <li>🎫 Événements</li>
@@ -141,7 +141,7 @@ st.markdown("""
             </ul>
         </div>
         <div>
-            <h4>Au centre du visuel : <br>Les niveaux d'action</h4>
+            <h4>Les niveaux d'action</h4>
             <ul>
                 <li>📍 Local</li>
                 <li>🏘️ Régional</li>
@@ -153,7 +153,6 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
-
 
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
 st.markdown("""
