@@ -37,6 +37,17 @@ st.set_page_config(
 )
 
 # Style personnalisé pour la sidebar
+hide_elements = """
+        <style>
+            div[data-testid="stSliderTickBarMin"],
+            div[data-testid="stSliderTickBarMax"] {
+                display: none;
+            }
+        </style>
+"""
+
+st.markdown(hide_elements, unsafe_allow_html=True)
+
 st.markdown("""
 <style>
 /* Réduction des marges autour des sliders */
