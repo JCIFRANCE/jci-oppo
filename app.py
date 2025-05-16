@@ -77,7 +77,7 @@ st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspo
 
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 0px;'>💓 Ce qui me fait vibrer c'est ...</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Ma préférence d'engagement : le <em>comment</em></span>", unsafe_allow_html=True)
-# VERBES : symbole + label + slider + explication avec HTML simplifié
+# VERBES : carré + label + description légère
 descriptions_verbes = {
     "Apprendre": "Se former, comprendre",
     "Célébrer": "Valoriser, s'enthousiasmer",
@@ -95,14 +95,15 @@ verbe_icons = {
 pref_engagements = {}
 for k, (emoji, label, color) in verbe_icons.items():
     st.sidebar.markdown(f"""
-<div style='display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem;'>
-    <span style='font-weight: 500;'>{emoji} {label}</span><span style='font-size: 13px; color: grey;'>{descriptions_verbes[k]}</span>
-</div>
-""", unsafe_allow_html=True)
+    <div style='margin-bottom: 0.4rem;'>
+        <span style='font-weight: 500;'>{emoji} {label}</span>
+        <span style='font-weight: 300; font-size: 13px; color: grey;'> : {descriptions_verbes[k]}</span>
+    </div>
+    """, unsafe_allow_html=True)
 
     slider_id = f"verb_{k}"
     value = st.sidebar.slider(
-        label="XX",
+        label="",
         min_value=0,
         max_value=100,
         value=25,
@@ -110,7 +111,6 @@ for k, (emoji, label, color) in verbe_icons.items():
         key=slider_id
     )
     pref_engagements[k] = value
-
    
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🧩 ... sous la forme principale de :</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon engagement : le <em>quoi</em></span>", unsafe_allow_html=True)
