@@ -97,8 +97,7 @@ pref_engagements = {}
 for k, (emoji, label, color) in verbe_icons.items():
     st.sidebar.markdown(f"""
 <div style='display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.2rem;'>
-    <span style='font-weight: 500;'>{emoji} {label}</span>
-    <span style='font-size: 13px; color: grey;'>{descriptions_verbes[k]}</span>
+    <span style='font-weight: 500;'>{emoji} {label}</span><span style='font-size: 13px; color: grey;'>{descriptions_verbes[k]}</span>
 </div>
 """, unsafe_allow_html=True)
 
