@@ -24,21 +24,8 @@ forme_emojis = {
     "Programme": "🧪 Programme", "Concours": "🥇 Concours", "Projet": "🛠️ Projet",
     "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement", "Formation": "🎓 Formation"
 }
-# Définir couleurs cohérentes avec la légende
-couleurs_verbes = {
-    "Apprendre": "#0000FF",
-    "Célébrer": "#FFD700",
-    "Responsabiliser": "#FF0000",
-    "Rencontrer": "#28A745"
-}
-
-couleurs_piliers = {
-    "Développement individuel": "#A52A2A",
-    "Entreprise": "#808080",
-    "Communaute": "#FFA500",
-    "Cooperation": "#800080"
-}
-
+couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]
+couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
 piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
@@ -90,10 +77,10 @@ section[data-testid="stSidebar"] h4 {
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
 st.markdown("""
 Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent. Tu y retrouves en un coup d'oeil : 
-- Sur le **cercle extérieur** : les verbes pour définir comment tu préfères t'impliquer : <span style="color:#0000FF">🟦 Apprendre</span> <span style="color:#FFD700">🟨 Célébrer</span> <span style="color:#FF0000">🟥 Prendre des responsabilités</span> <span style="color:#28A745">🟩 Se rencontrer</span>
-- Sur le **cercle intérieur** : les piliers JCI de ce que tu souhaites développer <span style="color:#A52A2A">🟫 Développement personnel (pilier "Individu")</span> <span style="color:#808080">⬜ Compétences professionnelles et entrepreneuriales (pilier "Entreprise")</span> <span style="color:#FFA500">🟧 Service au territoire ( pilier "Communauté")</span> <span style="color:#800080">🟪 Coopération internationale (pilier "International")</span>  
-- Dans **le titre** : les pictogrammes de la forme de l'opportunité : 🎓 Formations et ateliers / 🎫 Événements / 🤝 En Équipe / 🧪 Programmes et initiatives / 🥇 Concours / 🛠️ Projets et actions
-- **Au centre** du donut : le ou les niveaux d'action : Local / Régional / National / Zone / Mondial
+- Sur le cercle extérieur : les verbes pour définir **Comment tu préfères t'impliquer** : <span style="color:#0000FF">🟦 Apprendre</span> <span style="color:#FFD700">🟨 Célébrer</span> <span style="color:#FF0000">🟥 Prendre des responsabilités</span> <span style="color:#28A745">🟩 Se rencontrer</span>
+- Sur le cercle intérieur : les piliers JCI de **ce que tu souhaites développer** <span style="color:#A52A2A">🟫 Développement personnel (pilier "Individu")</span> <span style="color:#808080">⬜ Compétences professionnelles et entrepreneuriales (pilier "Entreprise")</span> <span style="color:#FFA500">🟧 Service au territoire ( pilier "Communauté")</span> <span style="color:#800080">🟪 Coopération internationale (pilier "International")</span>  
+- Dans le titre : les pictogrammes de la forme de l'opportunité : 🎓 Formations et ateliers / 🎫 Événements / 🤝 En Équipe / 🧪 Programmes et initiatives / 🥇 Concours / 🛠️ Projets et actions
+- Au centre du visuel : le ou les niveaux d'action : Local / Régional / National / Zone / Mondial
 """, unsafe_allow_html=True)
 
 # Filtrage utilisateur
