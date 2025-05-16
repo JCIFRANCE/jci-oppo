@@ -213,16 +213,21 @@ def make_visual(row, i, small=False):
     niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
     fig = go.Figure()
 
-    fig.add_trace(go.Pie(
-        values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
-        labels=piliers_labels,
-        marker=dict(color=couleurs_piliers),
-        hole=0.3,
-        domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
-        textinfo='none',
-        hovertemplate='<b>%{label}</b><extra></extra>',
-        showlegend=False
-    ))
+   fig.add_trace(go.Pie(
+    values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
+    labels=piliers_labels,
+    marker=dict(color=[
+        couleurs_piliers["Développement individuel"],
+        couleurs_piliers["Entreprise"],
+        couleurs_piliers["Communaute"],
+        couleurs_piliers["Cooperation"]
+    ]),
+    hole=0.3,
+    domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
+    textinfo='none',
+    hovertemplate='<b>%{label}</b><extra></extra>',
+    showlegend=False
+))
 
     vals, labels, cols = [], [], []
     for j, (col, label) in enumerate(verbe_map.items()):
