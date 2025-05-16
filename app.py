@@ -68,64 +68,41 @@ section[data-testid="stSidebar"] h4 {
 
 
 # Titre + explication reformulée avec carrés
-st.markdown("""
-<div style='
-    position: sticky;
-    top: 1rem;
-    background-color: white;
-    padding: 1rem 1.5rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    margin-bottom: 1rem;
-    z-index: 100;
-'>
-    <h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>
-    <p>Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement.</p>
+st.markdown("## 🗺️ Cartographie des opportunités de la Jeune Chambre")
+st.markdown("Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent.")
 
-    <div style='display: flex; flex-wrap: wrap; gap: 2rem;'>
-        <div style='flex: 1 1 220px;'>
-            <h4>Comment tu préfères t'impliquer</h4>
-            <ul style='margin: 0; padding-left: 1.2rem;'>
-                <li>🟦 Apprendre</li>
-                <li>🟨 Célébrer</li>
-                <li>🟥 Prendre des responsabilités</li>
-                <li>🟩 Se rencontrer</li>
-            </ul>
-        </div>
-        <div style='flex: 1 1 220px;'>
-            <h4>Ce que tu souhaites développer</h4>
-            <ul style='margin: 0; padding-left: 1.2rem;'>
-                <li>🟫 Développement personnel</li>
-                <li>⬜ Compétences entrepreneuriales</li>
-                <li>🟧 Service au territoire</li>
-                <li>🟪 Coopération internationale</li>
-            </ul>
-        </div>
-        <div style='flex: 1 1 220px;'>
-            <h4>La forme de l'opportunité</h4>
-            <ul style='margin: 0; padding-left: 1.2rem;'>
-                <li>🎓 Formations</li>
-                <li>🎫 Événements</li>
-                <li>🤝 En Équipe</li>
-                <li>🧪 Programmes</li>
-                <li>🥇 Concours</li>
-                <li>🛠️ Projets</li>
-            </ul>
-        </div>
-        <div style='flex: 1 1 220px;'>
-            <h4>Les niveaux d'action</h4>
-            <ul style='margin: 0; padding-left: 1.2rem;'>
-                <li>📍 Local</li>
-                <li>🏘️ Régional</li>
-                <li>🇫🇷 National</li>
-                <li>🌍 Zone</li>
-                <li>🗺️ Mondial</li>
-            </ul>
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+cols = st.columns(4)
+
+with cols[0]:
+    st.markdown("**🔄 Comment tu préfères t'impliquer**")
+    st.markdown("- 🟦 Apprendre")
+    st.markdown("- 🟨 Célébrer")
+    st.markdown("- 🟥 Prendre des responsabilités")
+    st.markdown("- 🟩 Se rencontrer")
+
+with cols[1]:
+    st.markdown("**🧭 Ce que tu souhaites développer**")
+    st.markdown("- 🟫 Développement personnel (Individu)")
+    st.markdown("- ⬜ Compétences entrepreneuriales (Entreprise)")
+    st.markdown("- 🟧 Service au territoire (Communauté)")
+    st.markdown("- 🟪 Coopération internationale (International)")
+
+with cols[2]:
+    st.markdown("**🏷️ La forme de l'opportunité**")
+    st.markdown("- 🎓 Formations")
+    st.markdown("- 🎫 Événements")
+    st.markdown("- 🤝 En Équipe")
+    st.markdown("- 🧪 Programmes")
+    st.markdown("- 🥇 Concours")
+    st.markdown("- 🛠️ Projets")
+
+with cols[3]:
+    st.markdown("**📍 Les niveaux d'action**")
+    st.markdown("- Local")
+    st.markdown("- Régional")
+    st.markdown("- National")
+    st.markdown("- Zone")
+    st.markdown("- Mondial")
 
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre</h1>", unsafe_allow_html=True)
 st.markdown("""
