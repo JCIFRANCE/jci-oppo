@@ -64,10 +64,25 @@ section[data-testid="stSidebar"] h4 {
 }
 </style>
 """, unsafe_allow_html=True)
+# Ajouter le style sticky pour l'encapsuler
+st.markdown("""
+<style>
+div.sticky-legend {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    z-index: 999;
+    border-bottom: 1px solid #eee;
+}
+</style>
+""", unsafe_allow_html=True)
 
+# Légende sticky via conteneur personnalisé
+st.markdown("<div class='sticky-legend'>", unsafe_allow_html=True)
 
-
-# Titre + explication reformulée avec carrés
 st.markdown("## 🗺️ Cartographie des opportunités de la Jeune Chambre")
 st.markdown("Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent.")
 
