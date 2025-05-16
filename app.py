@@ -24,8 +24,21 @@ forme_emojis = {
     "Programme": "🧪 Programme", "Concours": "🥇 Concours", "Projet": "🛠️ Projet",
     "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement", "Formation": "🎓 Formation"
 }
-couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]
-couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
+# Définir couleurs cohérentes avec la légende
+couleurs_verbes = {
+    "Apprendre": "#0000FF",
+    "Célébrer": "#FFD700",
+    "Responsabiliser": "#FF0000",
+    "Rencontrer": "#28A745"
+}
+
+couleurs_piliers = {
+    "Développement individuel": "#A52A2A",
+    "Entreprise": "#808080",
+    "Communaute": "#FFA500",
+    "Cooperation": "#800080"
+}
+
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
 piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
