@@ -216,7 +216,7 @@ def make_visual(row, i, small=False):
     fig.add_trace(go.Pie(
         values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
         labels=piliers_labels,
-        marker=dict(colors=couleurs_piliers),
+        marker=dict(color=couleurs_piliers),
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
@@ -234,7 +234,7 @@ def make_visual(row, i, small=False):
 
     fig.add_trace(go.Pie(
         values=vals, labels=labels,
-        marker=dict(colors=cols, line=dict(color="white", width=2)),
+        marker=dict(color=cols, line=dict(color="white", width=2)),
         hole=0.6,
         domain={'x': [0, 1], 'y': [0, 1]},
         textinfo='none',
