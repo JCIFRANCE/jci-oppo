@@ -31,6 +31,83 @@ piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 
 import streamlit as st
 
+# Ajouter le style global sticky + décalage de contenu principal
+st.markdown("""
+<style>
+/* Volet fixe en haut */
+#top-legend {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 1rem 2rem;
+    z-index: 1000;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* Grille 4 colonnes */
+#top-legend .grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+#top-legend .col {
+    flex: 1 1 22%;
+    min-width: 200px;
+    font-size: 14px;
+}
+
+#top-legend h4 {
+    margin-bottom: 0.5rem;
+    font-size: 16px;
+}
+
+body, .main, .block-container {
+    margin-top: 240px;  /* Décalage pour ne pas masquer le contenu */
+}
+</style>
+
+<div id="top-legend">
+    <div class="grid">
+        <div class="col">
+            <h4>🔄 Comment tu préfères t'impliquer</h4>
+            🟦 Apprendre<br>
+            🟨 Célébrer<br>
+            🟥 Prendre des responsabilités<br>
+            🟩 Se rencontrer
+        </div>
+        <div class="col">
+            <h4>🧭 Ce que tu souhaites développer</h4>
+            🟫 Développement personnel<br>
+            ⬜ Compétences entrepreneuriales<br>
+            🟧 Service au territoire<br>
+            🟪 Coopération internationale
+        </div>
+        <div class="col">
+            <h4>🏷️ Forme de l’opportunité</h4>
+            🎓 Formations<br>
+            🎫 Événements<br>
+            🤝 En Équipe<br>
+            🧪 Programmes<br>
+            🥇 Concours<br>
+            🛠️ Projets
+        </div>
+        <div class="col">
+            <h4>📍 Niveaux d’action</h4>
+            📍 Local<br>
+            🏘️ Régional<br>
+            🇫🇷 National<br>
+            🌍 Zone<br>
+            🗺️ Mondial
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
 # Configuration de la page
 st.set_page_config(
     page_title="Cartographie des opportunités",
