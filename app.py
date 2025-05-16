@@ -213,29 +213,29 @@ def make_visual(row, i, small=False):
     niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
     fig = go.Figure()
 
-   fig.add_trace(go.Pie(
-    values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
-    labels=piliers_labels,
-    marker=dict(color=[
-    couleurs_piliers["Développement individuel"],
-    couleurs_piliers["Entreprise"],
-    couleurs_piliers["Communaute"],
-    couleurs_piliers["Cooperation"]
-]),
-    hole=0.3,
-    domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
-    textinfo='none',
-    hovertemplate='<b>%{label}</b><extra></extra>',
-    showlegend=False
-))
+    fig.add_trace(go.Pie(
+        values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
+        labels=piliers_labels,
+        marker=dict(color=[
+            couleurs_piliers["Développement individuel"],
+            couleurs_piliers["Entreprise"],
+            couleurs_piliers["Communaute"],
+            couleurs_piliers["Cooperation"]
+        ]),
+        hole=0.3,
+        domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
+        textinfo='none',
+        hovertemplate='<b>%{label}</b><extra></extra>',
+        showlegend=False
+    ))
 
     vals, labels, cols = [], [], []
-    for j, (col, label) in enumerate(verbe_map.items()):
-        val = row.get(col, 0)
+    for verbe, label in verbe_map.items():
+        val = row.get(verbe, 0)
         if val > 0:
             vals.append(val)
             labels.append(label)
-            cols.append(couleurs_verbes[j])
+            cols.append(couleurs_verbes[verbe])
 
     fig.add_trace(go.Pie(
         values=vals, labels=labels,
