@@ -49,6 +49,12 @@ section[data-testid="stSidebar"] .stSlider > div > div > div[role="slider"]::aft
     display: none !important;
 }
 
+/* Cacher la bulle de valeur au-dessus du slider */
+section[data-testid="stSidebar"] .stSlider div[role="slider"]::after {
+    content: none !important;
+    display: none !important;
+}
+
 /* Réduction de l'espacement après les titres de la sidebar */
 section[data-testid="stSidebar"] h3, 
 section[data-testid="stSidebar"] h2, 
