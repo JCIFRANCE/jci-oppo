@@ -96,7 +96,7 @@ verbe_icons = {
 pref_engagements = {}
 for k, (emoji, label, color) in verbe_icons.items():
     st.sidebar.markdown(f"""
-<div style='display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem;'>
+<div style='display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem;'>
     <span style='font-weight: 500;'>{emoji} {label}</span><span style='font-size: 13px; color: grey;'>{descriptions_verbes[k]}</span>
 </div>
 """, unsafe_allow_html=True)
@@ -104,9 +104,9 @@ for k, (emoji, label, color) in verbe_icons.items():
     slider_id = f"verb_{k}"
     value = st.sidebar.slider(
         label="",
-        min_value=0,
-        max_value=100,
-        value=25,
+        min_value=,
+        max_value=,
+        value=,
         label_visibility="collapsed",
         key=slider_id
     )
