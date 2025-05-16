@@ -139,17 +139,30 @@ pilier_icons = {
     "Cooperation": ("🟪", "International")
 }
 
-# PILIERS : symbole + label + couleur
+# PILIERS : carré + label + description légère
+descriptions_piliers = {
+    "Développement individuel": "Savoir-être, développement personnel, outils du citoyen responsable, défense des valeurs, éthique",
+    "Entreprise": "Savoir-faire, compétences de management, réseau business, tester ses idées",
+    "Communaute": "Au serice du territoire et de l’intérêt général, benchmark des actions, agir pour construire un monde meilleur",
+    "Cooperation": "dépasser les horizons, diplomatie internationale, interculturalité, construire des projets inter-organisations"
+}
+
 pilier_icons = {
-    "Développement individuel": ("🟫", "Individu", "#A52A2A"),
-    "Entreprise": ("⬜", "Entreprise", "#808080"),
-    "Communaute": ("🟧", "Communauté", "#FFA500"),
-    "Cooperation": ("🟪", "International", "#800080")
+    "Développement individuel": ("🟫", "Individu en progression", "#A52A2A"),
+    "Entreprise": ("⬜", "Esprit d'Entreprise", "#808080"),
+    "Communaute": ("🟧", "Service à la Communauté", "#FFA500"),
+    "Cooperation": ("🟪", "Coopération Internationale", "#800080")
 }
 
 pref_piliers = {}
 for p, (emoji, label, color) in pilier_icons.items():
-    st.sidebar.markdown(f"<span style='font-weight: 500;'>{emoji} {label}</span>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"""
+    <div style='margin-bottom: 0.4rem;'>
+        <span style='font-weight: 500;'>{emoji} {label}</span>
+        <span style='font-weight: 300; font-size: 13px; color: grey;'> : {descriptions_piliers[p]}</span>
+    </div>
+    """, unsafe_allow_html=True)
+
     slider_id = f"pilier_{p}"
     value = st.sidebar.slider(
         label="",
@@ -160,7 +173,7 @@ for p, (emoji, label, color) in pilier_icons.items():
         key=slider_id
     )
     pref_piliers[p] = value
- 
+
 
 
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🌍 ... à un niveau :</div>", unsafe_allow_html=True)
