@@ -103,10 +103,10 @@ for k, (emoji, label, color) in verbe_icons.items():
 
     slider_id = f"verb_{k}"
     value = st.sidebar.slider(
-        label="",
-        min_value=,
-        max_value=,
-        value=,
+        label="XX",
+        min_value=0,
+        max_value=100,
+        value=25,
         label_visibility="collapsed",
         key=slider_id
     )
