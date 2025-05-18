@@ -75,9 +75,9 @@ section[data-testid="stSidebar"] h4 {
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<h1>🍩 Donuts des opportunités de la Jeune Chambre </h1>", unsafe_allow_html=True)
+st.markdown("<h1>Les opportunités de la Jeune Chambre en 🍩 Donuts</h1>", unsafe_allow_html=True)
 st.markdown("""
-Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. 
+Identifie facilement les opportunités de la Jeune Chambre qui te correspondent !  
 
 **1. Personnalise tes préférences**
 Utilise les curseurs et étquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus.
@@ -88,7 +88,7 @@ Cercle intérieur : montre ce que tu souhaites développer à travers ton engage
 Icônes dans le titre : représentent la forme que prend l’opportunité (ex. formation, événement, projet…).
 Lettre au centre : précise la portée de l’opportunité (locale, nationale, internationale, etc.).
 
-**Explore, ajuste, découvre ce qui te motive, et passe à l’action !**
+**Explore, ajuste, découvre ce qui te motive, et profite du plaisir de l'engagement !**
 
 
 - Sur le **cercle extérieur** : les verbes pour définir comment tu préfères t'impliquer : <span style="color:#0000FF"></span>🟦 Apprendre <span style="color:#FFD700"></span>🟨 Célébrer <span style="color:#FF0000"></span>🟥 Prendre des responsabilités <span style="color:#28A745"></span>🟩 Se rencontrer
