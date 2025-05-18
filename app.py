@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly.graph_objects as pio
-pio.templates.default = "plotly"
+import plotly.graph_objects as go
 
 df = pd.read_csv("https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv", encoding="utf-8")
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
