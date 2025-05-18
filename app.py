@@ -263,9 +263,9 @@ for i, (_, row) in enumerate(top.iterrows()):
 if len(df) > 9:
     st.markdown("### 🔍 D'autres opportunités proches de tes critères")
     other = df.iloc[9:19]
-    cols = st.columns(2)
+    cols = st.columns(4)
     for i, (_, row) in enumerate(other.iterrows()):
-        with cols[i % 2]:
+        with cols[i % 4]:
             niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
             st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
             st.markdown(f"<div style='font-size:14px; color: #444;'>{row['Description ']}</div>", unsafe_allow_html=True)
