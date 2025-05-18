@@ -252,7 +252,7 @@ for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
         picto = forme_emojis.get(row["Forme"], row["Forme"])
         st.markdown(f"#### {picto} — {row['Nom']}")
-        st.markdown(f"<div style='font-size:14px; color: #444;'>{row['Description']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size:14px; color: #444;'>{row['Description ']}</div>", unsafe_allow_html=True)
         st.plotly_chart(make_visual(row, i), use_container_width=True)
 
 # Opportunités suivantes
