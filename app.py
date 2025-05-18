@@ -251,7 +251,7 @@ cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
         picto = forme_emojis.get(row["Forme"], row["Forme"])
-        st.markdown(f"#### {picto} — {row['Nom']}")
+        st.markdown(f"#### {picto} — {row['Nom']} *({row ['Description']})*")
         st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{i}")
 
 # Opportunités suivantes
