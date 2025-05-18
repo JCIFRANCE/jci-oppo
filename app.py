@@ -269,5 +269,6 @@ if len(df) > 9:
             niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
             st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
             st.markdown(f"<div style='font-size:14px; color: #444;'>{row['Description ']}</div>", unsafe_allow_html=True)
-            st.plotly_chart(make_visual(row, i+1000, small=True), use_container_width=True)
+            st.plotly_chart(make_visual(row, i+1000, small=True), use_container_width=True, key=f"chart_other_{row['Nom']}")
+
             
