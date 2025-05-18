@@ -76,13 +76,13 @@ section[data-testid="stSidebar"] h4 {
 """, unsafe_allow_html=True)
 
 st.markdown("<h1>🗺️ Cartographie des opportunités de la Jeune Chambre en Donuts 🍩</h1>", unsafe_allow_html=True)
-st.markdown("""
+st.markdown("""<h4>
 Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent. Tu y retrouves en un coup d'oeil : 
 - Sur le **cercle extérieur** : les verbes pour définir comment tu préfères t'impliquer : <span style="color:#0000FF"></span>🟦 Apprendre <span style="color:#FFD700"></span>🟨 Célébrer <span style="color:#FF0000"></span>🟥 Prendre des responsabilités <span style="color:#28A745"></span>🟩 Se rencontrer
 - Sur le **cercle intérieur** : les piliers JCI pour définir ce que tu souhaites développer <span style="color:#A52A2A"></span>🟫 Développement personnel (pilier "Individu") <span style="color:#808080"></span>⬜ Compétences professionnelles et entrepreneuriales (pilier "Entreprise")<span style="color:#FFA500"></span>🟧 Service au territoire ( pilier "Communauté") <span style="color:#800080"></span>🟪 Coopération internationale (pilier "International")  
 - Dans **le titre** : les pictogrammes de la forme de l'opportunité : 🎓 Formations et ateliers / 🎫 Événements / 🤝 En Équipe / 🧪 Programmes et initiatives / 🥇 Concours / 🛠️ Projets et actions
 - **Au centre** du visuel : une lettre pour définir la portée de l'opportunité : **L**ocal / **R**égional / **N**ational / **Z**one / **M**ondial
-""", unsafe_allow_html=True)
+</h4>""", unsafe_allow_html=True)
 
 # Filtrage utilisateur
 st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
