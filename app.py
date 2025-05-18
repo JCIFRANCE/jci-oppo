@@ -246,13 +246,14 @@ def make_visual(row, i, small=False):
     
 # Affichage des 9 premières opportunités
 top = df.head(9)
-st.markdown (f"### ")
+st.markdown(f"### ")
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
         picto = forme_emojis.get(row["Forme"], row["Forme"])
-        st.markdown(f"#### {picto} — {row['Nom']} *({row ['Description']})*")
-        st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{i}")
+        st.markdown(f"#### {picto} — {row['Nom']}")
+        st.markdown(f"<div style='font-size:14px; color: #444;'>{row['Description']}</div>", unsafe_allow_html=True)
+        st.plotly_chart(make_visual(row, i), use_container_width=True)
 
 # Opportunités suivantes
 if len(df) > 9:
@@ -263,5 +264,6 @@ if len(df) > 9:
         with cols[i % 2]:
             niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
             st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
+            st.markdown(f"<div style='font-size:14px; color: #444;'>{row['Description']}</div>", unsafe_allow_html=True)
             st.plotly_chart(make_visual(row, i+1000, small=True), use_container_width=True)
             
