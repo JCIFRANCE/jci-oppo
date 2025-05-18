@@ -77,7 +77,17 @@ section[data-testid="stSidebar"] h4 {
 
 st.markdown("<h1>🍩 Donuts des opportunités de la Jeune Chambre </h1>", unsafe_allow_html=True)
 st.markdown("""
-Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. En bougeant les curseurs à gauche, tu fais ressortir celles qui te ressemblent. Tu y retrouves en un coup d'oeil : 
+Cette cartographie t’aide à découvrir les opportunités de la Jeune Chambre Économique qui correspondent à tes envies d'engagement. Explore, ajuste, découvre ce qui te motive, et passe à l’action !
+1. Personnalise tes préférences
+Utilise les curseurs à gauche pour faire ressortir les opportunités qui te ressemblent le plus.
+
+2. Lis la cartographie en un coup d’œil :
+Cercle extérieur : indique comment tu préfères t’impliquer.
+Cercle intérieur : montre ce que tu souhaites développer à travers ton engagement.
+Icônes dans le titre : représentent la forme que prend l’opportunité (ex. formation, événement, projet…).
+Lettre au centre : précise la portée de l’opportunité (locale, nationale, internationale, etc.).
+
+
 - Sur le **cercle extérieur** : les verbes pour définir comment tu préfères t'impliquer : <span style="color:#0000FF"></span>🟦 Apprendre <span style="color:#FFD700"></span>🟨 Célébrer <span style="color:#FF0000"></span>🟥 Prendre des responsabilités <span style="color:#28A745"></span>🟩 Se rencontrer
 - Sur le **cercle intérieur** : les piliers JCI pour définir ce que tu souhaites développer <span style="color:#A52A2A"></span>🟫 Développement personnel (pilier "Individu") <span style="color:#808080"></span>⬜ Compétences professionnelles et entrepreneuriales (pilier "Entreprise")<span style="color:#FFA500"></span>🟧 Service au territoire ( pilier "Communauté") <span style="color:#800080"></span>🟪 Coopération internationale (pilier "International")  
 - Dans **le titre** : les pictogrammes de la forme de l'opportunité : 🎓 Formations et ateliers / 🎫 Événements / 🤝 En Équipe / 🧪 Programmes et initiatives / 🥇 Concours / 🛠️ Projets et actions
