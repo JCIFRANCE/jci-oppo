@@ -3,7 +3,6 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.io as pio
 pio.templates.default = "plotly_white"
-pip install --upgrade plotly pandas
 
 # Chargement des données
 df = pd.read_csv("https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv", encoding="utf-8")
@@ -207,6 +206,9 @@ def score(row):
 df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
+import plotly.io as pio
+pio.templates.default = "plotly_white"
+
 def make_visual(row, i, small=False):
     niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
     fig = go.Figure()
@@ -215,7 +217,7 @@ def make_visual(row, i, small=False):
     fig.add_trace(go.Pie(
         values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
         labels=piliers_labels,
-        marker=dict(colors=couleurs_piliers),  # Utilise les couleurs définies
+        marker=dict(colors=couleurs_piliers),
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
@@ -230,7 +232,7 @@ def make_visual(row, i, small=False):
         if val > 0:
             vals.append(val)
             labels.append(label)
-            cols.append(couleurs_verbes[j])  # Utilise les couleurs définies
+            cols.append(couleurs_verbes[j])
 
     fig.add_trace(go.Pie(
         values=vals, labels=labels,
@@ -256,6 +258,7 @@ def make_visual(row, i, small=False):
 
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
+
     
 # Affichage des 9 premières opportunités
 top = df.head(9)
