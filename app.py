@@ -118,6 +118,7 @@ def make_visual(row, niveau_labels, small=False):
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',  # ✅ empêche % ou chiffre visibles dans le donut
         hovertemplate='<b>%{label}</b><extra></extra>',  # ✅ empêche les chiffres au survol
+        textposition='none'
         showlegend=False
     ))
 
@@ -129,6 +130,7 @@ def make_visual(row, niveau_labels, small=False):
             domain={'x': [0, 1], 'y': [0, 1]}, textinfo='none', showlegend=False
             textinfo='none',  # ✅ empêche % ou chiffre visibles dans le donut
             hovertemplate='<b>%{label}</b><extra></extra>',  # ✅ empêche les chiffres au survol
+            textposition='none'
         ))
 
     if not small:
