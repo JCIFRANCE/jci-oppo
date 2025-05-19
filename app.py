@@ -30,7 +30,7 @@ forme_emojis = {
 
 # Exemple de données
 piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
-couleurs_piliers = ["#964B00", "#D3D3D3", "#FFA500", "#9C27B0"] 
+couleurs_piliers = ["#765358", "#D3D3D3", "#E17D4F", "#8667D6"] 
 
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
 couleurs_verbes = ["#5E81D0", "#E89B52", "#E53935", "#79C28F"]  
@@ -162,10 +162,10 @@ descriptions_piliers = {
 }
 
 pilier_icons = {
-    "Développement individuel": ("🟫", "Individu en progression", "#964B00"),
+    "Développement individuel": ("🟫", "Individu en progression", "#765358"),
     "Entreprise": ("⬜", "Esprit d'Entreprise", "#D3D3D3"),
-    "Communaute": ("🟧", "Service à la Communauté", "#FFA500"),
-    "Cooperation": ("🟪", "Coopération Internationale", "#9C27B0")
+    "Communaute": ("🟧", "Service à la Communauté", "#E17D4F"),
+    "Cooperation": ("🟪", "Coopération Internationale", "#8667D6")
 }
 
 pref_piliers = {}
