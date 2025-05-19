@@ -126,12 +126,17 @@ def make_visual(row, niveau_labels, small=False):
     if valeurs_verbes:
         v, l, c = zip(*valeurs_verbes)
         fig.add_trace(go.Pie(
-            values=v, labels=l, marker=dict(colors=c), hole=0.6,
-            domain={'x': [0, 1], 'y': [0, 1]}, textinfo='none', showlegend=False
-            textinfo='none',  # ✅ empêche % ou chiffre visibles dans le donut
-            hovertemplate='<b>%{label}</b><extra></extra>',  # ✅ empêche les chiffres au survol
-            textposition='none',
-        ))
+    values=v,
+    labels=l,
+    marker=dict(colors=c),
+    hole=0.6,
+    domain={'x': [0, 1], 'y': [0, 1]},
+    textinfo='none',  # ✅ pas de pourcentage
+    showlegend=False,
+    hovertemplate='<b>%{label}</b><extra></extra>',  # ✅ au survol : juste le nom
+    textposition='none'
+))
+
 
     if not small:
         for i, n in enumerate(row["Niveau"]):
