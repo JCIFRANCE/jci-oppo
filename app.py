@@ -216,7 +216,7 @@ for i, (_, row) in enumerate(top.iterrows()):
 if len(df) > 9:
     st.markdown("### 🔍 D'autres opportunités proches de tes critères")
     st.markdown("""
-    <small>Ces opportunités pourraient aussi t’inspirer ! N’hésite pas à en discuter avec d’autres Jaycees ou avec ton parrain / ta marraine pour voir comment t’y impliquer.</small>
+    Ces opportunités pourraient aussi t’inspirer ! N’hésite pas à en discuter avec d’autres Jaycees ou avec ton parrain / ta marraine pour en apprendre davantage.
     """, unsafe_allow_html=True)
     others = df.iloc[9:21]
     cols = st.columns(4)
