@@ -228,10 +228,8 @@ if len(df) > 9:
             st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
 
             # Ajout du texte explicatif
-            if 'Url' in row and pd.notna(row['Url']):
-                st.markdown(f"<div style='font-size:14px; color: #444;'><a href='{row['Url']}' target='_blank'>Petite explication de l'opportunité</a></div>", unsafe_allow_html=True)
-            else:
-                st.markdown(f"<div style='font-size:14px; color: #444;'>Petite explication de l'opportunité</div>", unsafe_allow_html=True)
+           st.markdown(afficher_description_cliquable(row), unsafe_allow_html=True)
+
 
             st.plotly_chart(make_visual(row, niveau_labels, small=True), use_container_width=True, key=f"other_{i}_{row['Nom']}")
 
