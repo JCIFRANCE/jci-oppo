@@ -187,4 +187,5 @@ if len(df) > 9:
             st.markdown(f"**{row['Nom']}** ({', '.join([niveau_labels.get(n, n) for n in row['Niveau']])})")
             if 'Url' in row and pd.notna(row['Url']):
                 st.markdown(f"<a href='{row['Url']}' target='_blank'>🔗 En savoir plus</a>", unsafe_allow_html=True)
-            st.plotly_chart(make_visual(row, niveau_labels, small=True), use_container_width=True)
+            st.plotly_chart(make_visual(row, niveau_labels, small=True), use_container_width=True, key=f"other_{i}_{row['Nom']}")
+
