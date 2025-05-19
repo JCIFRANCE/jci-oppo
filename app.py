@@ -144,23 +144,49 @@ df = load_data()
 st.markdown("<h1>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>", unsafe_allow_html=True)
 st.markdown("""
 <h2>Identifie facilement les opportunités de la Jeune Chambre qui te correspondent !</h2>
-**ETAPE 1.** Personnalise tes préférences à gauche  
-**ETAPE 2.** Lis la cartographie pour explorer ce qui t’anime !
+
+**ETAPE 1. Personnalise tes préférences**  
+Utilise les curseurs et étiquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus.
+
+**ETAPE 2. Lis la cartographie en un coup d’œil**  
+Le cercle extérieur indique comment tu préfères t’impliquer. Le Cercle intérieur montre ce que tu souhaites développer à travers ton engagement. Les icônes dans le titre représentent la forme que prend l’opportunité (ex. formation, événement, projet…).  
+Le centre précise la portée de l’opportunité.
+
+**Explore, ajuste, découvre ce qui te motive, et profite du plaisir de l'engagement !**
 """, unsafe_allow_html=True)
+
 
 # --- FILTRES UTILISATEUR ---
 st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
 
-pref_engagements = afficher_sliders_personnalises("💓 Ce qui me fait vibrer c'est ...", "Préférence d'engagement", verbe_icons, descriptions_verbes, "verb")
-pref_piliers = afficher_sliders_personnalises("🎯 Je souhaite développer ...", "Les piliers de mon engagement", pilier_icons, descriptions_piliers, "pilier")
+# 1. Préférences engagement
+pref_engagements = afficher_sliders_personnalises(
+    "💓 Ce qui me fait vibrer c'est ...",
+    "Ma préférence d'engagement <em>(le comment ?)</em>",
+    verbe_icons, descriptions_verbes, "verb"
+)
 
+# 2. Formes
+st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🧩 ... sous la forme principale de :</div>", unsafe_allow_html=True)
+st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon engagement <em>(le quoi ?)</em></span>", unsafe_allow_html=True)
 formes = sorted(df["Forme"].unique())
-formes_selected = st.sidebar.multiselect("Forme", options=formes, default=formes,
-                                         format_func=lambda f: forme_emojis.get(f, f), label_visibility="collapsed")
+formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
+    format_func=lambda f: forme_emojis.get(f, f), label_visibility="collapsed")
 
+# 3. Piliers
+pref_piliers = afficher_sliders_personnalises(
+    "🎯 Je souhaite développer ...",
+    "Les 4 piliers JCI = les raisons de mon engagement <em>(le pourquoi ?)</em>",
+    pilier_icons, descriptions_piliers, "pilier"
+)
+
+# 4. Niveau
+st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🌍 ... à un niveau :</div>", unsafe_allow_html=True)
+st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La portée de mon engagement <em>(le où ?)</em></span>", unsafe_allow_html=True)
 niveaux = ["L", "R", "N", "Z", "M"]
-niveaux_selected = st.sidebar.multiselect("Niveau", options=niveaux, default=niveaux,
-                                          format_func=lambda n: niveau_labels.get(n, n), label_visibility="collapsed")
+niveaux_selected = st.sidebar.multiselect("", options=niveaux, default=niveaux,
+    format_func=lambda n: niveau_labels.get(n, n), label_visibility="collapsed")
+
 
 # --- FILTRAGE DONNÉES ---
 df = df[df["Forme"].isin(formes_selected)]
@@ -178,14 +204,23 @@ for i, (_, row) in enumerate(top.iterrows()):
             st.markdown(f"<a href='{row['Url']}' target='_blank'>🔗 En savoir plus</a>", unsafe_allow_html=True)
         st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True)
 
+# --- OPPORTUNITÉS SUPPLÉMENTAIRES ---
 if len(df) > 9:
     st.markdown("### 🔍 D'autres opportunités proches de tes critères")
-    others = df.iloc[9:19]
-    cols = st.columns(2)
+    others = df.iloc[9:21]  # 12 suivantes
+    cols = st.columns(4)  # 4 colonnes par ligne
+
     for i, (_, row) in enumerate(others.iterrows()):
-        with cols[i % 2]:
-            st.markdown(f"**{row['Nom']}** ({', '.join([niveau_labels.get(n, n) for n in row['Niveau']])})")
+        with cols[i % 4]:
+            niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
+            st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
+
+            # Ajout du texte explicatif
             if 'Url' in row and pd.notna(row['Url']):
-                st.markdown(f"<a href='{row['Url']}' target='_blank'>🔗 En savoir plus</a>", unsafe_allow_html=True)
+                st.markdown(f"<div style='font-size:14px; color: #444;'><a href='{row['Url']}' target='_blank'>Petite explication de l'opportunité</a></div>", unsafe_allow_html=True)
+            else:
+                st.markdown(f"<div style='font-size:14px; color: #444;'>Petite explication de l'opportunité</div>", unsafe_allow_html=True)
+
             st.plotly_chart(make_visual(row, niveau_labels, small=True), use_container_width=True, key=f"other_{i}_{row['Nom']}")
+
 
