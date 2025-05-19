@@ -30,15 +30,14 @@ forme_emojis = {
 
 # Exemple de données
 piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
-couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]  # Brun, Gris, Orange, Violet
+couleurs_piliers = ["#964B00", "#D3D3D3", "#FFA500", "#800080"]  # Brun, Gris, Orange, Violet
 
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
-couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]  # Bleu, Or, Rouge, Vert
+couleurs_verbes = ["#1E50A0", "#FEE135", "#B22222", "#228B22"]  # Bleu, Or, Rouge, Vert
 
 # Dictionnaires pour associer les labels aux couleurs
 couleur_pilier_dict = dict(zip(piliers_labels, couleurs_piliers))
 couleur_verbe_dict = dict(zip(verbes_labels, couleurs_verbes))
-
 
 
 # Configuration de la page
@@ -113,12 +112,15 @@ descriptions_verbes = {
     "Rencontrer": "se faire des amis, réseauter, se réunir autour d'une table"
 }
 
+# Couleurs mises à jour pour correspondre aux emojis
 verbe_icons = {
-    "Apprendre": ("🟦", "Apprendre", "#0000FF"),
-    "Célébrer": ("🟨", "Célébrer", "#FFD700"),
-    "Responsabiliser": ("🟥", "Prendre des responsabilités", "#FF0000"),
-    "Rencontrer": ("🟩", "Se rencontrer", "#28A745")
+    "Apprendre": ("🟦", "Apprendre", "#1E50A0"),
+    "Célébrer": ("🟨", "Célébrer", "#FEE135"),
+    "Responsabiliser": ("🟥", "Prendre des responsabilités", "#B22222"),
+    "Rencontrer": ("🟩", "Se rencontrer", "#228B22")
 }
+
+
 
 pref_engagements = {}
 for k, (emoji, label, color) in verbe_icons.items():
@@ -149,12 +151,7 @@ formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
 
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🎯 Je souhaite développer ...</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>Les 4 piliers JCI = les raisons de mon engagement <em>(le pourquoi ?)</em></span>", unsafe_allow_html=True)
-pilier_icons = {
-    "Développement individuel": ("🟫", "Individu"),
-    "Entreprise": ("⬜", "Entreprise"),
-    "Communaute": ("🟧", "Communauté"),
-    "Cooperation": ("🟪", "International")
-}
+
 
 # PILIERS : carré + label + description légère
 descriptions_piliers = {
@@ -165,8 +162,8 @@ descriptions_piliers = {
 }
 
 pilier_icons = {
-    "Développement individuel": ("🟫", "Individu en progression", "#A52A2A"),
-    "Entreprise": ("⬜", "Esprit d'Entreprise", "#808080"),
+    "Développement individuel": ("🟫", "Individu en progression", "#964B00"),
+    "Entreprise": ("⬜", "Esprit d'Entreprise", "#D3D3D3"),
     "Communaute": ("🟧", "Service à la Communauté", "#FFA500"),
     "Cooperation": ("🟪", "Coopération Internationale", "#800080")
 }
@@ -275,10 +272,13 @@ for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
         picto = forme_emojis.get(row["Forme"], row["Forme"])
         st.markdown(f"#### {picto} — {row['Nom']}")
+
+        # Ajoutez un lien cliquable si l'URL est présente
         if 'Url' in row and pd.notna(row['Url']):
-            st.markdown(f"<div style='font-size:14px; color: #444;'><a href='{row['Url']}' target='_blank'>{row['Description']}</a></div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size:14px; color: #444;'><a href='{row['Url']}' target='_blank'>Petite explication de l'opportunité</a></div>", unsafe_allow_html=True)
         else:
-            st.markdown(f"<div style='font-size:14px; color: #444;'>{row['Description']}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size:14px; color: #444;'>Petite explication de l'opportunité</div>", unsafe_allow_html=True)
+
         st.plotly_chart(make_visual(row, i), use_container_width=True, key=f"chart_{row['Nom']}")
 
 # Opportunités suivantes
@@ -290,11 +290,11 @@ if len(df) > 9:
         with cols[i % 2]:
             niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
             st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
+
+            # Ajoutez un lien cliquable si l'URL est présente
             if 'Url' in row and pd.notna(row['Url']):
-                st.markdown(f"<div style='font-size:14px; color: #444;'><a href='{row['Url']}' target='_blank'>{row['Description']}</a></div>", unsafe_allow_html=True)
+                st.markdown(f"<div style='font-size:14px; color: #444;'><a href='{row['Url']}' target='_blank'>Petite explication de l'opportunité</a></div>", unsafe_allow_html=True)
             else:
-                st.markdown(f"<div style='font-size:14px; color: #444;'>{row['Description']}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div style='font-size:14px; color: #444;'>Petite explication de l'opportunité</div>", unsafe_allow_html=True)
+
             st.plotly_chart(make_visual(row, i+1000, small=True), use_container_width=True, key=f"chart_other_{row['Nom']}")
-
-
-            
