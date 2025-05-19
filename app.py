@@ -116,7 +116,8 @@ def make_visual(row, niveau_labels, small=False):
         marker=dict(colors=couleurs_piliers),
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
-        textinfo='none',
+        textinfo='none',  # ✅ empêche % ou chiffre visibles dans le donut
+        hovertemplate='<b>%{label}</b><extra></extra>',  # ✅ empêche les chiffres au survol
         showlegend=False
     ))
 
@@ -126,6 +127,8 @@ def make_visual(row, niveau_labels, small=False):
         fig.add_trace(go.Pie(
             values=v, labels=l, marker=dict(colors=c), hole=0.6,
             domain={'x': [0, 1], 'y': [0, 1]}, textinfo='none', showlegend=False
+            textinfo='none',  # ✅ empêche % ou chiffre visibles dans le donut
+            hovertemplate='<b>%{label}</b><extra></extra>',  # ✅ empêche les chiffres au survol
         ))
 
     if not small:
