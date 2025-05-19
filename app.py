@@ -207,10 +207,14 @@ top = df.head(9)
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
-        st.markdown(f"#### {forme_emojis.get(row['Forme'], row['Forme'])} — {row['Nom']}")
-        if 'Url' in row and pd.notna(row['Url']):
-            st.markdown(f"<a href='{row['Url']}' target='_blank'>🔗 En savoir plus</a>", unsafe_allow_html=True)
-        st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True)
+        picto = forme_emojis.get(row["Forme"], row["Forme"])
+        st.markdown(f"#### {picto} — {row['Nom']}")
+
+        # Ajoutez un lien cliquable si l'URL est présente
+        st.markdown(afficher_description_cliquable(row), unsafe_allow_html=True)
+
+        st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True, key=f"top_{i}_{row['Nom']}")
+
 
 # --- OPPORTUNITÉS SUPPLÉMENTAIRES ---
 if len(df) > 9:
