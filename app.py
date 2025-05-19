@@ -41,6 +41,23 @@ def setup_css():
         </style>
     """, unsafe_allow_html=True)
 
+# Sticky bandeau explicatif simplifié
+header = st.empty()
+header.markdown("""
+    <div style="position: fixed; top: 0; left: 0; right: 0; background: white; z-index: 1000;
+                padding: 1rem 1rem 0.5rem 1rem; border-bottom: 1px solid #eee;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.03); font-size: 15px;">
+        <b>ETAPE 1.</b> Personnalise tes préférences –
+        Utilise les curseurs et étiquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus.<br>
+        <b>ETAPE 2.</b> Lis la cartographie en un coup d’œil –
+        Le cercle extérieur indique comment tu préfères t’impliquer. Le Cercle intérieur montre ce que tu souhaites développer à travers ton engagement. Les icônes dans le titre représentent la forme que prend l’opportunité (ex. formation, événement, projet…). Le centre précise la portée de l’opportunité.
+    </div>
+""", unsafe_allow_html=True)
+
+# Décalage pour que le contenu ne passe pas sous le bandeau sticky
+st.markdown("<div style='margin-top: 160px;'></div>", unsafe_allow_html=True)
+
+
 
 # ---------- CHARGEMENT DES DONNÉES ----------
 @st.cache_data
