@@ -35,7 +35,7 @@ def setup_css():
 def load_data():
     url = "https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv"
     df = pd.read_csv(url, encoding="utf-8")
-    df.columns = df.columns.str.strip().str.capitalize()  # <- ici
+    df.columns = df.columns.str.strip().str.capitalize()
     df["Forme"] = df["Forme"].str.strip().str.capitalize().replace({
         "Autre": "Événement",
         "Evenement": "Événement",
@@ -46,11 +46,11 @@ def load_data():
     df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
     return df
 
-# ---------- FONCTIONS UTILITAIRES ----------
+# ---------- DICTIONNAIRES UTILES ----------
 niveau_labels = {"L": "Local", "R": "Régional", "N": "National", "Z": "Zone", "M": "Monde"}
 forme_emojis = {
-    "Programme": "🧪 Programme", "Concours": "🥇 Concours", "Projet": "🛠️ Projet",
-    "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement", "Formation": "🎓 Formation"
+    "Programme": "🧪", "Concours": "🥇", "Projet": "🛠️",
+    "Fonction": "👔", "Equipe": "🤝", "Événement": "🎫", "Formation": "🎓"
 }
 
 verbe_map = {
@@ -67,11 +67,10 @@ verbe_icons = {
 }
 descriptions_verbes = {
     "Apprendre": "se former, monter en compétence et grandir",
-    "Célébrer": "fêter les réussites, marquer les jalons",
+    "Célébrer": "fêter les réussites, marquer les jalons, garder du temps pour le plaisir",
     "Responsabiliser": "prendre le lead, transmettre, coacher",
-    "Rencontrer": "se faire des amis, réseauter"
+    "Rencontrer": "se faire des amis, réseauter, se réunir autour d'une table"
 }
-
 pilier_icons = {
     "Développement individuel": ("🟫", "Individu en progression", "#765358"),
     "Entreprise": ("⬜", "Esprit d'Entreprise", "#D3D3D3"),
@@ -79,12 +78,13 @@ pilier_icons = {
     "Cooperation": ("🟪", "Coopération Internationale", "#8667D6")
 }
 descriptions_piliers = {
-    "Développement individuel": "Développement personnel, éthique",
-    "Entreprise": "Compétences de management, réseau business",
-    "Communaute": "Agir pour l’intérêt général",
-    "Cooperation": "Interculturalité, diplomatie internationale"
+    "Développement individuel": "Savoir-être, développement personnel, outils du citoyen responsable, défense des valeurs, éthique",
+    "Entreprise": "Savoir-faire, compétences de management, réseau business, tester ses idées",
+    "Communaute": "Au service du territoire et de l’intérêt général, benchmark des actions, agir pour construire un monde meilleur",
+    "Cooperation": "dépasser les horizons, diplomatie internationale, interculturalité, construire des projets inter-organisations"
 }
 
+# ---------- SLIDERS PERSONNALISÉS ----------
 def afficher_sliders_personnalises(titre, description, data_dict, desc_dict, prefix):
     st.sidebar.markdown(f"<div style='font-size: 18px; font-weight: bold;'>{titre}</div>", unsafe_allow_html=True)
     st.sidebar.markdown(f"<span style='font-size: 14px; color: grey;'>{description}</span>", unsafe_allow_html=True)
@@ -99,11 +99,14 @@ def afficher_sliders_personnalises(titre, description, data_dict, desc_dict, pre
         valeurs[k] = st.sidebar.slider("", 0, 100, 25, key=f"{prefix}_{k}", label_visibility="collapsed")
     return valeurs
 
+def score(row, prefs_eng, prefs_pil):
+    s_eng = sum((row.get(k, 0) - prefs_eng[k])**2 for k in prefs_eng)
+    s_pil = sum((row.get(k, 0) - prefs_pil[k])**2 for k in prefs_pil)
+    return (s_eng + s_pil)**0.5
+
 def make_visual(row, niveau_labels, small=False):
     piliers_labels = list(pilier_icons.keys())
     couleurs_piliers = [pilier_icons[p][2] for p in piliers_labels]
-    verbes_labels = [verbe_map[v] for v in verbe_map]
-    couleurs_verbes = [verbe_icons[v][2] for v in verbe_map]
 
     fig = go.Figure()
     fig.add_trace(go.Pie(
@@ -132,20 +135,23 @@ def make_visual(row, niveau_labels, small=False):
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
 
-def afficher_description_cliquable(row):
+def formatter_description(row, afficher_niveau=False):
+    forme = row.get("Forme", "")
     description = row.get("Description", "Petite explication de l'opportunité")
     url = row.get("Url", "")
+    niveau = ", ".join([niveau_labels.get(n, n) for n in row.get("Niveau", [])]) if afficher_niveau else ""
+    
+    contenu = f"{forme} – "
     if pd.notna(url) and url.strip() != "":
-        return f"<div style='font-size:14px; color: #444;'><a href='{url}' target='_blank'>{description}</a></div>"
+        contenu += f"<a href='{url}' target='_blank'>{description}</a>"
     else:
-        return f"<div style='font-size:14px; color: #444;'>{description}</div>"
-
-def score(row, prefs_eng, prefs_pil):
-    s_eng = sum((row.get(k, 0) - prefs_eng[k])**2 for k in prefs_eng)
-    s_pil = sum((row.get(k, 0) - prefs_pil[k])**2 for k in prefs_pil)
-    return (s_eng + s_pil)**0.5
-
-# ---------- APPLICATION ----------
+        contenu += f"{description}"
+    
+    if afficher_niveau and niveau:
+        contenu += f" <span style='color: grey;'>({niveau})</span>"
+    
+    return f"<div style='font-size:14px; color: #444; margin-top: -4px;'>{contenu}</div>"
+# ---------- LANCEMENT APP ----------
 setup_css()
 df = load_data()
 
@@ -154,79 +160,69 @@ st.markdown("""
 <h2>Identifie facilement les opportunités de la Jeune Chambre qui te correspondent !</h2>
 
 **ETAPE 1. Personnalise tes préférences**  
-Utilise les curseurs et étiquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus. 
+Utilise les curseurs et étiquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus.
 
 **ETAPE 2. Lis la cartographie en un coup d’œil**  
-Le cercle extérieur indique comment tu préfères t’impliquer. Le Cercle intérieur montre ce que tu souhaites développer à travers ton engagement. Les icônes dans le titre représentent la forme que prend l’opportunité (ex. formation, événement, projet, etc).Le centre précise la portée de l’opportunité.
+Le cercle extérieur indique comment tu préfères t’impliquer. Le Cercle intérieur montre ce que tu souhaites développer à travers ton engagement. Les icônes dans le titre représentent la forme que prend l’opportunité (ex. formation, événement, projet…).  
+Le centre précise la portée de l’opportunité.
 
 **Explore, ajuste, découvre ce qui te motive, et profite du plaisir de l'engagement !**
 """, unsafe_allow_html=True)
 
-
-# --- FILTRES UTILISATEUR ---
+# ---------- SIDEBAR ----------
 st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
 
-# 1. Préférences engagement
 pref_engagements = afficher_sliders_personnalises(
     "💓 Ce qui me fait vibrer c'est ...",
     "Ma préférence d'engagement <em>(le comment ?)</em>",
     verbe_icons, descriptions_verbes, "verb"
 )
 
-# 2. Formes
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🧩 ... sous la forme principale de :</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon engagement <em>(le quoi ?)</em></span>", unsafe_allow_html=True)
 formes = sorted(df["Forme"].unique())
 formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
     format_func=lambda f: forme_emojis.get(f, f), label_visibility="collapsed")
 
-# 3. Piliers
 pref_piliers = afficher_sliders_personnalises(
     "🎯 Je souhaite développer ...",
     "Les 4 piliers JCI = les raisons de mon engagement <em>(le pourquoi ?)</em>",
     pilier_icons, descriptions_piliers, "pilier"
 )
 
-# 4. Niveau
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🌍 ... à un niveau :</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La portée de mon engagement <em>(le où ?)</em></span>", unsafe_allow_html=True)
 niveaux = ["L", "R", "N", "Z", "M"]
 niveaux_selected = st.sidebar.multiselect("", options=niveaux, default=niveaux,
     format_func=lambda n: niveau_labels.get(n, n), label_visibility="collapsed")
 
-
-# --- FILTRAGE DONNÉES ---
+# ---------- FILTRAGE DES DONNÉES ----------
 df = df[df["Forme"].isin(formes_selected)]
 df = df[df["Niveau"].apply(lambda nv: any(n in niveaux_selected for n in nv))]
 df["Score"] = df.apply(lambda row: score(row, pref_engagements, pref_piliers), axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
-# --- AFFICHAGE ---
+# ---------- AFFICHAGE TOP 9 ----------
 top = df.head(9)
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
-        picto = forme_emojis.get(row["Forme"], row["Forme"])
-        st.markdown(f"<div style='margin-bottom: -10px; font-size: 18px; font-weight: 600;'>{picto} — {row['Nom']}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='margin-top: 2px;'>{afficher_description_cliquable(row)}</div>", unsafe_allow_html=True)
-
+        emoji = forme_emojis.get(row["Forme"], "")
+        st.markdown(f"<div style='font-size: 18px; font-weight: 600;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
+        st.markdown(formatter_description(row), unsafe_allow_html=True)
         st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True, key=f"top_{i}_{row['Nom']}")
 
-
-# --- OPPORTUNITÉS SUPPLÉMENTAIRES ---
+# ---------- AUTRES OPPORTUNITÉS ----------
 if len(df) > 9:
     st.markdown("### 🔍 D'autres opportunités proches de tes critères")
-    others = df.iloc[9:21]  # 12 suivantes
-    cols = st.columns(4)  # 4 colonnes par ligne
-
+    st.markdown("""
+    <small>Ces opportunités pourraient aussi t’inspirer ! N’hésite pas à en discuter avec d’autres Jaycees ou avec ton parrain / ta marraine pour voir comment t’y impliquer.</small>
+    """, unsafe_allow_html=True)
+    others = df.iloc[9:21]
+    cols = st.columns(4)
     for i, (_, row) in enumerate(others.iterrows()):
         with cols[i % 4]:
-            niveaux_txt = ", ".join([niveau_labels.get(n, n) for n in row["Niveau"]])
-            st.markdown(f"**{row['Nom']}** *({niveaux_txt})*")
-
-            # Ajout du texte explicatif
-            st.markdown(afficher_description_cliquable(row), unsafe_allow_html=True)
-
+            emoji = forme_emojis.get(row["Forme"], "")
+            st.markdown(f"<div style='font-size: 16px; font-weight: 600;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
+            st.markdown(formatter_description(row, afficher_niveau=True), unsafe_allow_html=True)
             st.plotly_chart(make_visual(row, niveau_labels, small=True), use_container_width=True, key=f"other_{i}_{row['Nom']}")
-
-
