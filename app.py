@@ -183,8 +183,11 @@ pref_engagements = afficher_sliders_personnalises(
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🧩 ... sous la forme principale de :</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon engagement <em>(le quoi ?)</em></span>", unsafe_allow_html=True)
 formes = sorted(df["Forme"].unique())
-formes_selected = st.sidebar.multiselect("", options=formes, default=formes,
-    format_func=lambda f: forme_emojis.get(f, f), label_visibility="collapsed")
+formes_selected = st.sidebar.multiselect(
+    "", options=formes, default=formes,
+    format_func=lambda f: f"{forme_emojis.get(f, '')} {f}",
+    label_visibility="collapsed"
+)
 
 pref_piliers = afficher_sliders_personnalises(
     "🎯 Je souhaite développer ...",
