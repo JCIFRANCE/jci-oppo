@@ -34,6 +34,8 @@ couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]  # Brun, Gris, O
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
 piliers_labels = ["Développement perso", "Esprit d'entreprise", "Service à la communauté", "Coopération internationale"]
 
+
+
 # Configuration de la page
 st.set_page_config(
     page_title="Cartographie des opportunités",
@@ -240,8 +242,14 @@ def make_visual(row, i, small=False):
     ))
 
     # Mise à jour des couleurs après la création des traces
-    fig.update_traces(marker=dict(colors=couleurs_piliers), selector=dict(type='pie', domain={'x': [0.25, 0.75]}))
-    fig.update_traces(marker=dict(colors=cols), selector=dict(type='pie', domain={'x': [0, 1]}))
+    fig.update_traces(
+        marker=dict(colors=couleurs_piliers),
+        selector=dict(type='pie', name=piliers_labels[0])  # Assurez-vous que le nom correspond
+    )
+    fig.update_traces(
+        marker=dict(colors=cols),
+        selector=dict(type='pie', name=verbes_labels[0])  # Assurez-vous que le nom correspond
+    )
 
     if not small:
         for j, txt in enumerate(niveaux_list):
@@ -257,7 +265,6 @@ def make_visual(row, i, small=False):
 
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
-
 
 # Affichage des 9 premières opportunités
 top = df.head(9)
