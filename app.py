@@ -264,6 +264,9 @@ def make_visual(row, i, small=False):
 
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
+    
+print("Couleurs des piliers :", couleurs_piliers)
+print("Couleurs des verbes :", couleurs_verbes)
 
     
 # Affichage des 9 premières opportunités
