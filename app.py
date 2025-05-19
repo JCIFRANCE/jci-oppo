@@ -30,10 +30,10 @@ forme_emojis = {
 
 # Exemple de données
 piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
-couleurs_piliers = ["#964B00", "#D3D3D3", "#FFA500", "#800080"]  # Brun, Gris, Orange, Violet
+couleurs_piliers = ["#964B00", "#D3D3D3", "#FFA500", "#800080"] 
 
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
-couleurs_verbes = ["#1E50A0", "#FEE135", "#B22222", "#228B22"]  # Bleu, Or, Rouge, Vert
+couleurs_verbes = ["#4D79C6", "#FFF180", "#E53935", "#43A047"]  
 
 # Dictionnaires pour associer les labels aux couleurs
 couleur_pilier_dict = dict(zip(piliers_labels, couleurs_piliers))
@@ -114,10 +114,10 @@ descriptions_verbes = {
 
 # Couleurs mises à jour pour correspondre aux emojis
 verbe_icons = {
-    "Apprendre": ("🟦", "Apprendre", "#1E50A0"),
-    "Célébrer": ("🟨", "Célébrer", "#FEE135"),
-    "Responsabiliser": ("🟥", "Prendre des responsabilités", "#B22222"),
-    "Rencontrer": ("🟩", "Se rencontrer", "#228B22")
+    "Apprendre": ("🟦", "Apprendre", "#4D79C6"),
+    "Célébrer": ("🟨", "Célébrer", "#FFF180"),
+    "Responsabiliser": ("🟥", "Prendre des responsabilités", "#E53935"),
+    "Rencontrer": ("🟩", "Se rencontrer", "#43A047")
 }
 
 
