@@ -183,11 +183,18 @@ pref_engagements = afficher_sliders_personnalises(
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🧩 ... sous la forme principale de :</div>", unsafe_allow_html=True)
 st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon engagement <em>(le quoi ?)</em></span>", unsafe_allow_html=True)
 formes = sorted(df["Forme"].unique())
-formes_selected = st.sidebar.multiselect(
-    "", options=formes, default=formes,
-    format_func=lambda f: f,  # affiche le nom clair, pas l'emoji
+# 1. Liste affichée : emoji + texte
+formes_options = [f"{forme_emojis[f]} {f}" for f in formes]
+
+# 2. Mapping inverse pour retrouver les vraies valeurs
+formes_map = {f"{forme_emojis[f]} {f}": f for f in formes}
+
+formes_selected_raw = st.sidebar.multiselect(
+    "", options=formes_options, default=formes_options,
     label_visibility="collapsed"
 )
+formes_selected = [formes_map[f] for f in formes_selected_raw]
+
 
 pref_piliers = afficher_sliders_personnalises(
     "🎯 Je souhaite développer ...",
