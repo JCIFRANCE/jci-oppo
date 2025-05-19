@@ -35,6 +35,10 @@ couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]  # Brun, Gris, O
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
 couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]  # Bleu, Or, Rouge, Vert
 
+# Dictionnaires pour associer les labels aux couleurs
+couleur_pilier_dict = dict(zip(piliers_labels, couleurs_piliers))
+couleur_verbe_dict = dict(zip(verbes_labels, couleurs_verbes))
+
 
 
 # Configuration de la page
@@ -221,7 +225,8 @@ def make_visual(row, i, small=False):
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
         hovertemplate='<b>%{label}</b><extra></extra>',
-        showlegend=False
+        showlegend=False,
+        name="Piliers"
     ))
 
     # Couleurs pour les verbes
@@ -231,7 +236,7 @@ def make_visual(row, i, small=False):
         if val > 0:
             vals.append(val)
             labels.append(label)
-            cols.append(couleurs_verbes[j])
+            cols.append(couleur_verbe_dict[label])
 
     fig.add_trace(go.Pie(
         values=vals, labels=labels,
@@ -239,18 +244,22 @@ def make_visual(row, i, small=False):
         domain={'x': [0, 1], 'y': [0, 1]},
         textinfo='none',
         hovertemplate='<b>%{label}</b><extra></extra>',
-        showlegend=False
+        showlegend=False,
+        name="Verbes"
     ))
 
     # Mise à jour des couleurs après la création des traces
-    fig.update_traces(
-        marker=dict(colors=couleurs_piliers),
-        selector=dict(type='pie', name=piliers_labels[0])  # Assurez-vous que le nom correspond
-    )
-    fig.update_traces(
-        marker=dict(colors=cols),
-        selector=dict(type='pie', name=verbes_labels[0])  # Assurez-vous que le nom correspond
-    )
+    for idx, label in enumerate(piliers_labels):
+        fig.update_traces(
+            marker=dict(colors=[couleur_pilier_dict[label]]),
+            selector=dict(type='pie', name="Piliers", label=label)
+        )
+
+    for idx, label in enumerate(verbes_labels):
+        fig.update_traces(
+            marker=dict(colors=[couleur_verbe_dict[label]]),
+            selector=dict(type='pie', name="Verbes", label=label)
+        )
 
     if not small:
         for j, txt in enumerate(niveaux_list):
@@ -266,6 +275,7 @@ def make_visual(row, i, small=False):
 
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
+
 
 # Affichage des 9 premières opportunités
 top = df.head(9)
