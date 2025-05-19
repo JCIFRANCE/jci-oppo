@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-import plotly.io as pio
-pio.templates.default = "plotly_white"
+
 
 # Chargement des données
 df = pd.read_csv("https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv", encoding="utf-8")
@@ -29,10 +28,12 @@ forme_emojis = {
     "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement", "Formation": "🎓 Formation"
 }
 
-couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]  # Bleu, Or, Rouge, Vert
+# Exemple de données
+piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]  # Brun, Gris, Orange, Violet
+
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
-piliers_labels = ["Développement perso", "Esprit d'entreprise", "Service à la communauté", "Coopération internationale"]
+couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]  # Bleu, Or, Rouge, Vert
 
 
 
