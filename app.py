@@ -109,42 +109,57 @@ def make_visual(row, niveau_labels, small=False):
     piliers_labels = list(pilier_icons.keys())
     couleurs_piliers = [pilier_icons[p][2] for p in piliers_labels]
 
+    verbes_labels = list(verbe_map.keys())
+    couleurs_verbes = [verbe_icons[v][2] for v in verbes_labels]
+
     fig = go.Figure()
+
+    # 🎯 Cercle intérieur = piliers
     fig.add_trace(go.Pie(
         values=[row.get(p, 0) for p in piliers_labels],
         labels=piliers_labels,
         marker=dict(colors=couleurs_piliers),
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
-        textinfo='none',  # ✅ empêche % ou chiffre visibles dans le donut
-        hovertemplate='<b>%{label}</b><extra></extra>',  # ✅ empêche les chiffres au survol
-        textposition='none',
-        showlegend=False
+        textinfo='none',
+        showlegend=False,
+        hovertemplate='<b>%{label}</b><extra></extra>',
+        textposition='none'
     ))
 
+    # 🔵 Cercle extérieur = verbes
     valeurs_verbes = [(row.get(k, 0), verbe_map[k], verbe_icons[k][2]) for k in verbe_map if row.get(k, 0) > 0]
     if valeurs_verbes:
         v, l, c = zip(*valeurs_verbes)
         fig.add_trace(go.Pie(
-    values=v,
-    labels=l,
-    marker=dict(colors=c),
-    hole=0.6,
-    domain={'x': [0, 1], 'y': [0, 1]},
-    textinfo='none',  # ✅ pas de pourcentage
-    showlegend=False,
-    hovertemplate='<b>%{label}</b><extra></extra>',  # ✅ au survol : juste le nom
-    textposition='none'
-))
+            values=v,
+            labels=l,
+            marker=dict(colors=c),
+            hole=0.6,
+            domain={'x': [0, 1], 'y': [0, 1]},
+            textinfo='none',
+            showlegend=False,
+            hovertemplate='<b>%{label}</b><extra></extra>',
+            textposition='none'
+        ))
 
-
+    # 🏷️ Niveaux au centre
     if not small:
         for i, n in enumerate(row["Niveau"]):
-            fig.add_annotation(text=niveau_labels.get(n, n), x=0.5, y=0.5 - i * 0.09,
-                               showarrow=False, font=dict(size=11))
+            fig.add_annotation(
+                text=niveau_labels.get(n, n),
+                x=0.5,
+                y=0.5 - i * 0.09,
+                showarrow=False,
+                font=dict(size=11)
+            )
 
-    fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
+    fig.update_layout(
+        margin=dict(t=5, b=5, l=5, r=5),
+        height=260 if not small else 180
+    )
     return fig
+
 
 def formatter_description(row, afficher_niveau=False):
     forme = row.get("Forme", "")
