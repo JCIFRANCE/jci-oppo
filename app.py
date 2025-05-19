@@ -28,13 +28,6 @@ forme_emojis = {
     "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement", "Formation": "🎓 Formation"
 }
 
-# Exemple de données
-piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
-couleurs_piliers = ["#765358", "#D3D3D3", "#E17D4F", "#8667D6"] 
-
-verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
-couleurs_verbes = ["#5E81D0", "#EEBD63", "#E53935", "#79C28F"]  
-
 # Dictionnaires pour associer les labels aux couleurs
 couleur_pilier_dict = dict(zip(piliers_labels, couleurs_piliers))
 couleur_verbe_dict = dict(zip(verbes_labels, couleurs_verbes))
