@@ -221,6 +221,7 @@ def make_visual(row, i, small=False):
     fig.add_trace(go.Pie(
         values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
         labels=piliers_labels,
+        marker=dict(colors=[couleur_pilier_dict[label] for label in piliers_labels]),
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
@@ -240,6 +241,7 @@ def make_visual(row, i, small=False):
 
     fig.add_trace(go.Pie(
         values=vals, labels=labels,
+        marker=dict(colors=cols),
         hole=0.6,
         domain={'x': [0, 1], 'y': [0, 1]},
         textinfo='none',
@@ -247,19 +249,6 @@ def make_visual(row, i, small=False):
         showlegend=False,
         name="Verbes"
     ))
-
-    # Mise à jour des couleurs après la création des traces
-    for idx, label in enumerate(piliers_labels):
-        fig.update_traces(
-            marker=dict(colors=[couleur_pilier_dict[label]]),
-            selector=dict(type='pie', name="Piliers", label=label)
-        )
-
-    for idx, label in enumerate(verbes_labels):
-        fig.update_traces(
-            marker=dict(colors=[couleur_verbe_dict[label]]),
-            selector=dict(type='pie', name="Verbes", label=label)
-        )
 
     if not small:
         for j, txt in enumerate(niveaux_list):
@@ -275,6 +264,7 @@ def make_visual(row, i, small=False):
 
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
+
 
 
 # Affichage des 9 premières opportunités
