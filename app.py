@@ -208,10 +208,11 @@ def make_visual(row, i, small=False):
     niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
     fig = go.Figure()
 
+    # Couleurs pour les piliers
     fig.add_trace(go.Pie(
         values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
         labels=piliers_labels,
-        marker=dict(colors=couleurs_piliers),
+        marker=dict(colors=couleurs_piliers),  # Utilise les couleurs définies
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
@@ -219,13 +220,14 @@ def make_visual(row, i, small=False):
         showlegend=False
     ))
 
+    # Couleurs pour les verbes
     vals, labels, cols = [], [], []
     for j, (col, label) in enumerate(verbe_map.items()):
         val = row.get(col, 0)
         if val > 0:
             vals.append(val)
             labels.append(label)
-            cols.append(couleurs_verbes[j])
+            cols.append(couleurs_verbes[j])  # Utilise les couleurs définies
 
     fig.add_trace(go.Pie(
         values=vals, labels=labels,
