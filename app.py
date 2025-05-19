@@ -132,6 +132,14 @@ def make_visual(row, niveau_labels, small=False):
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
 
+def afficher_description_cliquable(row):
+    description = row.get("Description", "Petite explication de l'opportunité")
+    url = row.get("Url", "")
+    if pd.notna(url) and url.strip() != "":
+        return f"<div style='font-size:14px; color: #444;'><a href='{url}' target='_blank'>{description}</a></div>"
+    else:
+        return f"<div style='font-size:14px; color: #444;'>{description}</div>"
+
 def score(row, prefs_eng, prefs_pil):
     s_eng = sum((row.get(k, 0) - prefs_eng[k])**2 for k in prefs_eng)
     s_pil = sum((row.get(k, 0) - prefs_pil[k])**2 for k in prefs_pil)
