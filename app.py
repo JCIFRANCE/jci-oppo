@@ -209,6 +209,12 @@ df = df.sort_values("Score").reset_index(drop=True)
 import plotly.io as pio
 pio.templates.default = "plotly_white"
 
+import plotly.io as pio
+pio.templates.default = "plotly_white"
+
+couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]  # Bleu, Or, Rouge, Vert
+couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]  # Brun, Gris, Orange, Violet
+
 def make_visual(row, i, small=False):
     niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
     fig = go.Figure()
