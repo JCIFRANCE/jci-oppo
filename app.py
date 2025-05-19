@@ -206,25 +206,22 @@ def score(row):
 df["Score"] = df.apply(score, axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
-import plotly.express as px
-
 def make_visual(row, i, small=False):
     niveaux_list = [niveau_labels.get(n, n) for n in row["Niveau"]]
-    fig = px.pie(
-        names=piliers_labels,
-        values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
-        hole=0.3,
-        color=piliers_labels,
-        color_discrete_map={label: color for label, color in zip(piliers_labels, couleurs_piliers)}
-    )
+    fig = go.Figure()
 
-    fig.update_traces(
+    # Couleurs pour les piliers
+    fig.add_trace(go.Pie(
+        values=[row["Individu"], row["Entreprise"], row["Communaute"], row["Cooperation"]],
+        labels=piliers_labels,
+        hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
         textinfo='none',
         hovertemplate='<b>%{label}</b><extra></extra>',
         showlegend=False
-    )
+    ))
 
+    # Couleurs pour les verbes
     vals, labels, cols = [], [], []
     for j, (col, label) in enumerate(verbe_map.items()):
         val = row.get(col, 0)
@@ -233,22 +230,18 @@ def make_visual(row, i, small=False):
             labels.append(label)
             cols.append(couleurs_verbes[j])
 
-    fig2 = px.pie(
-        names=labels,
-        values=vals,
+    fig.add_trace(go.Pie(
+        values=vals, labels=labels,
         hole=0.6,
-        color=labels,
-        color_discrete_map={label: color for label, color in zip(labels, cols)}
-    )
-
-    fig2.update_traces(
         domain={'x': [0, 1], 'y': [0, 1]},
         textinfo='none',
         hovertemplate='<b>%{label}</b><extra></extra>',
         showlegend=False
-    )
+    ))
 
-    fig.add_trace(fig2.data[0])
+    # Mise à jour des couleurs après la création des traces
+    fig.update_traces(marker=dict(colors=couleurs_piliers), selector=dict(type='pie', domain={'x': [0.25, 0.75]}))
+    fig.update_traces(marker=dict(colors=cols), selector=dict(type='pie', domain={'x': [0, 1]}))
 
     if not small:
         for j, txt in enumerate(niveaux_list):
@@ -264,6 +257,7 @@ def make_visual(row, i, small=False):
 
     fig.update_layout(margin=dict(t=5, b=5, l=5, r=5), height=260 if not small else 180)
     return fig
+
 
     
 print("Couleurs des piliers :", couleurs_piliers)
