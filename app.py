@@ -185,7 +185,7 @@ st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon
 formes = sorted(df["Forme"].unique())
 formes_selected = st.sidebar.multiselect(
     "", options=formes, default=formes,
-    format_func=lambda f: f"{forme_emojis.get(f, '')} {f}",
+    format_func=lambda f: f,  # affiche le nom clair, pas l'emoji
     label_visibility="collapsed"
 )
 
