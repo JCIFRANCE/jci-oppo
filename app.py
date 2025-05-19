@@ -120,7 +120,7 @@ verbe_icons = {
     "Rencontrer": ("🟩", "Se rencontrer", "#79C28F")
 }
 
-
+ 
 
 pref_engagements = {}
 for k, (emoji, label, color) in verbe_icons.items():
