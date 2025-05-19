@@ -4,7 +4,13 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 # Chargement des données
-df = pd.read_csv("https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv", encoding="utf-8")
+@st.cache_data
+def load_data():
+    url = "https://docs.google.com/spreadsheets/..."
+    return pd.read_csv(url, encoding="utf-8")
+
+df = load_data()
+
 df.columns = df.columns.str.strip()
 df["Forme"] = df["Forme"].str.strip().str.capitalize()
 df["Forme"] = df["Forme"].replace({
@@ -228,13 +234,12 @@ def make_visual(row, i, small=False):
     ))
 
     # Couleurs pour les verbes
-    vals, labels, cols = [], [], []
-    for j, (col, label) in enumerate(verbe_map.items()):
-        val = row.get(col, 0)
-        if val > 0:
-            vals.append(val)
-            labels.append(label)
-            cols.append(couleur_verbe_dict[label])
+    vals, labels, cols = zip(*[
+    (row.get(col, 0), label, couleur_verbe_dict[label])
+    for col, label in verbe_map.items()
+    if row.get(col, 0) > 0
+]) if any(row.get(col, 0) > 0 for col in verbe_map) else ([], [], [])
+
 
     fig.add_trace(go.Pie(
         values=vals, labels=labels,
