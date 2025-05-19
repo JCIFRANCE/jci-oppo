@@ -33,7 +33,7 @@ piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
 couleurs_piliers = ["#964B00", "#D3D3D3", "#FFA500", "#9C27B0"] 
 
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
-couleurs_verbes = ["#4D79C6", "#FBC02D", "#E53935", "#43A047"]  
+couleurs_verbes = ["#5E81D0", "#E89B52", "#E53935", "#79C28F"]  
 
 # Dictionnaires pour associer les labels aux couleurs
 couleur_pilier_dict = dict(zip(piliers_labels, couleurs_piliers))
@@ -114,10 +114,10 @@ descriptions_verbes = {
 
 # Couleurs mises à jour pour correspondre aux emojis
 verbe_icons = {
-    "Apprendre": ("🟦", "Apprendre", "#4D79C6"),
-    "Célébrer": ("🟨", "Célébrer", "#FBC02D"),
+    "Apprendre": ("🟦", "Apprendre", "#5E81D0"),
+    "Célébrer": ("🟨", "Célébrer", "#E89B52"),
     "Responsabiliser": ("🟥", "Prendre des responsabilités", "#E53935"),
-    "Rencontrer": ("🟩", "Se rencontrer", "#43A047")
+    "Rencontrer": ("🟩", "Se rencontrer", "#79C28F")
 }
 
 
