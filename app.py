@@ -154,11 +154,10 @@ st.markdown("""
 <h2>Identifie facilement les opportunités de la Jeune Chambre qui te correspondent !</h2>
 
 **ETAPE 1. Personnalise tes préférences**  
-Utilise les curseurs et étiquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus.
+Utilise les curseurs et étiquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus. 
 
 **ETAPE 2. Lis la cartographie en un coup d’œil**  
-Le cercle extérieur indique comment tu préfères t’impliquer. Le Cercle intérieur montre ce que tu souhaites développer à travers ton engagement. Les icônes dans le titre représentent la forme que prend l’opportunité (ex. formation, événement, projet…).  
-Le centre précise la portée de l’opportunité.
+Le cercle extérieur indique comment tu préfères t’impliquer. Le Cercle intérieur montre ce que tu souhaites développer à travers ton engagement. Les icônes dans le titre représentent la forme que prend l’opportunité (ex. formation, événement, projet, etc).Le centre précise la portée de l’opportunité.
 
 **Explore, ajuste, découvre ce qui te motive, et profite du plaisir de l'engagement !**
 """, unsafe_allow_html=True)
@@ -208,10 +207,8 @@ cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
         picto = forme_emojis.get(row["Forme"], row["Forme"])
-        st.markdown(f"#### {picto} — {row['Nom']}")
-
-        # Ajoutez un lien cliquable si l'URL est présente
-        st.markdown(afficher_description_cliquable(row), unsafe_allow_html=True)
+        st.markdown(f"<div style='margin-bottom: -10px; font-size: 18px; font-weight: 600;'>{picto} — {row['Nom']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='margin-top: 2px;'>{afficher_description_cliquable(row)}</div>", unsafe_allow_html=True)
 
         st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True, key=f"top_{i}_{row['Nom']}")
 
