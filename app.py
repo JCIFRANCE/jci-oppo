@@ -27,8 +27,20 @@ def setup_css():
                 margin-top: 0rem !important;
                 margin-bottom: 0rem !important;
             }
+
+            .intro-sticky {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 999;
+                padding-bottom: 1rem;
+                padding-top: 0.5rem;
+                border-bottom: 1px solid #eee;
+                box-shadow: 0px 4px 6px rgba(0,0,0,0.05);
+            }
         </style>
     """, unsafe_allow_html=True)
+
 
 # ---------- CHARGEMENT DES DONNÉES ----------
 @st.cache_data
@@ -155,8 +167,10 @@ def formatter_description(row, afficher_niveau=False):
 setup_css()
 df = load_data()
 
-st.markdown("<h1>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>", unsafe_allow_html=True)
 st.markdown("""
+<div class="intro-sticky">
+<h1>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
+
 <h2>Identifie facilement les opportunités de la Jeune Chambre qui te correspondent !</h2>
 
 **ETAPE 1. Personnalise tes préférences**  
@@ -167,6 +181,7 @@ Le cercle extérieur indique comment tu préfères t’impliquer. Le Cercle int�
 Le centre précise la portée de l’opportunité.
 
 **Explore, ajuste, découvre ce qui te motive, et profite du plaisir de l'engagement !**
+</div>
 """, unsafe_allow_html=True)
 
 # ---------- SIDEBAR ----------
