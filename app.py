@@ -27,10 +27,10 @@ forme_emojis = {
     "Fonction": "👔 Fonction", "Equipe": "🤝 Équipe", "Événement": "🎫 Événement", "Formation": "🎓 Formation"
 }
 
-couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]
-couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]
+couleurs_verbes = ["#0000FF", "#FFD700", "#FF0000", "#28A745"]  # Bleu, Or, Rouge, Vert
+couleurs_piliers = ["#A52A2A", "#808080", "#FFA500", "#800080"]  # Brun, Gris, Orange, Violet
 verbes_labels = ["Apprendre", "Célébrer", "Prendre des responsabilités", "Se rencontrer"]
-piliers_labels = ["Individu", "Entreprise", "Communauté", "International"]
+piliers_labels = ["Développement perso", "Esprit d'entreprise", "Service à la communauté", "Coopération internationale"]
 
 # Configuration de la page
 st.set_page_config(
