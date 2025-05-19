@@ -259,11 +259,6 @@ def make_visual(row, i, small=False):
     return fig
 
 
-    
-print("Couleurs des piliers :", couleurs_piliers)
-print("Couleurs des verbes :", couleurs_verbes)
-
-    
 # Affichage des 9 premières opportunités
 top = df.head(9)
 st.markdown(f"### ")
