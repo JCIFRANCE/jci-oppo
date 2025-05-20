@@ -257,15 +257,14 @@ top = df.head(9)
 
 st.markdown("""
 <div style='
-    background-color: #FF4B4B;
+    background-color: #F0F2F6;
     padding: 0.8rem 1rem;
     border-radius: 6px;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
 '>
-  <h3 style='color: black; margin: 0;'>🎯 Ton assortiment idéal à savourer et à partager</h3>
-<span style='font-size: 14px; color: grey;'>
-2️⃣ Voici le top 9 des opportunités qui matchent avec ta sélection actuelle.<br>
-3️⃣ Lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
+  <h3 style='color: black; margin: 0; margin-bottom: 0rem;'>🎯 Ton assortiment idéal à savourer et à partager</h3>
+<span style='font-size: 14px; color: black;'>
+Voici le top 9 des opportunités qui matchent avec ta sélection actuelle. Lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
 </span>
 </div>
 """, unsafe_allow_html=True)
