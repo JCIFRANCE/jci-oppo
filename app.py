@@ -254,7 +254,7 @@ df = df.sort_values("Score").reset_index(drop=True)
 
 # ---------- AFFICHAGE TOP 9 ----------
 st.markdown("### 🧺 Ton assortiment idéal")
-    st.markdown("""
+st.markdown("""
     Le top 9 des opportunités qui matchent avec ta sélection actuelle : savoure et partage-les avec d’autres Jaycees ou ton parrain / marraine... ou modifie tes ingrédients pour explorer d'autres pistes.
     """, unsafe_allow_html=True)
 top = df.head(9)
