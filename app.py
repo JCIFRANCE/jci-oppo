@@ -270,7 +270,8 @@ for i, (_, row) in enumerate(top.iterrows()):
         st.markdown(f"<div style='font-size: 18px; font-weight: 600;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
         st.markdown(formatter_description(row), unsafe_allow_html=True)
         st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True, key=f"top_{i}_{row['Nom']}")
-    st.markdown("</div>", unsafe_allow_html=True)
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------- AUTRES OPPORTUNITÉS ----------
 if len(df) > 9:
