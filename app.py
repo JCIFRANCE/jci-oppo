@@ -253,53 +253,30 @@ df["Score"] = df.apply(lambda row: score(row, pref_engagements, pref_piliers), a
 df = df.sort_values("Score").reset_index(drop=True)
 
 # ---------- AFFICHAGE TOP 9 ----------
-with st.container():
-    st.markdown("""
-        <div style='
-            background-color: #F9F9F9;
-            border: 1px solid #DDD;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 2rem;
-        '>
-        <h3 style='margin-bottom: 0.3rem;'>🧺 Ton assortiment idéal à savourer et à partager</h3>
-        <p style='font-size: 14px; color: #666; margin-bottom: 1.5rem;'>
-            Le top 9 des opportunités qui matchent avec ta sélection actuelle :<br>
-            discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
-        </p>
-        </div>
-    """, unsafe_allow_html=True)
+# ---------- AFFICHAGE TOP 9 ----------
+top = df.head(9)
 
+st.markdown("### Ton assortiment idéal à savourer et à partager")
+st.markdown("""
+<span style='font-size: 14px; color: grey;'>
+🧺 Le top 9 des opportunités qui matchent avec ta sélection actuelle :
+discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
+</span>
+""", unsafe_allow_html=True)
 
-
-    top = df.head(9)
-    cols = st.columns(3)
-    for i, (_, row) in enumerate(top.iterrows()):
-        with cols[i % 3]:
-            emoji = forme_emojis.get(row["Forme"], "")
-            st.markdown(f"<div style='font-size: 18px; font-weight: 600;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
-            st.markdown(formatter_description(row), unsafe_allow_html=True)
-            st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True, key=f"top_{i}_{row['Nom']}")
-    # 💡 Hack visuel : créer un fond gris avec du padding autour du bloc donuts
-    st.markdown("""
-        <div style='
-            background-color: #F9F9F9;
-            border: 1px solid #DDD;
-            border-top: none;
-            padding: 1rem;
-            border-radius: 0 0 8px 8px;
-            margin-top: -2rem;
-            margin-bottom: 2rem;
-        '>
-    """, unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-
+cols = st.columns(3)
+for i, (_, row) in enumerate(top.iterrows()):
+    with cols[i % 3]:
+        emoji = forme_emojis.get(row["Forme"], "")
+        st.markdown(f"<div style='font-size: 18px; font-weight: 600;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
+        st.markdown(formatter_description(row), unsafe_allow_html=True)
+        st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True, key=f"top_{i}_{row['Nom']}")
 
 # ---------- AUTRES OPPORTUNITÉS ----------
 if len(df) > 9:
-    st.markdown("### 🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût")
+    st.markdown("### Encore un peu de place ? Voici d’autres suggestions à ton goût")
     st.markdown("""
-    Pas tout à fait ce que tu cherchais, mais c'est en vitrine et ces opportunités pourraient aussi t’inspirer ! 
+    🧁 Pas tout à fait ce que tu cherchais, mais c'est en vitrine et ces opportunités pourraient aussi t’inspirer ! 
     """, unsafe_allow_html=True)
     others = df.iloc[9:21]
     cols = st.columns(4)
