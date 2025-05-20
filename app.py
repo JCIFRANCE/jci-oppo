@@ -27,10 +27,15 @@ def setup_css():
                 margin-top: 0rem !important;
                 margin-bottom: 0rem !important;
             }
-            /* Réduction du padding top au tout début de la page */
-        .block-container {
-            padding-top: 1rem !important;
+            /* Réduction de l’espace en haut du volet de sélection */
+        section[data-testid="stSidebar"] .css-1d391kg {
+            padding-top: 3rem !important;
         }
+        /* Réduction du padding top au tout début de la page */
+        .block-container {
+            padding-top: 3rem !important;
+        }
+        
         </style>
     """, unsafe_allow_html=True)
 
