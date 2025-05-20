@@ -257,13 +257,12 @@ top = df.head(9)
 
 st.markdown("""
 <div style='
-    background-color: var(--primary-color);
+    background-color: #FF4B4B;
     padding: 0.8rem 1rem;
     border-radius: 6px;
     margin-bottom: 1rem;
 '>
   <h3 style='color: black; margin: 0;'>🎯 Ton assortiment idéal à savourer et à partager</h3>
-
 <span style='font-size: 14px; color: grey;'>
 2️⃣ Voici le top 9 des opportunités qui matchent avec ta sélection actuelle.<br>
 3️⃣ Lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
@@ -284,7 +283,7 @@ for i, (_, row) in enumerate(top.iterrows()):
 if len(df) > 9:
     st.markdown("""
     <div style='
-    background-color: var(--primary-color);
+    background-color: #FF4B4B;
     padding: 0.8rem 1rem;
     border-radius: 6px;
     margin-bottom: 1rem;
