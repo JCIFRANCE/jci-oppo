@@ -187,7 +187,7 @@ st.markdown("""
   <div style='font-style: italic; font-size: 16px; color: #444; margin-bottom: 0rem;'>
     Identifie facilement les opportunités de la Jeune Chambre qui te correspondent !
   </div>
-  <div style='font-size: 15px; line-height: 1.6; color: #333;'>
+  <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
     <b>ETAPE 1. Personnalise tes préférences</b> utilise les curseurs et étiquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus.<br>
     <b>ETAPE 2. Lis la cartographie en un coup d’œil</b> le cercle extérieur indique comment tu préfères t’impliquer. Le cercle intérieur montre ce que tu souhaites développer à travers ton engagement.<br>
     <b>ETAPE 3. Explore</b> ajuste, découvre ce qui te motive, et profite du plaisir de l'engagement !
