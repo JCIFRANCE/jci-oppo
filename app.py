@@ -253,6 +253,10 @@ df["Score"] = df.apply(lambda row: score(row, pref_engagements, pref_piliers), a
 df = df.sort_values("Score").reset_index(drop=True)
 
 # ---------- AFFICHAGE TOP 9 ----------
+st.markdown("### 🧺 Ton assortiment idéal")
+    st.markdown("""
+    Le top 9 des opportunités qui matchent avec ta sélection actuelle : savoure et partage-les avec d’autres Jaycees ou ton parrain / marraine... ou modifie tes ingrédients pour explorer d'autres pistes.
+    """, unsafe_allow_html=True)
 top = df.head(9)
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
@@ -264,9 +268,9 @@ for i, (_, row) in enumerate(top.iterrows()):
 
 # ---------- AUTRES OPPORTUNITÉS ----------
 if len(df) > 9:
-    st.markdown("### 🔍 D'autres opportunités proches de tes critères")
+    st.markdown("### 🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût")
     st.markdown("""
-    Ces opportunités pourraient aussi t’inspirer ! N’hésite pas à en discuter avec d’autres Jaycees ou avec ton parrain / ta marraine pour en apprendre davantage.
+    Pas tout à fait ce que tu cherchais, mais c'est en vitrine et ces opportunités pourraient aussi t’inspirer ! 
     """, unsafe_allow_html=True)
     others = df.iloc[9:21]
     cols = st.columns(4)
