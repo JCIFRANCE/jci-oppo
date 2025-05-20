@@ -182,9 +182,9 @@ setup_css()
 df = load_data()
 
 st.markdown("""
-<div style='margin-bottom: 1rem;'>
-  <h1 style='margin-bottom: 0.2rem;'>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
-  <div style='font-style: italic; font-size: 16px; color: #444; margin-bottom: 0.6rem;'>
+<div style='margin-bottom: 0rem;'>
+  <h1 style='margin-bottom: 0rem;'>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
+  <div style='font-style: italic; font-size: 16px; color: #444; margin-bottom: 0rem;'>
     Identifie facilement les opportunités de la Jeune Chambre qui te correspondent !
   </div>
   <div style='font-size: 15px; line-height: 1.6; color: #333;'>
