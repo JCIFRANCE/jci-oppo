@@ -262,10 +262,11 @@ st.markdown("""
     border-radius: 6px;
     margin-bottom: 0rem;
 '>
-  <h3 style='color: black; margin: 0; margin-bottom: 0rem;'>🎯 Ton assortiment idéal à savourer et à partager</h3>
-<span style='font-size: 14px; color: black;'>
+<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0.5rem;'>
+🎯 Ton assortiment idéal à savourer et à partager
+</div>
+<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
 Voici le top 9 des opportunités qui matchent avec ta sélection actuelle. Lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
-</span>
 </div>
 """, unsafe_allow_html=True)
 
