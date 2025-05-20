@@ -257,7 +257,7 @@ top = df.head(9)
 
 st.markdown("""
 <div style='background-color: var(--primary-color); padding: 0.8rem 1rem; border-radius: 6px; margin-bottom: 1rem;'>
-  <h3 style='color: white; margin: 0;'>🎯 Ton assortiment idéal à savourer et à partager</h3>
+  <h3 style='color: black; margin: 0;'>🎯 Ton assortiment idéal à savourer et à partager</h3>
 </div>
 """, unsafe_allow_html=True)
 
@@ -281,7 +281,7 @@ for i, (_, row) in enumerate(top.iterrows()):
 if len(df) > 9:
     st.markdown("""
     <div style='background-color: var(--primary-color); padding: 0.8rem 1rem; border-radius: 6px; margin-top: 2rem; margin-bottom: 1rem;'>
-      <h3 style='color: white; margin: 0;'>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</h3>
+      <h3 style='color: black; margin: 0;'>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</h3>
     </div>
     """, unsafe_allow_html=True)
 
