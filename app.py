@@ -205,11 +205,9 @@ Chaque opportunité est une recette différente : découvre tes donuts de l’en
 <b>ÉTAPE 1️⃣ Choisis tes ingrédients</b> : glisse les curseurs du volet à gauche pour créer une recette à ton image<br>
 <b>ÉTAPE 2️⃣ Découvre ton assortiment gourmand de 9 donuts</b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. <br>
 <b>ÉTAPE 3️⃣ Renseigne-toi et affine</b> : explore les détails, partage tes questions, et profite du plaisir de l'engagement 😋
+</div>
 
 Ceci est un paragraphe avec un <span style='background-color: #FFEB3B; padding:2px 4px; border-radius:3px;'>mot surligné</span> pour attirer l’attention.
-
-
-</div>
 """, unsafe_allow_html=True)
 
 
