@@ -27,9 +27,12 @@ def setup_css():
                 margin-top: 0rem !important;
                 margin-bottom: 0rem !important;
             }
+            /* Réduction du padding top au tout début de la page */
+        .block-container {
+            padding-top: 1rem !important;
+        }
         </style>
     """, unsafe_allow_html=True)
-
 
 # ---------- CHARGEMENT DES DONNÉES ----------
 @st.cache_data
