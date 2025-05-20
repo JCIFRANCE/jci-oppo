@@ -197,7 +197,7 @@ st.markdown("""
 <div style='margin-bottom: 0rem;'>
   <h1 style='margin-bottom: 0rem;'>La cartographie des opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
   </div>
-<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
+<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0.5rem;'>
 Chaque opportunité est une recette de donut différente : découvre tes donuts de l’engagement, selon tes goûts et ton style !
 </div>
 
@@ -252,7 +252,6 @@ df = df[df["Niveau"].apply(lambda nv: any(n in niveaux_selected for n in nv))]
 df["Score"] = df.apply(lambda row: score(row, pref_engagements, pref_piliers), axis=1)
 df = df.sort_values("Score").reset_index(drop=True)
 
-# ---------- AFFICHAGE TOP 9 ----------
 # ---------- AFFICHAGE TOP 9 ----------
 top = df.head(9)
 
