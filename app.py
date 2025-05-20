@@ -196,14 +196,14 @@ df = load_data()
 st.markdown("""
 <div style='margin-bottom: 0rem;'>
   <h1 style='margin-bottom: 0rem;'>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
-  <div style='font-style: italic; font-size: 17px; color: #444; margin-bottom: 1rem;'>
-🗺️ Découvre tes donuts de l’engagement, selon tes goûts et ton style !
+  <h2 style='margin-bottom: 0rem;'>🗺️ Découvre tes donuts de l’engagement, selon tes goûts et ton style !</h2>
 </div>
 
 <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
-<b>ÉTAPE 1. Choisis tes ingrédients</b> : glisse les curseurs à gauche pour doser ce qui te fait vibrer (rencontres, responsabilités, apprentissages...) et ce que tu veux développer (projets, compétences, impact...).<br>
-<b>ÉTAPE 2. Compose ton assortiment gourmand </b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. Chaque opportunité est une recette différente !<br>
-<b>ÉTAPE 3. Savoure et partage</b> – explore les opportunités qui émergent, discute avec d'autres Jaycees, ajuste ta sélection... et profite du plaisir de l'engagement 😋
+Chaque opportunité est une recette différente !
+<b>ÉTAPE 1. Choisis tes ingrédients</b> : glisse les curseurs du volet à gauche pour créer une recette à ton image<br>
+<b>ÉTAPE 2. Découvre ton assortiment gourmand de 9 donuts</b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. <br>
+<b>ÉTAPE 3. Savoure et partage</b> : explore les opportunités qui émergent, discute avec d'autres Jaycees, ajuste ta sélection... et profite du plaisir de l'engagement 😋
 </div>
 """, unsafe_allow_html=True)
 
