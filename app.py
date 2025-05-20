@@ -74,9 +74,9 @@ descriptions_verbes = {
 }
 pilier_icons = {
     "Développement individuel": ("🟫", "Individu en progression", "#765358"),
-    "Entreprise": ("⬜", "Esprit d'Entreprise", "#D3D3D3"),
-    "Communaute": ("🟧", "Service à la Communauté", "#E17D4F"),
-    "Cooperation": ("🟪", "Coopération Internationale", "#8667D6")
+    "Esprit d'entreprise": ("⬜", "Esprit d'Entreprise", "#D3D3D3"),
+    "Service à la communauté": ("🟧", "Service à la Communauté", "#E17D4F"),
+    "Coopération internationale": ("🟪", "Coopération Internationale", "#8667D6")
 }
 descriptions_piliers = {
     "Développement individuel": "Savoir-être, développement personnel, outils du citoyen responsable, défense des valeurs, éthique",
