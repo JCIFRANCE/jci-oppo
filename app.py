@@ -195,9 +195,9 @@ df = load_data()
 
 st.markdown("""
 <div style='margin-bottom: 0rem;'>
-  <h1 style='margin-bottom: 0rem;'>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
+  <h1 style='margin-bottom: 0rem;'>La cartographie des opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
   </div>
-<div style='font-size: 22px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
+<div style='font-size: 22px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
 Chaque opportunité est une recette de donut différente : découvre tes donuts de l’engagement, selon tes goûts et ton style !
 </div>
 
@@ -210,7 +210,7 @@ Chaque opportunité est une recette de donut différente : découvre tes donuts 
 
 
 # ---------- SIDEBAR ----------
-st.sidebar.markdown("## À toi de doser !")
+st.sidebar.markdown("## Crée ton mix idéal : à toi de doser!")
 
 pref_engagements = afficher_sliders_personnalises(
     "💓 Ce qui me fait vibrer c'est ...",
