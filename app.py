@@ -202,15 +202,15 @@ Chaque opportunité est une recette de donut différente : découvre tes donuts 
 </div>
 
 <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
-<b>ÉTAPE 1. Choisis tes ingrédients</b> : glisse les curseurs du volet à gauche pour créer une recette à ton image<br>
-<b>ÉTAPE 2. Découvre ton assortiment gourmand de 9 donuts</b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. <br>
-<b>ÉTAPE 3. Savoure et partage</b> : explore les opportunités qui émergent, discute avec d'autres Jaycees, ajuste ta sélection... et profite du plaisir de l'engagement 😋
+<b>ÉTAPE 1️⃣ Choisis tes ingrédients</b> : glisse les curseurs du volet à gauche pour créer une recette à ton image<br>
+<b>ÉTAPE 2️⃣ Découvre ton assortiment gourmand de 9 donuts</b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. <br>
+<b>ÉTAPE 3️⃣ Renseigne-toi et affine</b> : explore les détails, partage tes questions, et profite du plaisir de l'engagement 😋
 </div>
 """, unsafe_allow_html=True)
 
 
 # ---------- SIDEBAR ----------
-st.sidebar.markdown("## Crée ton mix idéal : à toi de doser!")
+st.sidebar.markdown("## 1️⃣ Crée ton mix idéal : à toi de doser!")
 
 pref_engagements = afficher_sliders_personnalises(
     "💓 Ce qui me fait vibrer c'est ...",
@@ -258,10 +258,8 @@ top = df.head(9)
 
 st.markdown("### Ton assortiment idéal à savourer et à partager")
 st.markdown("""
-<span style='font-size: 14px; color: grey;'>
-🧺 Le top 9 des opportunités qui matchent avec ta sélection actuelle :
-discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
-</span>
+2️⃣ Voici le top 9 des opportunités qui matchent avec ta sélection actuelle :
+3️⃣ lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
 """, unsafe_allow_html=True)
 
 cols = st.columns(3)
