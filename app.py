@@ -182,14 +182,19 @@ setup_css()
 df = load_data()
 
 st.markdown("""
-<h1>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
-<h2>Identifie facilement les opportunités de la Jeune Chambre qui te correspondent !</h2>
-**ETAPE 1. Personnalise tes préférences**  
-Utilise les curseurs et étiquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus.
-**ETAPE 2. Lis la cartographie en un coup d’œil**  
-Le cercle extérieur indique comment tu préfères t’impliquer. Le Cercle intérieur montre ce que tu souhaites développer à travers ton engagement. Les icônes dans le titre représentent la forme que prend l’opportunité (ex. formation, événement, projet…). Le centre précise la portée de l’opportunité.
-**Explore, ajuste, découvre ce qui te motive, et profite du plaisir de l'engagement !**
+<div style='margin-bottom: 1rem;'>
+  <h1 style='margin-bottom: 0.2rem;'>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
+  <div style='font-style: italic; font-size: 16px; color: #444; margin-bottom: 0.6rem;'>
+    Identifie facilement les opportunités de la Jeune Chambre qui te correspondent !
+  </div>
+  <div style='font-size: 15px; line-height: 1.6; color: #333;'>
+    <b>ETAPE 1. Personnalise tes préférences</b> utilise les curseurs et étiquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus.<br>
+    <b>ETAPE 2. Lis la cartographie en un coup d’œil</b> le cercle extérieur indique comment tu préfères t’impliquer. Le cercle intérieur montre ce que tu souhaites développer à travers ton engagement.<br>
+    <b>ETAPE 3. Explore</b> ajuste, découvre ce qui te motive, et profite du plaisir de l'engagement !
+  </div>
+</div>
 """, unsafe_allow_html=True)
+
 
 # ---------- SIDEBAR ----------
 st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
