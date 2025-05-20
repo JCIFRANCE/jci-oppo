@@ -201,7 +201,7 @@ st.markdown("""
 Chaque opportunité est une recette de donut différente : découvre tes donuts de l’engagement, selon tes goûts et ton style !
 </div>
 
-<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
+<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 2rem;'>
 <b>ÉTAPE 1️⃣ Choisis tes ingrédients</b> : glisse les curseurs du volet à gauche pour créer une recette à ton image<br>
 <b>ÉTAPE 2️⃣ Découvre ton assortiment gourmand de 9 donuts</b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. <br>
 <b>ÉTAPE 3️⃣ Renseigne-toi et affine</b> : explore les détails, partage tes questions, et profite du plaisir de l'engagement 😋
@@ -262,10 +262,10 @@ st.markdown("""
     border-radius: 6px;
     margin-bottom: 0rem;
 '>
-<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0.5rem;'>
+<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
 🎯 Ton assortiment idéal à savourer et à partager
 </div>
-<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
+<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
 Voici le top 9 des opportunités qui matchent avec ta sélection actuelle. Lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine. 
 </div>
 """, unsafe_allow_html=True)
@@ -288,10 +288,10 @@ if len(df) > 9:
     border-radius: 6px;
     margin-bottom: 0rem;
 '>
-<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0.5rem;'>
+<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
 🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût
 </div>
-<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
+<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
 Pas tout à fait ce que tu cherchais, mais c’est en vitrine ! Ces opportunités pourraient aussi t’inspirer. Discute-en avec d’autres Jaycees pour aller plus loin.
 </div>
 
