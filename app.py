@@ -275,8 +275,8 @@ cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
     with cols[i % 3]:
         emoji = forme_emojis.get(row["Forme"], "")
-        st.markdown(f"<div style='font-size: 18px; font-weight: 600;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
-        st.markdown(formatter_description(row), unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size: 18px; font-weight: 600; text-align: center;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='text-align: center;'>{formatter_description(row)}</div>", unsafe_allow_html=True)
         st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True, key=f"top_{i}_{row['Nom']}")
 
 
@@ -304,6 +304,6 @@ Pas tout à fait ce que tu cherchais, mais c’est en vitrine ! Ces opportunité
     for i, (_, row) in enumerate(others.iterrows()):
         with cols[i % 4]:
             emoji = forme_emojis.get(row["Forme"], "")
-            st.markdown(f"<div style='font-size: 16px; font-weight: 600;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
-            st.markdown(formatter_description(row, afficher_niveau=True), unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size: 18px; font-weight: 600; text-align: center;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='text-align: center;'>{formatter_description(row)}</div>", unsafe_allow_html=True)
             st.plotly_chart(make_visual(row, niveau_labels, small=True), use_container_width=True, key=f"other_{i}_{row['Nom']}")
