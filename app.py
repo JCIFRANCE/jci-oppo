@@ -255,10 +255,17 @@ df = df.sort_values("Score").reset_index(drop=True)
 # ---------- AFFICHAGE TOP 9 ----------
 top = df.head(9)
 
-st.markdown("### Ton assortiment idéal à savourer et à partager")
 st.markdown("""
-2️⃣ Voici le top 9 des opportunités qui matchent avec ta sélection actuelle :
-3️⃣ lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
+<div style='background-color: var(--primary-color); padding: 0.8rem 1rem; border-radius: 6px; margin-bottom: 1rem;'>
+  <h3 style='color: white; margin: 0;'>🎯 Ton assortiment idéal à savourer et à partager</h3>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<span style='font-size: 14px; color: grey;'>
+2️⃣ Voici le top 9 des opportunités qui matchent avec ta sélection actuelle.<br>
+3️⃣ Lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
+</span>
 """, unsafe_allow_html=True)
 
 cols = st.columns(3)
@@ -269,12 +276,21 @@ for i, (_, row) in enumerate(top.iterrows()):
         st.markdown(formatter_description(row), unsafe_allow_html=True)
         st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True, key=f"top_{i}_{row['Nom']}")
 
+
 # ---------- AUTRES OPPORTUNITÉS ----------
 if len(df) > 9:
-    st.markdown("### Encore un peu de place ? Voici d’autres suggestions à ton goût")
     st.markdown("""
-    🧁 Pas tout à fait ce que tu cherchais, mais c'est en vitrine et ces opportunités pourraient aussi t’inspirer ! 
+    <div style='background-color: var(--primary-color); padding: 0.8rem 1rem; border-radius: 6px; margin-top: 2rem; margin-bottom: 1rem;'>
+      <h3 style='color: white; margin: 0;'>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</h3>
+    </div>
     """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <span style='font-size: 14px; color: grey;'>
+    Pas tout à fait ce que tu cherchais, mais c’est en vitrine ! Ces opportunités pourraient aussi t’inspirer. Discute-en avec d’autres Jaycees pour aller plus loin.
+    </span>
+    """, unsafe_allow_html=True)
+
     others = df.iloc[9:21]
     cols = st.columns(4)
     for i, (_, row) in enumerate(others.iterrows()):
@@ -283,4 +299,3 @@ if len(df) > 9:
             st.markdown(f"<div style='font-size: 16px; font-weight: 600;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
             st.markdown(formatter_description(row, afficher_niveau=True), unsafe_allow_html=True)
             st.plotly_chart(make_visual(row, niveau_labels, small=True), use_container_width=True, key=f"other_{i}_{row['Nom']}")
-            
