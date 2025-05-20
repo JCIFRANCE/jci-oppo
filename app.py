@@ -196,7 +196,9 @@ df = load_data()
 st.markdown("""
 <div style='margin-bottom: 0rem;'>
   <h1 style='margin-bottom: 0rem;'>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
-  <h3 style='margin-bottom: 0rem;'>Chaque opportunité est une recette de donut différente ! 🗺️ Découvre tes donuts de l’engagement, selon tes goûts et ton style !</h3>
+  </div>
+<div style='font-size: 22px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
+Chaque opportunité est une recette de donut différente : découvre tes donuts de l’engagement, selon tes goûts et ton style !
 </div>
 
 <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
