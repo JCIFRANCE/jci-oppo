@@ -266,7 +266,7 @@ st.markdown("""
 🎯 Ton assortiment idéal à savourer et à partager
 </div>
 <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
-Voici le top 9 des opportunités qui matchent avec ta sélection actuelle. Lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
+Voici le top 9 des opportunités qui matchent avec ta sélection actuelle. Lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine. 
 </div>
 """, unsafe_allow_html=True)
 
@@ -283,15 +283,18 @@ for i, (_, row) in enumerate(top.iterrows()):
 if len(df) > 9:
     st.markdown("""
     <div style='
-    background-color: #FF4B4B;
+    background-color: #F0F2F6;
     padding: 0.8rem 1rem;
     border-radius: 6px;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
 '>
-      <h3 style='color: black; margin: 0;'>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</h3>
-    <span style='font-size: 14px; color: grey;'>
-    Pas tout à fait ce que tu cherchais, mais c’est en vitrine ! Ces opportunités pourraient aussi t’inspirer. Discute-en avec d’autres Jaycees pour aller plus loin.
-    </span></div>
+<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0.5rem;'>
+🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût
+</div>
+<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
+Pas tout à fait ce que tu cherchais, mais c’est en vitrine ! Ces opportunités pourraient aussi t’inspirer. Discute-en avec d’autres Jaycees pour aller plus loin.
+</div>
+
     """, unsafe_allow_html=True)
 
     others = df.iloc[9:21]
