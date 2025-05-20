@@ -216,16 +216,16 @@ def formatter_description(row, afficher_niveau=False):
     url = row.get("Url", "")
     niveau = ", ".join([niveau_labels.get(n, n) for n in row.get("Niveau", [])]) if afficher_niveau else ""
     
-    contenu = f"{forme} – "
-    if pd.notna(url) and url.strip() != "":
-        contenu += f"<a href='{url}' target='_blank'>{description}</a>"
-    else:
-        contenu += f"{description}"
+    contenu = f"{forme} – {description}"
     
+    if pd.notna(url) and url.strip() != "":
+        contenu += f" <a href='{url}' target='_blank' style='color: #007BFF;'>[🔗 plus d’infos ici]</a>"
+
     if afficher_niveau and niveau:
         contenu += f" <span style='color: grey;'>({niveau})</span>"
     
     return f"<div style='font-size:14px; color: #444; margin-top: -4px;'>{contenu}</div>"
+
 # ---------- LANCEMENT APP ----------
 setup_css()
 df = load_data()
