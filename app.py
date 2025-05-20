@@ -198,7 +198,7 @@ st.markdown("""
   <h1 style='margin-bottom: 0rem;'>La cartographie des opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
   </div>
 <div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0.5rem;'>
-Chaque opportunité est une recette de donut différente : découvre tes donuts de l’engagement, selon tes goûts et ton style !
+Chaque opportunité est une recette différente : découvre tes donuts de l’engagement, selon tes goûts et ton style !
 </div>
 
 <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 2rem;'>
@@ -210,7 +210,7 @@ Chaque opportunité est une recette de donut différente : découvre tes donuts 
 
 
 # ---------- SIDEBAR ----------
-st.sidebar.markdown("## 1️⃣ Crée ton mix idéal : à toi de doser!")
+st.sidebar.markdown("## Crée ton mix idéal : à toi de doser!")
 
 pref_engagements = afficher_sliders_personnalises(
     "💓 Ce qui me fait vibrer c'est ...",
