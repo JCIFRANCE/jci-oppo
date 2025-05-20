@@ -264,7 +264,7 @@ st.markdown("""
     text-align: center;
 '>
 <div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
-**Ton assortiment idéal à savourer et à partager**
+<b>Ton assortiment idéal à savourer et à partager</b>
 </div>
 <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
 Voici le top 9 des opportunités qui matchent avec ta sélection actuelle. Lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine. 
@@ -291,7 +291,7 @@ if len(df) > 9:
     text-align: center;
 '>
 <div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
-**🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût**
+<b>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</b>
 </div>
 <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
 Pas tout à fait ce que tu cherchais, mais c’est en vitrine ! Ces opportunités pourraient aussi t’inspirer. Discute-en avec d’autres Jaycees pour aller plus loin.
