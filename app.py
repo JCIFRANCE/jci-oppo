@@ -35,6 +35,15 @@ def setup_css():
         .block-container {
             padding-top: 3rem !important;
         }
+        /* Largeur initiale de la sidebar à 35% */
+        section[data-testid="stSidebar"] {
+            width: 35%;
+        }
+
+        /* Décale le contenu principal pour ne pas chevaucher */
+        div[data-testid="stVerticalBlock"] {
+            margin-left: 36%;
+        }
         
         </style>
     """, unsafe_allow_html=True)
@@ -192,29 +201,29 @@ df = load_data()
 st.markdown("""
 <div style='margin-bottom: 0rem;'>
   <h1 style='margin-bottom: 0rem;'>Les opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
-  <div style='font-style: italic; font-size: 16px; color: #444; margin-bottom: 0rem;'>
-    Identifie facilement les opportunités de la Jeune Chambre qui te correspondent !
-  </div>
-  <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
-    <b>ETAPE 1. Personnalise tes préférences</b> utilise les curseurs et étiquettes à gauche pour faire ressortir les opportunités qui te ressemblent le plus.<br>
-    <b>ETAPE 2. Lis la cartographie en un coup d’œil</b> le cercle extérieur indique comment tu préfères t’impliquer. Le cercle intérieur montre ce que tu souhaites développer à travers ton engagement.<br>
-    <b>ETAPE 3. Explore</b> ajuste, découvre ce qui te motive, et profite du plaisir de l'engagement !
-  </div>
+  <div style='font-style: italic; font-size: 17px; color: #444; margin-bottom: 1rem;'>
+🗺️ Découvre tes donuts de l’engagement, selon tes goûts et ton style !
+</div>
+
+<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 1rem;'>
+<b>ÉTAPE 1. Choisis tes ingrédients</b> : glisse les curseurs à gauche pour doser ce qui te fait vibrer (rencontres, responsabilités, apprentissages...) et ce que tu veux développer (projets, compétences, impact...).<br>
+<b>ÉTAPE 2. Compose ton assortiment gourmand </b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. Chaque opportunité est une recette différente !<br>
+<b>ÉTAPE 3. Savoure et partage</b> – explore les opportunités qui émergent, discute avec d'autres Jaycees, ajuste ta sélection... et profite du plaisir de l'engagement 😋
 </div>
 """, unsafe_allow_html=True)
 
 
 # ---------- SIDEBAR ----------
-st.sidebar.markdown("## 🗺️ Découvre les opportunités JCE/JCI qui correspondent à ton style d'engagement")
+st.sidebar.markdown("## À toi de doser !")
 
 pref_engagements = afficher_sliders_personnalises(
     "💓 Ce qui me fait vibrer c'est ...",
-    "Ma préférence d'engagement <em>(le comment ?)</em>",
+    "Ma préférence d'engagement <em>(le comment ?)</em> : l'anneau extérieur",
     verbe_icons, descriptions_verbes, "verb"
 )
 
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🧩 ... sous la forme principale de :</div>", unsafe_allow_html=True)
-st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon engagement <em>(le quoi ?)</em></span>", unsafe_allow_html=True)
+st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La forme de mon engagement <em>(le quoi ?)</em> : l'emoticône du titre</span>", unsafe_allow_html=True)
 formes = sorted(df["Forme"].unique())
 # 1. Liste affichée : emoji + texte
 formes_options = [f"{forme_emojis[f]} {f}" for f in formes]
@@ -231,12 +240,12 @@ formes_selected = [formes_map[f] for f in formes_selected_raw]
 
 pref_piliers = afficher_sliders_personnalises(
     "🎯 Je souhaite développer ...",
-    "Les 4 piliers JCI = les raisons de mon engagement <em>(le pourquoi ?)</em>",
+    "Les 4 piliers JCI = les raisons de mon engagement <em>(le pourquoi ?)</em> : l'anneau intérieur",
     pilier_icons, descriptions_piliers, "pilier"
 )
 
 st.sidebar.markdown("<div style='font-size: 18px; font-weight: bold; margin-bottom: 2px;'>🌍 ... à un niveau :</div>", unsafe_allow_html=True)
-st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La portée de mon engagement <em>(le où ?)</em></span>", unsafe_allow_html=True)
+st.sidebar.markdown("<span style='font-size: 14px; color: grey;'>La portée de mon engagement <em>(le où ?)</em> : au centre des anneaux </span>", unsafe_allow_html=True)
 niveaux = ["L", "R", "N", "Z", "M"]
 niveaux_selected = st.sidebar.multiselect("", options=niveaux, default=niveaux,
     format_func=lambda n: niveau_labels.get(n, n), label_visibility="collapsed")
