@@ -74,23 +74,23 @@ verbe_map = {
 }
 verbe_icons = {
     "Apprendre": (
-        "<span style='background-color: #5E81D0; color: white; padding: 2px 6px; border-radius: 4px;'>Apprendre</span>",
-        "#5E81D0",
+        "<span style='background-color: #026587; color: white; padding: 2px 6px; border-radius: 4px;'>Apprendre</span>",
+        "#026587",
         "Apprendre"
     ),
     "Célébrer": (
-        "<span style='background-color: #EEBD63; color: white; padding: 2px 6px; border-radius: 4px;'>Célébrer</span>",
-        "#EEBD63",
+        "<span style='background-color: #F9C701; color: white; padding: 2px 6px; border-radius: 4px;'>Célébrer</span>",
+        "#F9C701",
         "Célébrer"
     ),
     "Responsabiliser": (
-        "<span style='background-color: #B74659; color: white; padding: 2px 6px; border-radius: 4px;'>Prendre des responsabilités</span>",
-        "#B74659",
+        "<span style='background-color: #D72D73; color: white; padding: 2px 6px; border-radius: 4px;'>Prendre des responsabilités</span>",
+        "#D72D73",
         "Prendre des responsabilités"
     ),
     "Rencontrer": (
-        "<span style='background-color: #79C28F; color: white; padding: 2px 6px; border-radius: 4px;'>Se rencontrer</span>",
-        "#79C28F",
+        "<span style='background-color: #5DB23C; color: white; padding: 2px 6px; border-radius: 4px;'>Se rencontrer</span>",
+        "#5DB23C",
         "Se rencontrer"
     )
 }
