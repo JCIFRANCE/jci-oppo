@@ -117,7 +117,7 @@ def make_visual(row, niveau_labels, small=False):
     # 🎯 Cercle intérieur = piliers
     fig.add_trace(go.Pie(
         values=[row.get(p, 0) for p in piliers_labels],
-        labels=piliers_labels,
+        labels=[pilier_icons[p][1] for p in piliers_labels],
         marker=dict(colors=couleurs_piliers),
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
