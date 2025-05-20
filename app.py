@@ -73,10 +73,26 @@ verbe_map = {
     "Rencontrer": "Se rencontrer"
 }
 verbe_icons = {
-    "Apprendre": ("<span style='background-color: #5E81D0; color: white; padding: 2px 6px; border-radius: 4px;'>Apprendre</span>", "#5E81D0", "Apprendre"),
-    "Célébrer": ("<span style='background-color: #EEBD63; color: white; padding: 2px 6px; border-radius: 4px;'>Célébrer</span>", "#EEBD63", "Célébrer"),
-    "Responsabiliser": ("<span style='background-color: #B74659; color: white; padding: 2px 6px; border-radius: 4px;'>Prendre des responsabilités</span>", "#B74659", "Prendre des responsabilités"),
-    "Rencontrer": ("<span style='background-color: #79C28F; color: white; padding: 2px 6px; border-radius: 4px;'>Se rencontrer</span>", "#79C28F", "Se rencontrer")
+    "Apprendre": (
+        "<span style='background-color: #5E81D0; color: white; padding: 2px 6px; border-radius: 4px;'>Apprendre</span>",
+        "#5E81D0",
+        "Apprendre"
+    ),
+    "Célébrer": (
+        "<span style='background-color: #EEBD63; color: white; padding: 2px 6px; border-radius: 4px;'>Célébrer</span>",
+        "#EEBD63",
+        "Célébrer"
+    ),
+    "Responsabiliser": (
+        "<span style='background-color: #B74659; color: white; padding: 2px 6px; border-radius: 4px;'>Prendre des responsabilités</span>",
+        "#B74659",
+        "Prendre des responsabilités"
+    ),
+    "Rencontrer": (
+        "<span style='background-color: #79C28F; color: white; padding: 2px 6px; border-radius: 4px;'>Se rencontrer</span>",
+        "#79C28F",
+        "Se rencontrer"
+    )
 }
 
 descriptions_verbes = {
@@ -86,10 +102,26 @@ descriptions_verbes = {
     "Rencontrer": "se faire des amis, réseauter, se réunir autour d'une table"
 }
 pilier_icons = {
-    "Individu": ("<span style='background-color: #026258; color: white; padding: 2px 6px; border-radius: 4px;'>Individu en progression</span>", "#026258", "Individu en progression"),
-    "Entreprise": ("<span style='background-color: #EDB13D; color: white; padding: 2px 6px; border-radius: 4px;'>Esprit d'Entreprise</span>", "#EDB13D", "Esprit d'Entreprise"),
-    "Communaute": ("<span style='background-color: #5DB223; color: white; padding: 2px 6px; border-radius: 4px;'>Service à la Communauté</span>", "#5DB223", "Service à la Communauté"),
-    "Cooperation": ("<span style='background-color: #6C4BC1; color: white; padding: 2px 6px; border-radius: 4px;'>Coopération Internationale</span>", "#6C4BC1", "Coopération Internationale")
+    "Individu": (
+        "<span style='background-color: #555DBE; color: white; padding: 2px 6px; border-radius: 4px;'>Individu en progression</span>",
+        "#555DBE",
+        "Individu en progression"
+    ),
+    "Entreprise": (
+        "<span style='background-color: #484848; color: white; padding: 2px 6px; border-radius: 4px;'>Esprit d'Entreprise</span>",
+        "#484848",
+        "Esprit d'Entreprise"
+    ),
+    "Communaute": (
+        "<span style='background-color: #80B7A4; color: white; padding: 2px 6px; border-radius: 4px;'>Service à la Communauté</span>",
+        "#80B7A4",
+        "Service à la Communauté"
+    ),
+    "Cooperation": (
+        "<span style='background-color: #E3BD60; color: white; padding: 2px 6px; border-radius: 4px;'>Coopération Internationale</span>",
+        "#E3BD60",
+        "Coopération Internationale"
+    )
 }
 
 descriptions_piliers = {
