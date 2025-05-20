@@ -255,11 +255,32 @@ df = df.sort_values("Score").reset_index(drop=True)
 # ---------- AFFICHAGE TOP 9 ----------
 with st.container():
     st.markdown("""
-    <div style='background-color: #F9F9F9; border: 1px solid #DDD; padding: 1.2rem 1rem 0.5rem 1rem; border-radius: 8px; margin-bottom: 2rem;'>
-      <h3 style='margin-bottom: 0rem;'>🧺 Ton assortiment idéal à savourer et à partager</h3>
-      <div style='font-size: 14px; color: #666; margin-bottom: 1.2rem;'>
-        Le top 9 des opportunités qui matchent avec ta sélection actuelle : discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
-      </div>
+        <div style='
+            background-color: #F9F9F9;
+            border: 1px solid #DDD;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        '>
+        <h3 style='margin-bottom: 0.3rem;'>🧺 Ton assortiment idéal à savourer et à partager</h3>
+        <p style='font-size: 14px; color: #666; margin-bottom: 1.5rem;'>
+            Le top 9 des opportunités qui matchent avec ta sélection actuelle :<br>
+            discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
+        </p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # 💡 Hack visuel : créer un fond gris avec du padding autour du bloc donuts
+    st.markdown("""
+        <div style='
+            background-color: #F9F9F9;
+            border: 1px solid #DDD;
+            border-top: none;
+            padding: 1rem;
+            border-radius: 0 0 8px 8px;
+            margin-top: -2rem;
+            margin-bottom: 2rem;
+        '>
     """, unsafe_allow_html=True)
 
     top = df.head(9)
@@ -272,6 +293,7 @@ with st.container():
             st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True, key=f"top_{i}_{row['Nom']}")
 
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 # ---------- AUTRES OPPORTUNITÉS ----------
 if len(df) > 9:
