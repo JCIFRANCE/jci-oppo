@@ -73,10 +73,10 @@ verbe_map = {
     "Rencontrer": "Se rencontrer"
 }
 verbe_icons = {
-    "Apprendre": ("<span style='background-color: #5E81D0; color:white; padding:2px 4px; border-radius:3px;'>Apprendre</span>", "Apprendre", "#5E81D0"),
-    "Célébrer": ("<span style='display:inline-block; width:14px; height:14px; background-color:#EEBD63; border-radius:2px; margin-right:6px;'></span>", "Célébrer", "#EEBD63"),
-    "Responsabiliser": ("🟥", "Prendre des responsabilités", "#B74659"),
-    "Rencontrer": ("🟩", "Se rencontrer", "#79C28F")
+    "Apprendre": ("<span style='background-color: #5E81D0; color: white; padding: 2px 6px; border-radius: 4px;'>Apprendre</span>", "#5E81D0"),
+    "Célébrer": ("<span style='background-color: #EEBD63; color: white; padding: 2px 6px; border-radius: 4px;'>Célébrer</span>", "#EEBD63"),
+    "Responsabiliser": ("<span style='background-color: #B74659; color: white; padding: 2px 6px; border-radius: 4px;'>Prendre des responsabilités</span>", "#B74659"),
+    "Rencontrer": ("<span style='background-color: #79C28F; color: white; padding: 2px 6px; border-radius: 4px;'>Se rencontrer</span>", "#79C28F")
 }
 descriptions_verbes = {
     "Apprendre": "se former, monter en compétence et grandir",
@@ -85,11 +85,12 @@ descriptions_verbes = {
     "Rencontrer": "se faire des amis, réseauter, se réunir autour d'une table"
 }
 pilier_icons = {
-    "Développement individuel": ("🟫", "Individu en progression", "#765358"),
-    "Entreprise": ("⬜", "Esprit d'Entreprise", "#D3D3D3"),
-    "Communaute": ("🟧", "Service à la Communauté", "#E17D4F"),
-    "Cooperation": ("🟪", "Coopération Internationale", "#8667D6")
+    "Développement individuel": ("<span style='background-color: #765358; color: white; padding: 2px 6px; border-radius: 4px;'>Individu en progression</span>", "#765358"),
+    "Entreprise": ("<span style='background-color: #D3D3D3; color: white; padding: 2px 6px; border-radius: 4px;'>Esprit d'Entreprise</span>", "#D3D3D3"),
+    "Communaute": ("<span style='background-color: #E17D4F; color: white; padding: 2px 6px; border-radius: 4px;'>Service à la Communauté</span>", "#E17D4F"),
+    "Cooperation": ("<span style='background-color: #8667D6; color: white; padding: 2px 6px; border-radius: 4px;'>Coopération Internationale</span>", "#8667D6")
 }
+
 descriptions_piliers = {
     "Développement individuel": "Savoir-être, développement personnel, outils du citoyen responsable, défense des valeurs, éthique",
     "Entreprise": "Savoir-faire, compétences de management, réseau business, tester ses idées",
