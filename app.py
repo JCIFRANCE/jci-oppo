@@ -79,8 +79,8 @@ verbe_icons = {
         "Apprendre"
     ),
     "Célébrer": (
-        "<span style='background-color: #F9C701; color: white; padding: 2px 6px; border-radius: 4px;'>Célébrer</span>",
-        "#F9C701",
+        "<span style='background-color: #ED813D; color: white; padding: 2px 6px; border-radius: 4px;'>Célébrer</span>",
+        "#ED813D",
         "Célébrer"
     ),
     "Responsabiliser": (
@@ -248,7 +248,7 @@ Chaque opportunité est une recette différente : découvre tes donuts de l’en
 
 
 # ---------- SIDEBAR ----------
-st.sidebar.markdown("## Crée ton mix idéal : à toi de doser!")
+st.sidebar.markdown("## Crée ton propre mix : à toi de doser !")
 
 pref_engagements = afficher_sliders_personnalises(
     "💓 Ce qui me fait vibrer c'est ...",
@@ -302,10 +302,10 @@ st.markdown("""
     text-align: center;
 '>
 <div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
-<b>Savour ton assortiment idéal </b>
+<b>Savoure ton TOP 9</b>
 </div>
 <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
-Voici le top 9 des opportunités qui correspondent à le mieux ta sélection actuelle. Qu'en penses-tu ? Partage tes donuts avec d’autres Jaycees et ton parrain / marraine. 
+Voici les opportunités qui correspondent à le mieux ta sélection actuelle. Qu'en penses-tu ? Partage ton assortiment de donuts avec d’autres Jaycees et ton parrain / marraine. 
 </div>
 """, unsafe_allow_html=True)
 
