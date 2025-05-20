@@ -39,11 +39,6 @@ def setup_css():
         section[data-testid="stSidebar"] {
             width: 35%;
         }
-
-        /* Décale le contenu principal pour ne pas chevaucher */
-        div[data-testid="stVerticalBlock"] {
-            margin-left: 36%;
-        }
         
         </style>
     """, unsafe_allow_html=True)
