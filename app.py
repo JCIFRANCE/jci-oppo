@@ -74,9 +74,9 @@ descriptions_verbes = {
 }
 pilier_icons = {
     "Développement individuel": ("🟫", "Individu en progression", "#765358"),
-    "Esprit d'entreprise": ("⬜", "Esprit d'Entreprise", "#D3D3D3"),
-    "Service à la communauté": ("🟧", "Service à la Communauté", "#E17D4F"),
-    "Coopération internationale": ("🟪", "Coopération Internationale", "#8667D6")
+    "Entreprise": ("⬜", "Esprit d'Entreprise", "#D3D3D3"),
+    "Communaute": ("🟧", "Service à la Communauté", "#E17D4F"),
+    "Cooperation": ("🟪", "Coopération Internationale", "#8667D6")
 }
 descriptions_piliers = {
     "Développement individuel": "Savoir-être, développement personnel, outils du citoyen responsable, défense des valeurs, éthique",
@@ -263,3 +263,4 @@ if len(df) > 9:
             st.markdown(f"<div style='font-size: 16px; font-weight: 600;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
             st.markdown(formatter_description(row, afficher_niveau=True), unsafe_allow_html=True)
             st.plotly_chart(make_visual(row, niveau_labels, small=True), use_container_width=True, key=f"other_{i}_{row['Nom']}")
+            
