@@ -197,7 +197,7 @@ st.markdown("""
 <div style='margin-bottom: 0rem;'>
   <h1 style='margin-bottom: 0rem;'>La cartographie des opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
   </div>
-<div style='font-size: 22px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
+<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
 Chaque opportunité est une recette de donut différente : découvre tes donuts de l’engagement, selon tes goûts et ton style !
 </div>
 
@@ -253,10 +253,15 @@ df["Score"] = df.apply(lambda row: score(row, pref_engagements, pref_piliers), a
 df = df.sort_values("Score").reset_index(drop=True)
 
 # ---------- AFFICHAGE TOP 9 ----------
-st.markdown("### 🧺 Ton assortiment idéal")
-st.markdown("""
-    Le top 9 des opportunités qui matchent avec ta sélection actuelle : savoure et partage-les avec d’autres Jaycees ou ton parrain / marraine... ou modifie tes ingrédients pour explorer d'autres pistes.
+with st.container():
+    st.markdown("""
+    <div style='background-color: #F9F9F9; border: 1px solid #DDD; padding: 1.2rem 1rem; border-radius: 8px; margin-bottom: 2rem;'>
+      <h3 style='margin-bottom: 0rem;'>🧺 Ton assortiment idéal à savourer et à partager</h3>
+      <div style='font-size: 14px; color: #666; margin-bottom: 1rem;'>
+        Le top 9 des opportunités qui matchent avec ta sélection actuelle : discutes-en avec d’autres Jaycees et ton parrain / marraine... ou modifie tes ingrédients pour explorer d'autres pistes.
+      </div>
     """, unsafe_allow_html=True)
+
 top = df.head(9)
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
@@ -265,6 +270,7 @@ for i, (_, row) in enumerate(top.iterrows()):
         st.markdown(f"<div style='font-size: 18px; font-weight: 600;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
         st.markdown(formatter_description(row), unsafe_allow_html=True)
         st.plotly_chart(make_visual(row, niveau_labels), use_container_width=True, key=f"top_{i}_{row['Nom']}")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------- AUTRES OPPORTUNITÉS ----------
 if len(df) > 9:
