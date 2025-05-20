@@ -85,10 +85,10 @@ descriptions_verbes = {
     "Rencontrer": "se faire des amis, réseauter, se réunir autour d'une table"
 }
 pilier_icons = {
-    "Développement individuel": ("<span style='background-color: #555DBE; color: white; padding: 2px 6px; border-radius: 4px;'>Individu en progression</span>", "#555DBE"),
-    "Entreprise": ("<span style='background-color: #484848; color: white; padding: 2px 6px; border-radius: 4px;'>Esprit d'Entreprise</span>", "#484848"),
-    "Communaute": ("<span style='background-color: #80B7A4; color: white; padding: 2px 6px; border-radius: 4px;'>Service à la Communauté</span>", "#80B7A4"),
-    "Cooperation": ("<span style='background-color: #E3BD60; color: white; padding: 2px 6px; border-radius: 4px;'>Coopération Internationale</span>", "#E3BD60")
+    "Individu": ("<span style='background-color: #026258; color: white; padding: 2px 6px; border-radius: 4px;'>Individu en progression</span>", "#026258", "Individu en progression"),
+    "Entreprise": ("<span style='background-color: #EDB13D; color: white; padding: 2px 6px; border-radius: 4px;'>Esprit d'Entreprise</span>", "#EDB13D", "Esprit d'Entreprise"),
+    "Communaute": ("<span style='background-color: #5DB223; color: white; padding: 2px 6px; border-radius: 4px;'>Service à la Communauté</span>", "#5DB223", "Service à la Communauté"),
+    "Cooperation": ("<span style='background-color: #6C4BC1; color: white; padding: 2px 6px; border-radius: 4px;'>Coopération Internationale</span>", "#6C4BC1", "Coopération Internationale")
 }
 
 descriptions_piliers = {
@@ -120,8 +120,9 @@ def score(row, prefs_eng, prefs_pil):
 
 def make_visual(row, niveau_labels, small=False):
     piliers_labels = list(pilier_icons.keys())
-    couleurs_piliers = [pilier_icons[p][1] for p in piliers_labels]  # was [2]
-    labels_piliers = [pilier_icons[p][0] for p in piliers_labels]
+    labels_piliers = [pilier_icons[p][2] for p in piliers_labels]  # pour hover
+    couleurs_piliers = [pilier_icons[p][1] for p in piliers_labels]
+
 
     verbes_labels = list(verbe_map.keys())
     couleurs_verbes = [verbe_icons[v][1] for v in verbes_labels]
@@ -210,7 +211,6 @@ Chaque opportunité est une recette différente : découvre tes donuts de l’en
 <b>ÉTAPE 3️⃣ Renseigne-toi et affine</b> : explore les détails, partage tes questions, et profite du plaisir de l'engagement 😋
 </div>
 
-Ceci est un paragraphe avec un <span style='background-color: #FFEB3B; padding:2px 4px; border-radius:3px;'>mot surligné</span> pour attirer l’attention.
 """, unsafe_allow_html=True)
 
 
