@@ -85,10 +85,10 @@ descriptions_verbes = {
     "Rencontrer": "se faire des amis, réseauter, se réunir autour d'une table"
 }
 pilier_icons = {
-    "Développement individuel": ("<span style='background-color: #765358; color: white; padding: 2px 6px; border-radius: 4px;'>Individu en progression</span>", "#765358"),
-    "Entreprise": ("<span style='background-color: #D3D3D3; color: white; padding: 2px 6px; border-radius: 4px;'>Esprit d'Entreprise</span>", "#D3D3D3"),
-    "Communaute": ("<span style='background-color: #E17D4F; color: white; padding: 2px 6px; border-radius: 4px;'>Service à la Communauté</span>", "#E17D4F"),
-    "Cooperation": ("<span style='background-color: #8667D6; color: white; padding: 2px 6px; border-radius: 4px;'>Coopération Internationale</span>", "#8667D6")
+    "Développement individuel": ("<span style='background-color: #555DBE; color: white; padding: 2px 6px; border-radius: 4px;'>Individu en progression</span>", "#555DBE"),
+    "Entreprise": ("<span style='background-color: #484848; color: white; padding: 2px 6px; border-radius: 4px;'>Esprit d'Entreprise</span>", "#484848"),
+    "Communaute": ("<span style='background-color: #80B7A4; color: white; padding: 2px 6px; border-radius: 4px;'>Service à la Communauté</span>", "#80B7A4"),
+    "Cooperation": ("<span style='background-color: #E3BD60; color: white; padding: 2px 6px; border-radius: 4px;'>Coopération Internationale</span>", "#E3BD60")
 }
 
 descriptions_piliers = {
@@ -120,17 +120,18 @@ def score(row, prefs_eng, prefs_pil):
 
 def make_visual(row, niveau_labels, small=False):
     piliers_labels = list(pilier_icons.keys())
-    couleurs_piliers = [pilier_icons[p][2] for p in piliers_labels]
+    couleurs_piliers = [pilier_icons[p][1] for p in piliers_labels]  # was [2]
+    labels_piliers = [pilier_icons[p][0] for p in piliers_labels]
 
     verbes_labels = list(verbe_map.keys())
-    couleurs_verbes = [verbe_icons[v][2] for v in verbes_labels]
+    couleurs_verbes = [verbe_icons[v][1] for v in verbes_labels]
 
     fig = go.Figure()
 
     # 🎯 Cercle intérieur = piliers
     fig.add_trace(go.Pie(
         values=[row.get(p, 0) for p in piliers_labels],
-        labels=[pilier_icons[p][1] for p in piliers_labels],
+        labels=labels_piliers,
         marker=dict(colors=couleurs_piliers),
         hole=0.3,
         domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
@@ -141,7 +142,7 @@ def make_visual(row, niveau_labels, small=False):
     ))
 
     # 🔵 Cercle extérieur = verbes
-    valeurs_verbes = [(row.get(k, 0), verbe_map[k], verbe_icons[k][2]) for k in verbe_map if row.get(k, 0) > 0]
+    valeurs_verbes = [(row.get(k, 0), verbe_map[k], verbe_icons[k][1]) for k in verbe_map if row.get(k, 0) > 0]
     if valeurs_verbes:
         v, l, c = zip(*valeurs_verbes)
         fig.add_trace(go.Pie(
@@ -172,6 +173,7 @@ def make_visual(row, niveau_labels, small=False):
         height=260 if not small else 180
     )
     return fig
+
 
 
 def formatter_description(row, afficher_niveau=False):
