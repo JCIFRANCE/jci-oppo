@@ -256,16 +256,19 @@ df = df.sort_values("Score").reset_index(drop=True)
 top = df.head(9)
 
 st.markdown("""
-<div style='background-color: var(--primary-color); padding: 0.8rem 1rem; border-radius: 6px; margin-bottom: 1rem;'>
+<div style='
+    background-color: var(--primary-color);
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+'>
   <h3 style='color: black; margin: 0;'>🎯 Ton assortiment idéal à savourer et à partager</h3>
-</div>
-""", unsafe_allow_html=True)
 
-st.markdown("""
 <span style='font-size: 14px; color: grey;'>
 2️⃣ Voici le top 9 des opportunités qui matchent avec ta sélection actuelle.<br>
 3️⃣ Lis les descriptions, discute-en avec d’autres Jaycees et ton parrain / marraine… ou modifie tes ingrédients pour explorer d’autres saveurs !
 </span>
+</div>
 """, unsafe_allow_html=True)
 
 cols = st.columns(3)
@@ -280,15 +283,16 @@ for i, (_, row) in enumerate(top.iterrows()):
 # ---------- AUTRES OPPORTUNITÉS ----------
 if len(df) > 9:
     st.markdown("""
-    <div style='background-color: var(--primary-color); padding: 0.8rem 1rem; border-radius: 6px; margin-top: 2rem; margin-bottom: 1rem;'>
+    <div style='
+    background-color: var(--primary-color);
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+'>
       <h3 style='color: black; margin: 0;'>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</h3>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
     <span style='font-size: 14px; color: grey;'>
     Pas tout à fait ce que tu cherchais, mais c’est en vitrine ! Ces opportunités pourraient aussi t’inspirer. Discute-en avec d’autres Jaycees pour aller plus loin.
-    </span>
+    </span></div>
     """, unsafe_allow_html=True)
 
     others = df.iloc[9:21]
