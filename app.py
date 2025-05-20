@@ -103,10 +103,10 @@ def afficher_sliders_personnalises(titre, description, data_dict, desc_dict, pre
     st.sidebar.markdown(f"<div style='font-size: 18px; font-weight: bold;'>{titre}</div>", unsafe_allow_html=True)
     st.sidebar.markdown(f"<span style='font-size: 14px; color: grey;'>{description}</span>", unsafe_allow_html=True)
     valeurs = {}
-    for k, (emoji, label, color) in data_dict.items():
+    for k, (label, color) in data_dict.items():
         st.sidebar.markdown(f"""
         <div style='margin-bottom: 0.4rem;'>
-            <span style='font-weight: 500;'>{emoji} {label}</span>
+            <span style='font-weight: 500;'>{label}</span>
             <span style='font-weight: 300; font-size: 13px; color: grey;'> : {desc_dict.get(k, '')}</span>
         </div>
         """, unsafe_allow_html=True)
