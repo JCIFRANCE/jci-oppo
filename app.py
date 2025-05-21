@@ -232,11 +232,11 @@ df = load_data()
 st.markdown("""
 <div style='text-align: center; margin-bottom: 0rem;'>
   <h1 style='margin-bottom: 0.2rem;'>La cartographie des opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
-  <div style='font-size: 20px; color: #333; margin-bottom: 0.3rem;'>Affiche les donuts de l'engagement selon tes goûts et ton style !</div>
-  <div style='font-size: 16px; color: #666;'>1 Donut = 1 Opportunité = 1 Recette</div>
+  <h2 style='color: #666;'>1 Donut = 1 Opportunité = 1 Recette</h2>
 </div>
 
 <div style='display: inline-block; background-color: #D8C0A6; padding: 1rem 1.5rem; border-radius: 6px; color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 2rem;'>
+<b>Affiche les donuts de l'engagement selon tes goûts et ton style !</b>
 <b>ÉTAPE 1️⃣ Choisis tes ingrédients</b> : glisse les curseurs du volet à gauche pour créer une recette à ton image<br>
 <b>ÉTAPE 2️⃣ Découvre ton assortiment gourmand de 9 donuts</b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. <br>
 <b>ÉTAPE 3️⃣ Renseigne-toi et affine</b> : explore les détails, partage tes résultats, et profite du plaisir de l'engagement 😋
@@ -294,7 +294,7 @@ top = df.head(9)
 st.markdown("""
 <div style='text-align: center; margin: 1rem 0;'>
   <span style='background-color: #D8C0A6; color: white; padding: 2px 6px; border-radius: 4px;'>
-    <strong>Savoure ton TOP 9</strong><br></span>
+    <h2><strong>Savoure ton TOP 9</strong></H2><br></span>
     Voici les opportunités qui correspondent le mieux à ta sélection actuelle. Qu'en penses-tu ? Partage ton assortiment de donuts avec d’autres Jaycees et ton parrain / marraine.
   </div>
 """, unsafe_allow_html=True)
