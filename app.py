@@ -235,8 +235,8 @@ st.markdown("""
   <h2 style='color: #666;'>1 Donut = 1 Opportunité = 1 Recette</h2>
 </div>
 
-<div style='display: inline-block; background-color: #D8C0A6; padding: 1rem 1.5rem; border-radius: 6px; color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 2rem;'>
-<b>Affiche les donuts de l'engagement selon tes goûts et ton style !</b>
+<div style='display: inline-block; align: center; background-color: #F0F2F6; padding: 1rem 1.5rem; border-radius: 6px; color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 2rem;'>
+Affiche les donuts de l'engagement selon tes goûts et ton style !<br>
 <b>ÉTAPE 1️⃣ Choisis tes ingrédients</b> : glisse les curseurs du volet à gauche pour créer une recette à ton image<br>
 <b>ÉTAPE 2️⃣ Découvre ton assortiment gourmand de 9 donuts</b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. <br>
 <b>ÉTAPE 3️⃣ Renseigne-toi et affine</b> : explore les détails, partage tes résultats, et profite du plaisir de l'engagement 😋
