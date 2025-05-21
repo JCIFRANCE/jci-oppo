@@ -314,22 +314,14 @@ for i, (_, row) in enumerate(top.iterrows()):
 # ---------- AUTRES OPPORTUNITÉS ----------
 if len(df) > 9:
     st.markdown("""
-    <div style='
-        background-color: #F0F2F6;
-        padding: 0.8rem 1rem;
-        border-radius: 6px;
-        margin-bottom: 0rem;
-        text-align: center;
-    '>
-        <div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
-            <b>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</b>
-        </div>
-        <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
-            Pas tout à fait ce que tu cherchais, mais ces opportunités pourraient aussi t’inspirer
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
+<div style='text-align: center; margin: 1rem 0;'>
+  <div style='display: inline-block; background-color: #D8C0A6; padding: 1rem 1.5rem; border-radius: 6px; color: #2E1E0F; font-size: 16px; line-height: 1.5;'>
+    <strong>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</strong><br>
+    Pas tout à fait ce que tu cherchais, mais ces opportunités pourraient aussi t’inspirer<br>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+    
     others = df.iloc[9:21]
     cols = st.columns(4)
     for i, (_, row) in enumerate(others.iterrows()):
