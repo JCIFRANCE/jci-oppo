@@ -345,4 +345,4 @@ if len(df) > 9:
                 make_visual(row, niveau_labels, small=True, afficher_niveaux_bruts=True),
                 use_container_width=True,
                 key=f"other_{i}_{row['Nom']}"
-            )
+            ) 
