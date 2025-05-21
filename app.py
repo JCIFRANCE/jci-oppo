@@ -151,7 +151,7 @@ def score(row, prefs_eng, prefs_pil):
     s_pil = sum((row.get(k, 0) - prefs_pil[k])**2 for k in prefs_pil)
     return (s_eng + s_pil)**0.5
 
-def make_visual(row, niveau_labels, small=False):
+def make_visual(row, niveau_labels, small=False, afficher_niveaux_bruts=False):
     piliers_labels = list(pilier_icons.keys())
     labels_piliers = [pilier_icons[p][2] for p in piliers_labels]  # pour hover
     couleurs_piliers = [pilier_icons[p][1] for p in piliers_labels]
@@ -193,14 +193,15 @@ def make_visual(row, niveau_labels, small=False):
 
     # 🏷️ Niveaux au centre
     if not small:
-        for i, n in enumerate(row["Niveau"]):
-            fig.add_annotation(
-                text=niveau_labels.get(n, n),
-                x=0.5,
-                y=0.5 - i * 0.09,
-                showarrow=False,
-                font=dict(size=11)
-            )
+    for i, n in enumerate(row.get("Niveau", [])):
+        label = n if afficher_niveaux_bruts else niveau_labels.get(n, n)
+        fig.add_annotation(
+            text=label,
+            x=0.5,
+            y=0.5 - i * 0.09,
+            showarrow=False,
+            font=dict(size=11)
+        )
 
     fig.update_layout(
         margin=dict(t=5, b=5, l=5, r=5),
@@ -322,19 +323,19 @@ for i, (_, row) in enumerate(top.iterrows()):
 if len(df) > 9:
     st.markdown("""
     <div style='
-    background-color: #F0F2F6;
-    padding: 0.8rem 1rem;
-    border-radius: 6px;
-    margin-bottom: 0rem;
-    text-align: center;
-'>
-<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
-<b>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</b>
-</div>
-<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
-Pas tout à fait ce que tu cherchais, mais ces opportunités pourraient aussi t’inspirer
-</div>
-
+        background-color: #F0F2F6;
+        padding: 0.8rem 1rem;
+        border-radius: 6px;
+        margin-bottom: 0rem;
+        text-align: center;
+    '>
+        <div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
+            <b>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</b>
+        </div>
+        <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
+            Pas tout à fait ce que tu cherchais, mais ces opportunités pourraient aussi t’inspirer
+        </div>
+    </div>
     """, unsafe_allow_html=True)
 
     others = df.iloc[9:21]
@@ -342,6 +343,14 @@ Pas tout à fait ce que tu cherchais, mais ces opportunités pourraient aussi t�
     for i, (_, row) in enumerate(others.iterrows()):
         with cols[i % 4]:
             emoji = forme_emojis.get(row["Forme"], "")
-            st.markdown(f"<div style='font-size: 18px; font-weight: 600; text-align: center;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
-            st.markdown(f"<div style='text-align: center;'>{formatter_description(row)}</div>", unsafe_allow_html=True)
-            st.plotly_chart(make_visual(row, niveau_labels, small=True), use_container_width=True, key=f"other_{i}_{row['Nom']}")
+            url = row.get("Url", "")
+            link = f" <a href='{url}' target='_blank' style='color: #007BFF;'>[🔗 infos]</a>" if pd.notna(url) and url.strip() != "" else ""
+            st.markdown(
+                f"<div style='font-size: 16px; font-weight: 600; text-align: center;'>{emoji} {row['Nom']}{link}</div>",
+                unsafe_allow_html=True
+            )
+            st.plotly_chart(
+                make_visual(row, niveau_labels, small=True, afficher_niveaux_bruts=True),
+                use_container_width=True,
+                key=f"other_{i}_{row['Nom']}"
+            )
