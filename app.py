@@ -152,71 +152,78 @@ def score(row, prefs_eng, prefs_pil):
     return (s_eng + s_pil)**0.5
 
 def make_visual(row, niveau_labels, small=False, afficher_niveaux_bruts=False):
-    try:
-        piliers_labels = list(pilier_icons.keys())
-        labels_piliers = [pilier_icons[p][2] for p in piliers_labels]
-        couleurs_piliers = [pilier_icons[p][1] for p in piliers_labels]
+    piliers_labels = list(pilier_icons.keys())
+    labels_piliers = [pilier_icons[p][2] for p in piliers_labels]  # label brut pour hover
+    couleurs_piliers = [pilier_icons[p][1] for p in piliers_labels]
 
-        verbes_labels = list(verbe_map.keys())
-        couleurs_verbes = [verbe_icons[v][1] for v in verbes_labels]
+    verbes_labels = list(verbe_map.keys())
+    couleurs_verbes = [verbe_icons[v][1] for v in verbes_labels]
 
-        fig = go.Figure()
+    fig = go.Figure()
 
-        # Cercle intérieur = piliers
+    # 🎯 Cercle intérieur = piliers
+    fig.add_trace(go.Pie(
+        values=[row.get(p, 0) for p in piliers_labels],
+        labels=labels_piliers,
+        marker=dict(colors=couleurs_piliers),
+        hole=0.3,
+        domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
+        textinfo='none',
+        showlegend=False,
+        hovertemplate='<b>%{label}</b><extra></extra>',
+        textposition='none'
+    ))
+
+    # 🔵 Cercle extérieur = verbes
+    valeurs_verbes = [(row.get(k, 0), verbe_map[k], verbe_icons[k][1]) for k in verbe_map if row.get(k, 0) > 0]
+    if valeurs_verbes:
+        v, l, c = zip(*valeurs_verbes)
         fig.add_trace(go.Pie(
-            values=[row.get(p, 0) for p in piliers_labels],
-            labels=labels_piliers,
-            marker=dict(colors=couleurs_piliers),
-            hole=0.3,
-            domain={'x': [0.25, 0.75], 'y': [0.25, 0.75]},
+            values=v,
+            labels=l,
+            marker=dict(colors=c),
+            hole=0.6,
+            domain={'x': [0, 1], 'y': [0, 1]},
             textinfo='none',
             showlegend=False,
             hovertemplate='<b>%{label}</b><extra></extra>',
             textposition='none'
         ))
 
-        # Cercle extérieur = verbes
-        valeurs_verbes = [(row.get(k, 0), verbe_map[k], verbe_icons[k][1]) for k in verbe_map if row.get(k, 0) > 0]
-        if valeurs_verbes:
-            v, l, c = zip(*valeurs_verbes)
-            fig.add_trace(go.Pie(
-                values=v,
-                labels=l,
-                marker=dict(colors=c),
-                hole=0.6,
-                domain={'x': [0, 1], 'y': [0, 1]},
-                textinfo='none',
-                showlegend=False,
-                hovertemplate='<b>%{label}</b><extra></extra>',
-                textposition='none'
-            ))
+    # ✅ Niveaux au centre
+    if not small:
+        for i, n in enumerate(row.get("Niveau", [])):
+            label = n if afficher_niveaux_bruts else niveau_labels.get(n, n)
+            fig.add_annotation(
+                text=label,
+                x=0.5,
+                y=0.5 - i * 0.09,
+                showarrow=False,
+                font=dict(size=11)
+            )
 
-        # Niveaux au centre
-        if not small:
-            for i, n in enumerate(row.get("Niveau", [])):
-                label = n if afficher_niveaux_bruts else niveau_labels.get(n, n)
-                fig.add_annotation(
-                    text=label,
-                    x=0.5,
-                    y=1.1,  # Position au-dessus des anneaux
-                    showarrow=False,
-                    font=dict(
-                        size=24,  # Taille de la police augmentée
-                        color="darkblue",
-                        family="Arial",
-                        weight="bold"
-                    )
-                )
+    fig.update_layout(
+        margin=dict(t=5, b=5, l=5, r=5),
+        height=260 if not small else 180
+    )
 
-        fig.update_layout(
-            margin=dict(t=5, b=5, l=5, r=5),
-            height=260 if not small else 180
-        )
+    return fig
 
-        return fig
-    except Exception as e:
-        print(f"Erreur lors de la création de la figure : {e}")
-        raise
+def formatter_description(row, afficher_niveau=False):
+    forme = row.get("Forme", "")
+    description = row.get("Description", "Petite explication de l'opportunité")
+    url = row.get("Url", "")
+    niveau = ", ".join([niveau_labels.get(n, n) for n in row.get("Niveau", [])]) if afficher_niveau else ""
+    
+    contenu = f"{forme} – {description}"
+    
+    if pd.notna(url) and url.strip() != "":
+        contenu += f" <a href='{url}' target='_blank' style='color: #007BFF;'>[🔗 plus d’infos ici]</a>"
+
+    if afficher_niveau and niveau:
+        contenu += f" <span style='color: grey;'>({niveau})</span>"
+    
+    return f"<div style='font-size:14px; color: #444; margin-top: -4px;'>{contenu}</div>"
 
 # ---------- LANCEMENT APP ----------
 setup_css()
