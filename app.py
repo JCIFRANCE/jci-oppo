@@ -230,12 +230,10 @@ setup_css()
 df = load_data()
 
 st.markdown("""
-<div style='margin-bottom: 0rem;'>
-  <h1 style='margin-bottom: 0rem;'>La cartographie des opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
-  </div>
-<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0.5rem;'>
-Affiche les donuts de l'engagement selon tes goûts et ton style ! <br>
-<b>1 Donut = 1 Opportunité = 1 Recette</b>
+<div style='text-align: center; margin-bottom: 0rem;'>
+  <h1 style='margin-bottom: 0.2rem;'>La cartographie des opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
+  <div style='font-size: 20px; color: #333; margin-bottom: 0.3rem;'>Affiche les donuts de l'engagement selon tes goûts et ton style !</div>
+  <div style='font-size: 16px; color: #666;'>1 Donut = 1 Opportunité = 1 Recette</div>
 </div>
 
 <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 2rem;'>
@@ -294,20 +292,15 @@ df = df.sort_values("Score").reset_index(drop=True)
 top = df.head(9)
 
 st.markdown("""
-<div style='
-    background-color: #F0F2F6;
-    padding: 0.8rem 1rem;
-    border-radius: 6px;
-    margin-bottom: 0rem;
-    text-align: center;
-'>
-<div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0rem;'>
-<b>Savoure ton TOP 9</b>
-</div>
-<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 0rem;'>
-Voici les opportunités qui correspondent à le mieux ta sélection actuelle. Qu'en penses-tu ? Partage ton assortiment de donuts avec d’autres Jaycees et ton parrain / marraine. 
+<div style='text-align: center; margin: 1rem 0;'>
+  <div style='display: inline-block; background-color: #D8C0A6; padding: 1rem 1.5rem; border-radius: 6px; color: #2E1E0F; font-size: 16px; line-height: 1.5;'>
+    <strong>Savoure ton TOP 9</strong><br>
+    Voici les opportunités qui correspondent le mieux à ta sélection actuelle.<br>
+    Qu'en penses-tu ? Partage ton assortiment de donuts avec d’autres Jaycees et ton parrain / marraine.
+  </div>
 </div>
 """, unsafe_allow_html=True)
+
 
 cols = st.columns(3)
 for i, (_, row) in enumerate(top.iterrows()):
