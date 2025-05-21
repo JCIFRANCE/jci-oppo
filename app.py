@@ -236,11 +236,11 @@ st.markdown("""
   <div style='font-size: 16px; color: #666;'>1 Donut = 1 Opportunité = 1 Recette</div>
 </div>
 
-<div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 2rem;'>
+<div style='display: inline-block; background-color: #D8C0A6; padding: 1rem 1.5rem; border-radius: 6px; color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 2rem;'>
 <b>ÉTAPE 1️⃣ Choisis tes ingrédients</b> : glisse les curseurs du volet à gauche pour créer une recette à ton image<br>
 <b>ÉTAPE 2️⃣ Découvre ton assortiment gourmand de 9 donuts</b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. <br>
 <b>ÉTAPE 3️⃣ Renseigne-toi et affine</b> : explore les détails, partage tes résultats, et profite du plaisir de l'engagement 😋
-</div>
+  </div>
 
 """, unsafe_allow_html=True)
 
