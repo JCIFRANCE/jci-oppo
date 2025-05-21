@@ -203,7 +203,6 @@ if not small:
             font=dict(size=11)
         )
 
-
 def formatter_description(row, afficher_niveau=False):
     forme = row.get("Forme", "")
     description = row.get("Description", "Petite explication de l'opportunité")
