@@ -153,9 +153,8 @@ def score(row, prefs_eng, prefs_pil):
 
 def make_visual(row, niveau_labels, small=False, afficher_niveaux_bruts=False):
     piliers_labels = list(pilier_icons.keys())
-    labels_piliers = [pilier_icons[p][2] for p in piliers_labels]  # pour hover
+    labels_piliers = [pilier_icons[p][2] for p in piliers_labels]  # label brut pour hover
     couleurs_piliers = [pilier_icons[p][1] for p in piliers_labels]
-
 
     verbes_labels = list(verbe_map.keys())
     couleurs_verbes = [verbe_icons[v][1] for v in verbes_labels]
@@ -191,17 +190,24 @@ def make_visual(row, niveau_labels, small=False, afficher_niveaux_bruts=False):
             textposition='none'
         ))
 
-    # 🏷️ Niveaux au centre
-if not small:
-    for i, n in enumerate(row.get("Niveau", [])):
-        label = n if afficher_niveaux_bruts else niveau_labels.get(n, n)
-        fig.add_annotation(
-            text=label,
-            x=0.5,
-            y=0.5 - i * 0.09,
-            showarrow=False,
-            font=dict(size=11)
-        )
+    # ✅ Niveaux au centre
+    if not small:
+        for i, n in enumerate(row.get("Niveau", [])):
+            label = n if afficher_niveaux_bruts else niveau_labels.get(n, n)
+            fig.add_annotation(
+                text=label,
+                x=0.5,
+                y=0.5 - i * 0.09,
+                showarrow=False,
+                font=dict(size=11)
+            )
+
+    fig.update_layout(
+        margin=dict(t=5, b=5, l=5, r=5),
+        height=260 if not small else 180
+    )
+
+    return fig
 
 def formatter_description(row, afficher_niveau=False):
     forme = row.get("Forme", "")
