@@ -233,11 +233,11 @@ st.markdown("""
 <div style='text-align: center; margin-bottom: 0rem;'>
   <h1 style='margin-bottom: 0.2rem;'>La cartographie des opportunités de la Jeune Chambre 
   <br>... en Donuts 🍩</h1>
-  <h2 style='color: #34479E;'>1 Donut = 1 Opportunité = 1 Recette</h2>
+  <h2 style='color: #34479E; margin-bottom: 0rem;'>1 Donut = 1 Opportunité = 1 Recette</h2>
 </div>
 
 <div style='display: inline-block; align: center; background-color: #F0F2F6; padding: 1rem 1.5rem; border-radius: 6px; color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 2rem;'>
-Affiche les donuts de l'engagement selon tes goûts et ton style !<br>
+<strong>Affiche les donuts de l'engagement selon tes goûts et ton style !</strong><br>
 <b>ÉTAPE 1️⃣ Choisis tes ingrédients</b> : glisse les curseurs du volet à gauche pour créer une recette à ton image<br>
 <b>ÉTAPE 2️⃣ Découvre ton assortiment gourmand de 9 donuts</b> : l’anneau extérieur révèle tes préférences d’engagement, l’anneau intérieur les domaines que tu veux nourrir. <br>
 <b>ÉTAPE 3️⃣ Renseigne-toi et affine</b> : explore les détails, partage tes résultats, et profite du plaisir de l'engagement 😋
@@ -247,7 +247,7 @@ Affiche les donuts de l'engagement selon tes goûts et ton style !<br>
 
 
 # ---------- SIDEBAR ----------
-st.sidebar.markdown("## Crée ton propre mix : à toi de doser !")
+st.sidebar.markdown("## Crée ton propre mix 👩‍🍳 à toi de doser !")
 
 pref_engagements = afficher_sliders_personnalises(
     "💓 Ce qui me fait vibrer c'est ...",
@@ -294,7 +294,7 @@ top = df.head(9)
 
 st.markdown("""
 <div style='text-align: center; margin: 1rem 0;'>
-<span style='background-color: #34479E; color: white; padding: 2px 6px; border-radius: 4px; font-size: 22px; line-height: 1.6; margin-bottom: 1rem;''>Savoure et partage ton TOP 9<br> </span>
+<span style='background-color: #34479E; color: white; padding: 2px 6px; border-radius: 4px; font-size: 25px; line-height: 1.6; margin-bottom: 1rem;''>Savoure et partage ton TOP 9<br> </span>
 <span style='color: #34479E;'>Voici les opportunités qui correspondent le mieux à ta sélection actuelle. Qu'en penses-tu ? </span>
 </div>
 """, unsafe_allow_html=True)
@@ -313,7 +313,7 @@ for i, (_, row) in enumerate(top.iterrows()):
 if len(df) > 9:
     st.markdown("""
 <div style='text-align: center; margin: 1rem 0;'>
-<span style='background-color: #34479E; color: white; padding: 2px 6px; border-radius: 4px; font-size: 22px; line-height: 1.6; margin-bottom: 1rem;''>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût<br> </span>
+<span style='background-color: #34479E; color: white; padding: 2px 6px; border-radius: 4px; font-size: 25px; line-height: 1.6; margin-bottom: 1rem;''>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût<br> </span>
  <span style='color: #34479E;'>Pas tout à fait ce que tu cherchais, mais ces opportunités pourraient aussi t’inspirer </span>
 </div>
 """, unsafe_allow_html=True)
