@@ -293,12 +293,10 @@ top = df.head(9)
 
 st.markdown("""
 <div style='text-align: center; margin: 1rem 0;'>
-  "<span style='background-color: #D8C0A6; color: white; padding: 2px 6px; border-radius: 4px;'>
-    <strong>Savoure ton TOP 9</strong><br>
-    Voici les opportunités qui correspondent le mieux à ta sélection actuelle.<br>
-    Qu'en penses-tu ? Partage ton assortiment de donuts avec d’autres Jaycees et ton parrain / marraine.
-  </span>"
-</div>
+  <span style='background-color: #D8C0A6; color: white; padding: 2px 6px; border-radius: 4px;'>
+    <strong>Savoure ton TOP 9</strong><br></span>
+    Voici les opportunités qui correspondent le mieux à ta sélection actuelle. Qu'en penses-tu ? Partage ton assortiment de donuts avec d’autres Jaycees et ton parrain / marraine.
+  </div>
 """, unsafe_allow_html=True)
 
 
