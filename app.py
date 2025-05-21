@@ -293,9 +293,10 @@ top = df.head(9)
 
 st.markdown("""
 <div style='text-align: center; margin: 1rem 0;'>
-  <span style='background-color: #D8C0A6; color: white; padding: 2px 6px; border-radius: 4px; font-size: 22px; line-height: 1.6; margin-bottom: 1rem;''>
+  <span style='background-color: #34479E; color: white; padding: 2px 6px; border-radius: 4px; font-size: 22px; line-height: 1.6; margin-bottom: 1rem;''>
    Savoure ton TOP 9<br> </span>
-    Voici les opportunités qui correspondent le mieux à ta sélection actuelle. Qu'en penses-tu ? Partage ton assortiment de donuts avec d’autres Jaycees et ton parrain / marraine.
+    Voici les opportunités qui correspondent le mieux à ta sélection actuelle. Qu'en penses-tu ? <br>
+    Partage ton assortiment de donuts avec d’autres Jaycees et ton parrain / marraine.
  </div>
 """, unsafe_allow_html=True)
 
@@ -313,12 +314,12 @@ for i, (_, row) in enumerate(top.iterrows()):
 if len(df) > 9:
     st.markdown("""
 <div style='text-align: center; margin: 1rem 0;'>
-  <div style='display: inline-block; background-color: #D8C0A6; padding: 1rem 1.5rem; border-radius: 6px; color: #2E1E0F; font-size: 16px; line-height: 1.5;'>
-    <strong>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût</strong><br>
-    Pas tout à fait ce que tu cherchais, mais ces opportunités pourraient aussi t’inspirer<br>
-  </div>
-</div>
+  <span style='background-color: #34479E; color: white; padding: 2px 6px; border-radius: 4px; font-size: 22px; line-height: 1.6; margin-bottom: 1rem;''>
+   🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût<br> </span>
+   Pas tout à fait ce que tu cherchais, mais ces opportunités pourraient aussi t’inspirer
+ </div>
 """, unsafe_allow_html=True)
+  
     
     others = df.iloc[9:21]
     cols = st.columns(4)
