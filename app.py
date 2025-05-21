@@ -231,8 +231,9 @@ df = load_data()
 
 st.markdown("""
 <div style='text-align: center; margin-bottom: 0rem;'>
-  <h1 style='margin-bottom: 0.2rem;'>La cartographie des opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
-  <h2 style='color: #666;'>1 Donut = 1 Opportunité = 1 Recette</h2>
+  <h1 style='margin-bottom: 0.2rem;'>La cartographie des opportunités de la Jeune Chambre 
+  <br>... en Donuts 🍩</h1>
+  <h2 style='color: #34479E;'>1 Donut = 1 Opportunité = 1 Recette</h2>
 </div>
 
 <div style='display: inline-block; align: center; background-color: #F0F2F6; padding: 1rem 1.5rem; border-radius: 6px; color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 2rem;'>
@@ -293,11 +294,9 @@ top = df.head(9)
 
 st.markdown("""
 <div style='text-align: center; margin: 1rem 0;'>
-  <span style='background-color: #34479E; color: white; padding: 2px 6px; border-radius: 4px; font-size: 22px; line-height: 1.6; margin-bottom: 1rem;''>
-   Savoure ton TOP 9<br> </span>
-    Voici les opportunités qui correspondent le mieux à ta sélection actuelle. Qu'en penses-tu ? <br>
-    Partage ton assortiment de donuts avec d’autres Jaycees et ton parrain / marraine.
- </div>
+<span style='background-color: #34479E; color: white; padding: 2px 6px; border-radius: 4px; font-size: 22px; line-height: 1.6; margin-bottom: 1rem;''>Savoure et partage ton TOP 9<br> </span>
+<span style='color: #34479E;'>Voici les opportunités qui correspondent le mieux à ta sélection actuelle. Qu'en penses-tu ? </span>
+</div>
 """, unsafe_allow_html=True)
 
 
@@ -314,10 +313,9 @@ for i, (_, row) in enumerate(top.iterrows()):
 if len(df) > 9:
     st.markdown("""
 <div style='text-align: center; margin: 1rem 0;'>
-  <span style='background-color: #34479E; color: white; padding: 2px 6px; border-radius: 4px; font-size: 22px; line-height: 1.6; margin-bottom: 1rem;''>
-   🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût<br> </span>
-   Pas tout à fait ce que tu cherchais, mais ces opportunités pourraient aussi t’inspirer
- </div>
+<span style='background-color: #34479E; color: white; padding: 2px 6px; border-radius: 4px; font-size: 22px; line-height: 1.6; margin-bottom: 1rem;''>🧁 Encore un peu de place ? Voici d’autres suggestions à ton goût<br> </span>
+ <span style='color: #34479E;'>Pas tout à fait ce que tu cherchais, mais ces opportunités pourraient aussi t’inspirer </span>
+</div>
 """, unsafe_allow_html=True)
   
     
