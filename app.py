@@ -192,7 +192,7 @@ def make_visual(row, niveau_labels, small=False, afficher_niveaux_bruts=False):
         ))
 
     # 🏷️ Niveaux au centre
-    if not small:
+if not small:
     for i, n in enumerate(row.get("Niveau", [])):
         label = n if afficher_niveaux_bruts else niveau_labels.get(n, n)
         fig.add_annotation(
@@ -202,13 +202,6 @@ def make_visual(row, niveau_labels, small=False, afficher_niveaux_bruts=False):
             showarrow=False,
             font=dict(size=11)
         )
-
-    fig.update_layout(
-        margin=dict(t=5, b=5, l=5, r=5),
-        height=260 if not small else 180
-    )
-    return fig
-
 
 
 def formatter_description(row, afficher_niveau=False):
