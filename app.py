@@ -234,7 +234,8 @@ st.markdown("""
   <h1 style='margin-bottom: 0rem;'>La cartographie des opportunités de la Jeune Chambre ... en Donuts 🍩</h1>
   </div>
 <div style='font-size: 22px; line-height: 1; color: #333; margin-bottom: 0.5rem;'>
-1 Donut = 1 Opportunité = 1 Recette : choisis tes donuts de l’engagement, selon tes goûts et ton style !
+Affiche les donuts de l'engagement selon tes goûts 
+1 Donut = 1 Opportunité = 1 Recette
 </div>
 
 <div style='font-size: 15px; line-height: 1.6; color: #333; margin-bottom: 2rem;'>
