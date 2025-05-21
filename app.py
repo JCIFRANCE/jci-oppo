@@ -218,18 +218,6 @@ def make_visual(row, niveau_labels, small=False, afficher_niveaux_bruts=False):
         print(f"Erreur lors de la création de la figure : {e}")
         raise
 
-# Dans votre boucle d'affichage
-for i, (_, row) in enumerate(top.iterrows()):
-    with cols[i % 3]:
-        emoji = forme_emojis.get(row["Forme"], "")
-        st.markdown(f"<div style='font-size: 18px; font-weight: 600; text-align: center;'>{emoji} {row['Nom']}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='text-align: center;'>{formatter_description(row)}</div>", unsafe_allow_html=True)
-        try:
-            fig = make_visual(row, niveau_labels)
-            st.plotly_chart(fig, use_container_width=True, key=f"top_{i}_{row['Nom']}")
-        except Exception as e:
-            st.error(f"Erreur lors de l'affichage du graphique : {e}")
-
 # ---------- LANCEMENT APP ----------
 setup_css()
 df = load_data()
