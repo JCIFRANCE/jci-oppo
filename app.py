@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+import requests
+from PIL import Image
+from io import BytesIO
 
 # ---------- CONFIGURATION ----------
 st.set_page_config(
@@ -8,6 +11,18 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# ---------- LOGO JCI ----------
+# URL du logo JCI
+logo_url = "https://www.jcef.asso.fr/wp-content/uploads/2019/03/JCEF.png"
+
+# Télécharger l'image du logo
+response = requests.get(logo_url)
+img = Image.open(BytesIO(response.content))
+
+# Afficher le logo dans la barre latérale
+st.sidebar.image(img, use_column_width=True)
+
 
 # ---------- CSS ----------
 def setup_css():
