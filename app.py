@@ -21,7 +21,7 @@ response = requests.get(logo_url)
 img = Image.open(BytesIO(response.content))
 
 # Afficher le logo dans la barre latérale
-st.sidebar.image(img, use_column_width=True)
+st.sidebar.image(img, use_container_width=True)
 
 
 # ---------- CSS ----------
