@@ -65,9 +65,9 @@ def setup_css():
         </style>
     """, unsafe_allow_html=True)
 
-# ---------- CHARGEMENT DES DONNÉES ----------
-@st.cache_data
-def load_data():
+# Chargement des données
+@st.cache_data(hash_funcs={int: lambda _: None})
+def load_data(version):
     url = "https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv"
     df = pd.read_csv(url, encoding="utf-8")
     df.columns = df.columns.str.strip().str.capitalize()
@@ -80,6 +80,9 @@ def load_data():
     })
     df["Niveau"] = df["Niveau"].astype(str).apply(lambda x: [n for n in x if n in "LRNZM"])
     return df
+
+# Charger les données
+df = load_data(st.session_state.data_version)
 
 # ---------- DICTIONNAIRES UTILES ----------
 niveau_labels = {"L": "Local", "R": "Régional", "N": "National", "Z": "Zone", "M": "Monde"}
