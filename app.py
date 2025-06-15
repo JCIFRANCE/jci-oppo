@@ -5,6 +5,13 @@ import requests
 from PIL import Image
 from io import BytesIO
 
+# Variable de session pour forcer le rechargement des données
+if 'data_version' not in st.session_state:
+    st.session_state.data_version = 0
+
+# Increment data_version to force reload on page refresh
+st.session_state.data_version += 1
+
 # ---------- CONFIGURATION ----------
 st.set_page_config(
     page_title="Cartographie des opportunités",
