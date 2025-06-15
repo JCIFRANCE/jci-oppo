@@ -5,12 +5,6 @@ import requests
 from PIL import Image
 from io import BytesIO
 
-# Variable de session pour forcer le rechargement des données
-if 'data_version' not in st.session_state:
-    st.session_state.data_version = 0
-
-# Increment data_version to force reload on page refresh
-st.session_state.data_version += 1
 
 # Configuration de la page
 st.set_page_config(
@@ -73,8 +67,6 @@ def load_data():
 # Charger les données
 df = load_data()
 
-# Charger les données
-df = load_data(st.session_state.data_version)
 
 # Dictionnaires utiles
 niveau_labels = {"L": "Local", "R": "Régional", "N": "National", "Z": "Zone", "M": "Monde"}
