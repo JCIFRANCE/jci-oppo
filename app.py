@@ -12,62 +12,52 @@ if 'data_version' not in st.session_state:
 # Increment data_version to force reload on page refresh
 st.session_state.data_version += 1
 
-# ---------- CONFIGURATION ----------
+# Configuration de la page
 st.set_page_config(
     page_title="Cartographie des opportunités",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# ---------- LOGO JCI ----------
-# URL du logo JCI
+# Logo JCI
 logo_url = "https://www.jcef.asso.fr/wp-content/uploads/2019/03/JCEF.png"
-
-# Télécharger l'image du logo
 response = requests.get(logo_url)
 img = Image.open(BytesIO(response.content))
-
-# Afficher le logo dans la barre latérale
 st.sidebar.image(img, use_container_width=True)
 
-
-# ---------- CSS ----------
+# CSS personnalisé
 def setup_css():
     st.markdown("""
-        <style>
-            div[data-testid="stSliderTickBarMin"],
-            div[data-testid="stSliderTickBarMax"],
-            section[data-testid="stSidebar"] .stSlider label,
-            section[data-testid="stSidebar"] .stSlider div[data-testid="stTickBar"],
-            section[data-testid="stSidebar"] .stSlider div[role="tooltip"],
-            section[data-testid="stSidebar"] .stSlider span {
-                display: none !important;
-            }
-            section[data-testid="stSidebar"] h2,
-            section[data-testid="stSidebar"] h3,
-            section[data-testid="stSidebar"] h4 {
-                margin-top: 0rem !important;
-                margin-bottom: 0rem !important;
-            }
-            /* Réduction de l’espace en haut du volet de sélection */
+    <style>
+        div[data-testid="stSliderTickBarMin"],
+        div[data-testid="stSliderTickBarMax"],
+        section[data-testid="stSidebar"] .stSlider label,
+        section[data-testid="stSidebar"] .stSlider div[data-testid="stTickBar"],
+        section[data-testid="stSidebar"] .stSlider div[role="tooltip"],
+        section[data-testid="stSidebar"] .stSlider span {
+            display: none !important;
+        }
+        section[data-testid="stSidebar"] h2,
+        section[data-testid="stSidebar"] h3,
+        section[data-testid="stSidebar"] h4 {
+            margin-top: 0rem !important;
+            margin-bottom: 0rem !important;
+        }
         section[data-testid="stSidebar"] .css-1d391kg {
             padding-top: 3rem !important;
         }
-        /* Réduction du padding top au tout début de la page */
         .block-container {
             padding-top: 3rem !important;
         }
-        /* Largeur initiale de la sidebar à 35% */
         section[data-testid="stSidebar"] {
             width: 35%;
         }
-        
-        </style>
+    </style>
     """, unsafe_allow_html=True)
 
 # Chargement des données
-@st.cache_data(hash_funcs={int: lambda _: None})
-def load_data(version):
+@st.cache_data
+def load_data(_version):
     url = "https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv"
     df = pd.read_csv(url, encoding="utf-8")
     df.columns = df.columns.str.strip().str.capitalize()
@@ -83,6 +73,14 @@ def load_data(version):
 
 # Charger les données
 df = load_data(st.session_state.data_version)
+
+# Dictionnaires utiles
+niveau_labels = {"L": "Local", "R": "Régional", "N": "National", "Z": "Zone", "M": "Monde"}
+forme_emojis = {
+    "Programme": "🧪", "Concours": "🥇", "Projet": "🛠️",
+    "Fonction": "👔", "Equipe": "🤝", "Événement": "🎫", "Formation": "🎓"
+}
+
 
 # ---------- DICTIONNAIRES UTILES ----------
 niveau_labels = {"L": "Local", "R": "Régional", "N": "National", "Z": "Zone", "M": "Monde"}
