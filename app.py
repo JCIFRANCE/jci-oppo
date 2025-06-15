@@ -61,7 +61,7 @@ def setup_css():
 # ---------- CHARGEMENT DES DONNÉES ----------
 @st.cache_data
 def load_data():
-    url = "https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv"
+    url = "https://docs.google.com/spreadsheets/d/147E7GhixKkqECtBB1OKGqSy_CXt6skrucgHhPeU0Dog/export?format=csv" 
     df = pd.read_csv(url, encoding="utf-8")
     df.columns = df.columns.str.strip().str.capitalize()
     df["Forme"] = df["Forme"].str.strip().str.capitalize().replace({
