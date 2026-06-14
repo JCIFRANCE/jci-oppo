@@ -14,7 +14,7 @@ st.set_page_config(
 )
 
 # Logo JCI
-logo_url = "https://www.jcef.asso.fr/wp-content/uploads/2019/03/JCEF.png"
+logo_url = "https://www.jcef.asso.fr/wp-content/uploads/2026/03/cropped-LOGOSJCEF-2026_couleurs-0111.png"
 response = requests.get(logo_url)
 img = Image.open(BytesIO(response.content))
 st.sidebar.image(img, use_container_width=True)
